@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speed Typing</title>
+    <script src="https://kit.fontawesome.com/b4e8ed8966.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+</head>
+<body>
+    <button id="level-btn" class="level-btn">
+        <i class="fas fa-cog"></i>
+    </button>
+    <div class="settings" id="settings">
+        <form id="level-form">
+            <label for="">ລະດັບຄວາມງ່າຍ-ຍາກ :</label>
+            <select id="level">
+                <option value="easy" style="color: green;">ງ່າຍ</option>
+                <option value="medium" style="color: yellow;">ປານກາງ</option>
+                <option value="hard" style="color:crimson;">ຍາກ</option>
+                <option value="extreme" style="color: rebeccapurple;">ໂຄດຍາກ</option>
+            </select>
+        </form>
+    </div>
+    <div class="container">
+        <h2>ເກມພິມໄວ ຫຼື ໄວໂຄດ | Speed Typing</h2>
+        <h1 id="word" class="word"></h1>
+        <input type="text" name="" id="text" autocomplete="off" placeholder="ປ້ອນຄ່າທີ່ທ່ານເຫັນດັ່ງຕໍ່ໄປນີ້">
+        <p class="time-container">ເວລາ <span id="time"></span> ວິນາທີ</p>
+        <p class="score-container"><span id="score">0</span> ຄະແນນ</p>
+        <div id="gameover-container" class="gameover-container"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

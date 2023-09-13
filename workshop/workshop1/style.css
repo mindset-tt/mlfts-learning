@@ -1,0 +1,65 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Kanit&display=swap'); */
+  @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@500&display=swap");
+  * {
+    box-sizing: border-box;
+    font-family: "Noto Sans Lao", sans-serif;
+  }
+body {
+  /* Suzy-color: #c4dbf0; */
+  background-color: #c4dbf0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  padding: 20px;
+}
+
+.btn {
+  /* iu-color: #E4E724; */
+  background-color: #e6fb04;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 12px;
+  padding: 5px 12px;
+}
+.money-img {
+  width: 215px;
+}
+.currency {
+  padding: 40px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.currency select {
+  padding: 10px 20px 14.6px 10px;
+  border: 1px solid #dedede;
+  /* eun-bin-color: #E4E724; */
+  background-color: #fb5ffc;
+  font-size: 16px;
+  /* background:transparent; */
+  appearance: none;
+}
+.currency input {
+  border: 0;
+  background-color: #fb5ffc;
+  /* background: transparent; */
+  font-size: 30px;
+  text-align: right;
+}
+.swap-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.rate {
+  font-size: 20px;
+  padding: 0 10px;
+}
+select:focus,
+input:focus,
+button:focus {
+  outline: 0;
+}

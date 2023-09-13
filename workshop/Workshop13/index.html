@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanban Board</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+</head>
+<body>
+    <h1 class="main-title">ແຜນຜັງການເຮັດວຽກ</h1>
+    <div class="drag-container">
+        <ul class="drag-list">
+            <!-- category 1 -->
+            <li class="drag-column backlog-column">
+                <span class="header">
+                    <h1>ວຽກທີ່ຍັງຄ້າງ</h1>
+                </span>
+                <div class="custom-scroll" id="backlog-content">
+                    <ul class="drag-item-list" id="backlog-list">
+                        <li class="drag-item" draggable="true">Basic JS</li>
+                        <li class="drag-item" draggable="true">JS ES6 and jQuery</li>
+                        <li class="drag-item" draggable="true"> Workshop</li>
+                    </ul>
+                </div>
+            </li>
+            <!-- category 2 -->
+            <li class="drag-column progress-column">
+                <span class="header">
+                    <h1>ກຳລັງດຳເນີນການ</h1>
+                </span>
+                <div class="custom-scroll" id="progress-content">
+                    <ul class="drag-item-list" id="backlog-list">
+                        <li class="drag-item" draggable="true">Kintone WorkShop1</li>
+                        <li class="drag-item" draggable="true">Kintone WorkShop2</li>
+                    </ul>
+                </div>
+            </li>
+            <!-- category 3 -->
+            <li class="drag-column complete-column">
+                <span class="header">
+                    <h1>ແລ້ວໆ</h1>
+                </span>
+                <div class="custom-scroll" id="complete-content">
+                    <ul class="drag-item-list" id="complete-list"></ul>
+                </div>
+            </li>
+
+            <li class="drag-column reject-column">
+                <span class="header">
+                    <h1>ຍັງບໍ່ຜ່ານ</h1>
+                </span>
+                <div class="custom-scroll" id="reject-content">
+                    <ul class="drag-item-list" id="reject-list"></ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

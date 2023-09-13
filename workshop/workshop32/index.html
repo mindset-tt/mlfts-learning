@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Editor</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="input">
+            <label>HTML</label>
+            <textarea id="html" cols="30" rows="10" onkeyup="displayResult()"></textarea>
+            <label>CSS</label>
+            <textarea id="css" cols="30" rows="10" onkeyup="displayResult()"></textarea>
+            <label>JS</label>
+            <textarea id="js" cols="30" rows="10" onkeyup="displayResult()"></textarea>
+        </div>
+        <div class="output">
+            <label>Result:</label>
+            <iframe id="output"></iframe>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

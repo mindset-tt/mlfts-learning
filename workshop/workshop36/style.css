@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@500&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Noto Sans Lao", sans-serif;
+}
+
+body {
+  background: #222;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+input{
+  width: 100%;
+  outline: none;
+  padding: 10px;
+  font-size: 1.3rem;
+    border: 1px solid #dedede;
+  height: 40px;
+}
+
+h1{
+    color:white;
+    font-size: 2rem;
+    margin-bottom: 10px;
+}

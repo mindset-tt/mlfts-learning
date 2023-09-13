@@ -1,0 +1,1 @@
+var i = 'asdasd\'sadasdas'

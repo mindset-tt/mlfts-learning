@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dark & Light Mode | Workshop</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://kit.fontawesome.com/b4e8ed8966.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+  </head>
+  <body>
+    <div class="theme-switch-container">
+      <span id="toggle-icon">
+        <span class="toggle-text">ໂຫມດແຈ້ງ</span>
+        <i class="fas fa-sun"></i>
+      </span>
+      <label class="theme-switch">
+        <input type="checkbox" />
+        <div class="slider round"></div>
+      </label>
+    </div>
+    <nav id="nav">
+      <a href="#home">ໜ້າທຳອິດ</a>
+      <a href="#project">ໂປຣເຈັກ</a>
+      <a href="#contact">ຊ່ອງທາງການຕິດຕໍ່</a>
+    </nav>
+    <section id="home">
+      <div class="title-group">
+        <h1>MLFTS Studio</h1>
+        <h2>ຂຽນໂປຣແກຣມ ພັດທະນາເວັບໄຊ Machine Learning ແລະ AI</h2>
+      </div>
+    </section>
+    <section id="project">
+      <h1>ຜົນງານດ້ານຕ່າງໆ</h1>
+      <br />
+      <br />
+      <div class="project-container">
+        <div class="image-container">
+          <h2>ພັດທະນາເວັບໄຊ</h2>
+          <img src="img/undraw_Projections_light.svg" alt="" id="image1" />
+        </div>
+        <div class="image-container">
+          <h2>ຂຽນໂປຣແກຣມ</h2>
+          <img src="img/undraw_Raining_light.svg" alt="" id="image2" />
+        </div>
+
+        <div class="image-container">
+          <h2>ຟຣີແລນສ໌</h2>
+          <img src="img/undraw_Freelancer_light.svg" alt="" id="image3" />
+        </div>
+        <div class="image-container">
+          <h2>ML and AI</h2>
+          <img src="img/pngegg.png" alt="" id="image4" />
+        </div>
+      </div>
+    </section>
+    <section id="contact">
+      <div class="social-icon">
+        <a href="https://twitter.com/took_xayyavong">
+          <i class="fa-brands fa-square-x-twitter fa-beat-fade fa-7x"></i></a>
+        <a href="https://www.facebook.com/khampaserth.xayyavong/">
+          <i class="fa-brands fa-square-facebook fa-beat-fade fa-7x"></i
+        ></a>
+        <!-- <i class="fa-brands fa-facebook"></i> -->
+        <a href="https://wa.me/+8562095874963"
+          ><i class="fa-brands fa-square-whatsapp fa-beat-fade fa-7x"></i
+        ></a>
+        <a href="https://github.com/mindset-tt">
+          <i class="fa-brands fa-square-github fa-beat-fade fa-7x"></i
+        ></a>
+      </div>
+    </section>
+    <script src="script.js"></script>
+  </body>
+</html>
