@@ -1,5 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@500&display=swap");
+
 *{
     box-sizing: border-box;
+    font-family: "Noto Sans Lao", sans-serif;
 }
 body{
     height: 100vh;

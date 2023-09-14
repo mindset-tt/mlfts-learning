@@ -25,19 +25,24 @@ $(document).ready(function () {
     const modal = $('#modal');
     const close = $('#close');
 
+    //make event listener for toggle
     toggle.on('click', function () {
+        //add or remove class show-nav
         $('body').toggleClass('show-nav');
     });
-
+    //make event listener for open
     open.on('click', function () {
+        //add class show-modal
         modal.addClass('show-modal');
     });
-
+    //make event listener for close
     close.on('click', function () {
+        //remove class show-modal
         modal.removeClass('show-modal');
     });
-
+    //make event listener for window
     $(window).on('click', function (e) {
+        //check if click target is modal or not (modal is popup window form)
         e.target == modal ? modal.removeClass('show-modal') : false;
     });
 });
