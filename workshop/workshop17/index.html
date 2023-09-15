@@ -9,41 +9,41 @@
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 </head>
 <body>
-    <button id="clear" class="clear btn">
+    <button type="button" title="clear-button" id="clear" class="clear btn">
         <i class="fas fa-trash"></i>
     </button>
     <h1>ເກມທວຍບັນຫາອີຫຍັງກະບໍ່ຮູ້
-        <button id="show" class="btn btn-small">
+        <button type="button" id="show" class="btn btn-small">
             <i class="fas fa-plus"></i>ເພີ່ມຄຳຖາມ
         </button>
     </h1>
     <div class="card-container cards" id="card-container"></div>
 
     <div class="navigation">
-        <button id="prev" class="nav-button">
+        <button type="button" title="previous-button" id="prev" class="nav-button">
             <i class="fas fa-arrow-left"></i>
         </button>
         <p class="current" id="current"></p>
-        <button id="next" class="nav-button">
+        <button type="button" title="next-button" id="next" class="nav-button">
             <i class="fas fa-arrow-right"></i>
         </button>
     </div>
     <div class="add-container" id="add-container">
         <h3>
             ເພີ່ມຄຳຖາມ
-            <button id="btn-hidden" class="btn btn-small btn-hidden">
+            <button type="button" title="add-question" id="btn-hidden" class="btn btn-small btn-hidden">
                 <i class="fas fa-times"></i>
             </button>
         </h3>
         <div class="form-group">
             <label for="">ຄຳຖາມ</label>
-            <textarea id="question"></textarea>
+            <textarea title="questions" id="question"></textarea>
         </div>
         <div class="form-group">
             <label for="">ຄຳຕອບ</label>
-            <textarea id="answer"></textarea>
+            <textarea title="answers" id="answer"></textarea>
         </div>
-        <button id="add-card" class="btn">
+        <button type="button" id="add-card" class="btn">
             <i class="fas fa-plus"></i>ເພີ່ມຄຳຖາມ
         </button>
     </div>

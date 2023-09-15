@@ -14,7 +14,7 @@
 // }
 
 //change this code to jQuery
-$(document).ready(function () {
+$(document).ready(() => {
     const items = $('.item');
     //make event listener for each item
     items.on('click', function () {
@@ -26,8 +26,16 @@ $(document).ready(function () {
         item.addClass('active');
     });
     //make function removeActive
-    function removeActive() {
+    removeActive = () => {
         //remove class active
         items.removeClass('active');
     }
+
+    // Loop through each item and set the background image
+    items.each((index, element) => {
+        //get image name
+        var imageName = 'Picture' + (index + 1) + '.jpg';
+        //set background image
+        $(element).css('background-image', 'url(image/' + imageName + ')');
+    });
 });

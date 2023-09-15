@@ -33,11 +33,24 @@
 
 //change this code to jQuery
 $(document).ready(function () {
+    //get element
     const slideContainer = $('.slider-container');
     const slideRight = $('.right-content');
     const slideLeft = $('.left-content');
     const upButton = $('.up-button');
     const downButton = $('.down-button');
+    //get all divs in right-content
+    var rightContentDivs = $('.right-content div');
+
+    //set background-image for each div
+    rightContentDivs.each(function(index, element) {
+        //get image name
+        var imageName = $(element).data('image');
+        //set image url
+        var imageUrl = 'image/' + imageName;
+        //set background image
+        $(element).css('background-image', 'url(' + imageUrl + ')');
+    });
 
     //total image of slide
     const slideLength = slideRight.find('div').length;

@@ -67,3 +67,11 @@ footer {
   text-align: center;
   border-top: 1px solid #ccc;
 }
+
+nav #previous{
+  width: 100px; height: 50px
+}
+
+nav #next{
+  width: 100px; height: 50px
+}

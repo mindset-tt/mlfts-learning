@@ -1,7 +1,7 @@
 $(document).ready( () => {
     const drag_item = $('.drag-item');
     const drag_list = $('.drag-item-list');
-
+    
     let selectItem;
 
     drag_item.on('dragstart', onDragStart);

@@ -43,4 +43,14 @@ $(document).ready(function () {
     }
 
     showCategory(); // Call showCategory initially
+
+    // Loop through each item and set the background image
+    $('.category').each(function() {
+        //get image name
+        var imageName = $(this).data('image');
+        //get image url
+        var imageUrl = 'image/' + imageName;
+        //set background image
+        $(this).css('background-image', 'url(' + imageUrl + ')');
+      });
 });
