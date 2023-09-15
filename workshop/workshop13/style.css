@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@500&display=swap");
 :root {
   --category-1: #a2622d;
   --category-2: #1b6161;
@@ -7,6 +8,7 @@
 
 html {
   box-sizing: border-box;
+  font-family: "Noto Sans Lao", sans-serif;
 }
 
 body {
