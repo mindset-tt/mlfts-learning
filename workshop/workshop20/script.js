@@ -43,8 +43,8 @@ $(document).ready(function () {
 
         // status of weather
         statusElement.text(data.weather[0].main);
-        humidityElement.text("Humidity: " + data.main.humidity);
-        windElement.text("Wind: " + data.wind.speed);
+        humidityElement.text("Humidity: " + data.main.humidity + "%");
+        windElement.text("Wind: " + data.wind.speed + " km/h");
     }
     //make function to calculate temperature from kelvin to celcius
     calculate = (k) => {
