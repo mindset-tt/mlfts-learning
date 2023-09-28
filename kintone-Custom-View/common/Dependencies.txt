@@ -1,0 +1,4 @@
+https://unpkg.com/@kintone/rest-api-client@latest/umd/KintoneRestAPIClient.min.js
+https://cdn.polyfill.io/v3/polyfill.js?features=default,String.prototype.repeat,Array.prototype.find,Array.prototype.findIndex,Math.trunc,Math.sign,Object.is
+https://cdn.jsdelivr.net/npm/luxon@1.26.0/build/global/luxon.min.js
+https://cdn.jsdelivr.net/npm/lodash@4.17.20/lodash.min.js

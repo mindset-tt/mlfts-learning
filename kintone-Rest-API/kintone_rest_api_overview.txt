@@ -1,0 +1,89 @@
+*. kintone auth:
+X-Cybozu-Authorization: ('username:password') in base64
+
+*. kintone app auth:
+
+-. single app
+X-Cybozu-API-Token: your token that generate from app
+
+-. multiple app
+X-Cybozu-API-Token: your token that generate from app1, your token that generate from app2
+
+*. kintone get app (Get):
+
+-. single app
+https://{subdomain}.kintone.com/k/v1/app.json
+https://{subdomain}.kintone.com/k/guest/{SpaceID}/v1/app.json
+
+-. multiple app
+https://{subdomain}.kintone.com/k/v1/apps.json
+https://{subdomain}.kintone.com/k/guest/{SpaceID}/v1/apps.json
+
+*. kintone deploy app (Post):
+https://{subdomain}.kintone.com/k/v1/preview/app.json
+https://{subdomain}.kintone.com/k/guest/{SpaceID}/v1/preview/app.json
+
+*. kintone deploy app (Post):
+https://{subdomain}.kintone.com/k/v1/preview/app/deploy.json
+https://{subdomain}.kintone.com/k/guest/{SpaceID}/v1/preview/app/deploy.json
+
+*. kintone get app deploy status (Get):
+https://{subdomain}.kintone.com/k/v1/preview/app/deploy.json
+https://{subdomain}.kintone.com/k/guest/{SpaceID}/v1/preview/app/deploy.json
+
+*. kintone get form field (Get):
+https://{subdomain}.kintone.com/k/v1/app/form/fields.json
+https://{subdomain}.kintone.com/k/guest/{SpaceID}/v1/app/form/fields.json
+
+*. kintone add form field (Post):
+https://{subdomain}.kintone.com/k/v1/preview/app/form/fields.json
+https://{subdomain}.kintone.com/k/guest/{SpaceID}/v1/preview/app/form/fields.json
+
+*. kintone update form field (Put):
+https://{subdomain}.kintone.com/k/v1/preview/app/form/fields.json
+https://{subdomain}.kintone.com/k/guest/{SpaceID}/v1/preview/app/form/fields.json
+
+*. kintone delete form field (Delete):
+https://{subdomain}.kintone.com/k/v1/preview/app/form/fields.json
+https://{subdomain}.kintone.com/k/guest/{SpaceID}/v1/preview/app/form/fields.json
+
+*. kintone get form layout (Get):
+https://{subdomain}.kintone.com/k/v1/app/form/layout.json
+https://{subdomain}.kintone.com/k/guest/{SpaceID}/v1/app/form/layout.json
+
+*. kintone update form layout (Put):
+https://{subdomain}.kintone.com/k/v1/preview/app/form/layout.json
+https://{subdomain}.kintone.com/k/guest/{SpaceID}/v1/preview/app/form/layout.json
+
+*. kintone get View (Get):
+https://{subdomain}.kintone.com/k/v1/app/views.json
+https://{subdomain}.kintone.com/k/guest/{SpaceID}/v1/app/views.json
+
+*. kintone update View (Put):
+https://{subdomain}.kintone.com/k/v1/preview/app/views.json
+https://{subdomain}.kintone.com/k/guest/{SpaceID}/v1/preview/app/views.json
+
+*. kintone get general setting (Get):
+https://{subdomain}.kintone.com/k/v1/app/settings.json
+https://{subdomain}.kintone.com/k/guest/{SpaceID}/v1/app/settings.json
+
+*. kintone update general setting (Put):
+https://{subdomain}.kintone.com/k/v1/preview/app/settings.json
+https://{subdomain}.kintone.com/k/guest/{SpaceID}/v1/preview/app/settings.json
+
+*. kintone get Process Management Settings (Get):
+https://{subdomain}.kintone.com/k/v1/app/status.json
+https://{subdomain}.kintone.com/k/guest/{SpaceID}/v1/app/status.json
+
+*. kintone update Process Management Settings (Put):
+https://{subdomain}.kintone.com/k/v1/preview/app/status.json
+https://{subdomain}.kintone.com/k/guest/{SpaceID}/v1/preview/app/status.json
+
+*. kintone get Customization (Get):
+https://{subdomain}.kintone.com/k/v1/app/customize.json
+https://{subdomain}.kintone.com/k/guest/{SpaceID}/v1/app/customize.json
+
+*. kintone update Customization (Put):
+https://{subdomain}.kintone.com/k/v1/preview/app/customize.json
+https://{subdomain}.kintone.com/k/guest/{SpaceID}/v1/preview/app/customize.json
+

@@ -1,0 +1,414 @@
+{
+  "client": "Thunder Client",
+  "collectionName": "kintone_api_collection",
+  "dateExported": "2023-09-22T02:08:14.798Z",
+  "version": "1.1",
+  "folders": [],
+  "requests": [
+    {
+      "_id": "f34ba927-9686-4d5c-b8cc-c8e91e6056e3",
+      "colId": "8865cf1e-9e53-433e-b2ca-64d2fcfdec8e",
+      "containerId": "",
+      "name": "view_layout",
+      "url": "https://mlfts.kintone.com/k/v1/preview/app/views.json",
+      "method": "PUT",
+      "sortNum": 10000,
+      "created": "2023-09-22T02:05:24.916Z",
+      "modified": "2023-09-22T02:05:24.916Z",
+      "headers": [
+        {
+          "name": "X-Cybozu-Authorization",
+          "value": "bWxmdHM6MTIzNDU2QWEh"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"app\": 22,\n  \"views\": {\n    \"My List\": {\n      \"type\": \"LIST\",\n      \"name\": \"My List\",\n      \"filterCond\": \"\",\n      \"sort\": \"Date desc\",\n      \"index\": \"0\",\n      \"fields\": [\n        \"Date\",\n        \"Company_Name_Search\",\n        \"Type\",\n        \"Details\",\n        \"Attachment\"\n      ]\n    }\n  }\n}",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "cf2391e8-5c5f-4b0c-9506-be0a3bfffdea",
+      "colId": "8865cf1e-9e53-433e-b2ca-64d2fcfdec8e",
+      "containerId": "",
+      "name": "update_layout",
+      "url": "https://mlfts.kintone.com/k/v1/preview/app/form/layout.json",
+      "method": "PUT",
+      "sortNum": 20000,
+      "created": "2023-09-22T02:05:37.654Z",
+      "modified": "2023-09-22T02:05:37.654Z",
+      "headers": [
+        {
+          "name": "X-Cybozu-Authorization",
+          "value": "bWxmdHM6MTIzNDU2QWEh"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"app\": 21,\n  \"layout\": [\n    {\n      \"type\": \"ROW\",\n      \"fields\": [\n        {\n          \"type\": \"DATE\",\n          \"code\": \"Date\",\n          \"size\": {\n            \"width\": \"117\"\n          }\n        },\n        {\n          \"type\": \"USER_SELECT\",\n          \"code\": \"Reported_by\",\n          \"size\": {\n            \"width\": \"344\"\n          }\n        }\n      ]\n    },\n    {\n      \"type\": \"ROW\",\n      \"fields\": [\n        {\n          \"type\": \"SINGLE_LINE_TEXT\",\n          \"code\": \"Company_Name_Search\",\n          \"size\": {\n            \"width\": \"452\"\n          }\n        },\n        {\n          \"type\": \"DROP_DOWN\",\n          \"code\": \"Type\",\n          \"size\": {\n            \"width\": \"196\"\n          }\n        }\n      ]\n    },\n    {\n      \"type\": \"ROW\",\n      \"fields\": [\n        {\n          \"type\": \"RICH_TEXT\",\n          \"code\": \"Details\",\n          \"size\": {\n            \"width\": \"441\",\n            \"innerHeight\": \"264\"\n          }\n        },\n        {\n          \"type\": \"FILE\",\n          \"code\": \"Attachment\",\n          \"size\": {\n            \"width\": \"207\"\n          }\n        }\n      ]\n    },\n    {\n      \"type\": \"ROW\",\n      \"fields\": [\n        {\n          \"type\": \"REFERENCE_TABLE\",\n          \"code\": \"Other_Records\"\n        }\n      ]\n    },\n    {\n      \"type\": \"GROUP\",\n      \"code\": \"Field_group\",\n      \"layout\": [\n        {\n          \"type\": \"ROW\",\n          \"fields\": [\n            {\n              \"type\": \"SINGLE_LINE_TEXT\",\n              \"code\": \"Contact_Name\",\n              \"size\": {\n                \"width\": \"452\"\n              }\n            }\n          ]\n        },\n        {\n          \"type\": \"ROW\",\n          \"fields\": [\n            {\n              \"type\": \"SINGLE_LINE_TEXT\",\n              \"code\": \"Company_Name\",\n              \"size\": {\n                \"width\": \"452\"\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "3f7939a8-2baf-49dc-9530-13218f9ec6fd",
+      "colId": "8865cf1e-9e53-433e-b2ca-64d2fcfdec8e",
+      "containerId": "",
+      "name": "change_theme_from_app_id",
+      "url": "https://mlfts.kintone.com/k/v1/preview/app/settings.json",
+      "method": "PUT",
+      "sortNum": 30000,
+      "created": "2023-09-22T02:05:43.913Z",
+      "modified": "2023-09-22T02:05:43.913Z",
+      "headers": [
+        {
+          "name": "X-Cybozu-Authorization",
+          "value": "bWxmdHM6MTIzNDU2QWEh"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"app\": 21,\n  \"icon\": {\n    \"type\": \"PRESET\",\n    \"key\": \"APP87\"\n  },\n  \"theme\": \"GREEN\"\n}",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "d4581017-09d1-488f-ba8f-fe8f749c073a",
+      "colId": "8865cf1e-9e53-433e-b2ca-64d2fcfdec8e",
+      "containerId": "",
+      "name": "post_filekey_to_app",
+      "url": "https://mlfts.kintone.com/k/v1/record.json",
+      "method": "POST",
+      "sortNum": 40000,
+      "created": "2023-09-22T02:06:52.662Z",
+      "modified": "2023-09-22T02:06:52.662Z",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "X-Cybozu-Authorization",
+          "value": "bWxmdHM6MTIzNDU2QWEh"
+        },
+        {
+          "name": "User-Agent",
+          "value": "Thunder Client (https://www.thunderclient.com)",
+          "isDisabled": true
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n    \"app\":22,\n    \"record\": {\n      \"Company_Name_Search\": {\n        \"value\": \"Kintone\"\n      },\n      \"Type\": {\n        \"value\": \"Visit\"\n      },\n      \"Details\": {\n        \"value\": \"\"\n      },\n      \"Attachment\": {\n        \"value\": [{\n          \"fileKey\": \"f55abb44-7184-4af4-b821-296d9e1fef8b\"\n        }]\n      }\n    }\n}",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "06a891bf-282c-4659-9910-61ba1fb56c8a",
+      "colId": "8865cf1e-9e53-433e-b2ca-64d2fcfdec8e",
+      "containerId": "",
+      "name": "update_filekey_to_sale_deal",
+      "url": "https://mlfts.kintone.com/k/v1/record.json",
+      "method": "PUT",
+      "sortNum": 50000,
+      "created": "2023-09-22T02:07:03.292Z",
+      "modified": "2023-09-22T02:07:03.292Z",
+      "headers": [
+        {
+          "name": "X-Cybozu-API-Token",
+          "value": "Gy8WSEFUaTPkNCNjbdWl09rY3t5qR3G9FWP9tEsK"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"app\": 22,\n    \"record\": {\n      \"Company_Name_Search\": {\n        \"value\": \"Zava\"\n      },\n      \"Type\": {\n        \"value\": \"Visit\"\n      },\n      \"Details\": {\n        \"value\": \"\"\n      },\n      \"Attachment\": {\n        \"value\": [{\n          \"fileKey\": \"9110e79a-d874-4672-8650-654a9c7cc079\"\n        }]\n      }\n    }\n}",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "321aaf6b-1637-44b4-a2be-5faa3e44b3b8",
+      "colId": "8865cf1e-9e53-433e-b2ca-64d2fcfdec8e",
+      "containerId": "",
+      "name": "add_file_to_get_filekey",
+      "url": "https://mlfts.kintone.com/k/v1/file.json",
+      "method": "POST",
+      "sortNum": 60000,
+      "created": "2023-09-22T02:07:20.107Z",
+      "modified": "2023-09-22T02:07:20.107Z",
+      "headers": [
+        {
+          "name": "X-Cybozu-API-Token",
+          "value": "Gy8WSEFUaTPkNCNjbdWl09rY3t5qR3G9FWP9tEsK"
+        },
+        {
+          "name": "Content-Type:",
+          "value": "application/json",
+          "isDisabled": true
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "formdata",
+        "raw": "",
+        "form": [],
+        "files": [
+          {
+            "name": "file",
+            "value": "d:\\mlfts-learning\\kintone-rest-api\\kintone.jpg"
+          }
+        ]
+      },
+      "tests": []
+    },
+    {
+      "_id": "52e9e5da-95bf-4691-9db4-783ca8a6cea2",
+      "colId": "8865cf1e-9e53-433e-b2ca-64d2fcfdec8e",
+      "containerId": "",
+      "name": "deploy_app_without_kintone_web",
+      "url": "https://mlfts.kintone.com/k/v1/preview/app/deploy.json",
+      "method": "POST",
+      "sortNum": 70000,
+      "created": "2023-09-22T02:07:27.487Z",
+      "modified": "2023-09-22T02:07:27.487Z",
+      "headers": [
+        {
+          "name": "X-Cybozu-Authorization",
+          "value": "bWxmdHM6MTIzNDU2QWEh"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\r\n  \"apps\": [{\r\n    \"app\": 22\r\n  }]\r\n}",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "5d04a6c8-fb78-4f69-b62f-9a32f569b41d",
+      "colId": "8865cf1e-9e53-433e-b2ca-64d2fcfdec8e",
+      "containerId": "",
+      "name": "make_ui_with_json_request",
+      "url": "https://mlfts.kintone.com/k/v1/preview/app/form/fields.json",
+      "method": "POST",
+      "sortNum": 80000,
+      "created": "2023-09-22T02:07:32.296Z",
+      "modified": "2023-09-22T02:07:32.296Z",
+      "headers": [
+        {
+          "name": "X-Cybozu-Authorization",
+          "value": "bWxmdHM6MTIzNDU2QWEh"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"app\": 21,\n  \"properties\": {\n    \"Date\": {\n      \"type\": \"DATE\",\n      \"code\": \"Date\",\n      \"label\": \"Date\",\n      \"noLabel\": false,\n      \"required\": false,\n      \"unique\": false,\n      \"defaultValue\": \"\",\n      \"defaultNowValue\": true\n    },\n    \"Company_Name_Search\": {\n      \"type\": \"SINGLE_LINE_TEXT\",\n      \"code\": \"Company_Name_Search\",\n      \"label\": \"Company Name [Search]\",\n      \"noLabel\": false,\n      \"required\": false,\n      \"lookup\": {\n        \"relatedApp\": {\n          \"app\": \"20\",\n          \"code\": \"\"\n        },\n        \"relatedKeyField\": \"Company_Name\",\n        \"fieldMappings\": [\n          {\n            \"field\": \"Contact_Name\",\n            \"relatedField\": \"Contact_Name\"\n          },\n          {\n            \"field\": \"Company_Name\",\n            \"relatedField\": \"Company_Name\"\n          }\n        ],\n        \"lookupPickerFields\": [\n          \"E_mail\",\n          \"Job_Title\",\n          \"Department\"\n        ],\n        \"filterCond\": \"\",\n        \"sort\": \"Record_number desc\"\n      }\n    },\n    \"Reported_by\": {\n      \"type\": \"USER_SELECT\",\n      \"code\": \"Reported_by\",\n      \"label\": \"Reported by\",\n      \"noLabel\": false,\n      \"required\": false,\n      \"entities\": [],\n      \"defaultValue\": [\n        {\n          \"type\": \"FUNCTION\",\n          \"code\": \"LOGINUSER()\"\n        }\n      ]\n    },\n    \"Type\": {\n      \"type\": \"DROP_DOWN\",\n      \"code\": \"Type\",\n      \"label\": \"Type\",\n      \"noLabel\": false,\n      \"required\": false,\n      \"options\": {\n        \"Call\": {\n          \"label\": \"Call\",\n          \"index\": \"2\"\n        },\n        \"E-mail\": {\n          \"label\": \"E-mail\",\n          \"index\": \"3\"\n        },\n        \"Web Meeting\": {\n          \"label\": \"Web Meeting\",\n          \"index\": \"0\"\n        },\n        \"Visit\": {\n          \"label\": \"Visit\",\n          \"index\": \"1\"\n        },\n        \"Other\": {\n          \"label\": \"Other\",\n          \"index\": \"4\"\n        }\n      },\n      \"defaultValue\": \"\"\n    },\n    \"Details\": {\n      \"type\": \"RICH_TEXT\",\n      \"code\": \"Details\",\n      \"label\": \"Details\",\n      \"noLabel\": false,\n      \"required\": false,\n      \"defaultValue\": \"\"\n    },\n    \"Attachment\": {\n      \"type\": \"FILE\",\n      \"code\": \"Attachment\",\n      \"label\": \"Attachment\",\n      \"noLabel\": false,\n      \"required\": false,\n      \"thumbnailSize\": \"150\"\n    },\n    \"Other_Records\": {\n      \"type\": \"REFERENCE_TABLE\",\n      \"code\": \"Other_Records\",\n      \"label\": \"Other Records\",\n      \"noLabel\": false,\n      \"referenceTable\": {\n        \"relatedApp\": {\n          \"app\": 21,\n          \"code\": \"\"\n        },\n        \"condition\": {\n          \"field\": \"Company_Name_Search\",\n          \"relatedField\": \"Company_Name_Search\"\n        },\n        \"filterCond\": \"\",\n        \"displayFields\": [\n          \"Date\",\n          \"Type\",\n          \"Details\",\n          \"Attachment\"\n        ],\n        \"sort\": \"Date desc\",\n        \"size\": \"5\"\n      }\n    },\n    \"Company_Name\": {\n      \"type\": \"SINGLE_LINE_TEXT\",\n      \"code\": \"Company_Name\",\n      \"label\": \"Company Name\",\n      \"noLabel\": false,\n      \"required\": false,\n      \"minLength\": \"\",\n      \"maxLength\": \"\",\n      \"expression\": \"\",\n      \"hideExpression\": false,\n      \"unique\": false,\n      \"defaultValue\": \"\"\n    },\n    \"Contact_Name\": {\n      \"type\": \"SINGLE_LINE_TEXT\",\n      \"code\": \"Contact_Name\",\n      \"label\": \"Contact Name\",\n      \"noLabel\": false,\n      \"required\": false,\n      \"minLength\": \"\",\n      \"maxLength\": \"\",\n      \"expression\": \"\",\n      \"hideExpression\": false,\n      \"unique\": false,\n      \"defaultValue\": \"\"\n    },\n    \"Field_group\": {\n      \"type\": \"GROUP\",\n      \"code\": \"Field_group\",\n      \"label\": \"Field group\",\n      \"noLabel\": true,\n      \"openGroup\": false\n    }\n  }\n}",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "dd709a99-7602-4346-a71e-a5c6905b3dab",
+      "colId": "8865cf1e-9e53-433e-b2ca-64d2fcfdec8e",
+      "containerId": "",
+      "name": "get_contact_log_app_id",
+      "url": "https://mlfts.kintone.com/k/v1/preview/app.json",
+      "method": "POST",
+      "sortNum": 90000,
+      "created": "2023-09-22T02:07:42.507Z",
+      "modified": "2023-09-22T02:07:42.507Z",
+      "headers": [
+        {
+          "name": "X-Cybozu-Authorization",
+          "value": "bWxmdHM6MTIzNDU2QWEh"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\r\n  \"name\": \"Contact Log\"\r\n}",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "d4ffb8bf-cb2f-42b5-83a3-eef2aede592a",
+      "colId": "8865cf1e-9e53-433e-b2ca-64d2fcfdec8e",
+      "containerId": "",
+      "name": "Post_Attactment_to_sale_deals",
+      "url": "https://mlfts.kintone.com/k/v1/file.json",
+      "method": "GET",
+      "sortNum": 100000,
+      "created": "2023-09-22T02:07:47.280Z",
+      "modified": "2023-09-22T02:07:47.280Z",
+      "headers": [
+        {
+          "name": "X-Cybozu-API-Token",
+          "value": "Gy8WSEFUaTPkNCNjbdWl09rY3t5qR3G9FWP9tEsK"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "formdata",
+        "raw": "",
+        "form": [],
+        "files": [
+          {
+            "name": "file",
+            "value": "d:\\mlfts-learning\\kintone-rest-api\\kintone.jpg"
+          }
+        ]
+      },
+      "tests": []
+    },
+    {
+      "_id": "3ecda58b-0ecf-49b5-bbc0-820d9f1a6411",
+      "colId": "8865cf1e-9e53-433e-b2ca-64d2fcfdec8e",
+      "containerId": "",
+      "name": "Delete_data_in_sale_deals",
+      "url": "https://mlfts.kintone.com/k/v1/records.json?app=19&ids[0]=3",
+      "method": "DELETE",
+      "sortNum": 110000,
+      "created": "2023-09-22T02:07:51.511Z",
+      "modified": "2023-09-22T02:07:51.511Z",
+      "headers": [
+        {
+          "name": "X-Cybozu-API-Token",
+          "value": "Gy8WSEFUaTPkNCNjbdWl09rY3t5qR3G9FWP9tEsK"
+        }
+      ],
+      "params": [
+        {
+          "name": "app",
+          "value": "19",
+          "isPath": false
+        },
+        {
+          "name": "ids[0]",
+          "value": "3",
+          "isPath": false
+        }
+      ],
+      "tests": []
+    },
+    {
+      "_id": "4529c16e-835b-43c4-acad-afe893f380f3",
+      "colId": "8865cf1e-9e53-433e-b2ca-64d2fcfdec8e",
+      "containerId": "",
+      "name": "change_data_in_sale_deals",
+      "url": "https://mlfts.kintone.com/k/v1/records.json",
+      "method": "PUT",
+      "sortNum": 120000,
+      "created": "2023-09-22T02:07:56.364Z",
+      "modified": "2023-09-22T02:07:56.364Z",
+      "headers": [
+        {
+          "name": "X-Cybozu-API-Token",
+          "value": "Gy8WSEFUaTPkNCNjbdWl09rY3t5qR3G9FWP9tEsK"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\r\n  \"app\": 19,\r\n  \"records\": [\r\n    {\r\n      \"id\": 5,\r\n      \"record\": {\r\n        \"Deal_Name\": {\r\n          \"value\": \"Kintone App Creation\"\r\n        }\r\n      }\r\n    },\r\n    {\r\n      \"id\": 2,\r\n      \"record\": {\r\n        \"Deal_Name\": {\r\n          \"value\": \"Kintone JavaScript Customization\"\r\n        }\r\n      }\r\n    }\r\n  ]\r\n}",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "9d8ade5f-e37c-4a43-9d55-9a5fc6b3dcbc",
+      "colId": "8865cf1e-9e53-433e-b2ca-64d2fcfdec8e",
+      "containerId": "",
+      "name": "post_data_to_sale_deals",
+      "url": "https://mlfts.kintone.com/k/v1/records.json",
+      "method": "POST",
+      "sortNum": 130000,
+      "created": "2023-09-22T02:08:03.069Z",
+      "modified": "2023-09-22T02:08:03.069Z",
+      "headers": [
+        {
+          "name": "X-Cybozu-API-Token",
+          "value": "qa7jVmNQkld4riNKu0B4t8LB2RwDojB7xT2TWwXM, Gy8WSEFUaTPkNCNjbdWl09rY3t5qR3G9FWP9tEsK"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\r\n  \"app\": 19,\r\n  \"records\": [\r\n    {\r\n      \"Company_Name_Search\": {\r\n        \"value\": \"Kintone\"\r\n      },\r\n      \"Deal_Name\": {\r\n        \"value\": \"Kintone app creation\"\r\n      },\r\n      \"Rep\": {\r\n        \"value\": [{\"code\": \"mlfts\"}]\r\n      }\r\n    },\r\n    {\r\n      \"Company_Name_Search\": {\r\n        \"value\": \"Cybozu\"\r\n      },\r\n      \"Deal_Name\": {\r\n        \"value\": \"Kintone JavaScript customization\"\r\n      },\r\n      \"Rep\": {\r\n        \"value\": [{\"code\": \"mlfts\"}]\r\n      }\r\n    }\r\n  ]\r\n}\r\n",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "627545b4-79e3-40b4-b638-5a458c7ce7b8",
+      "colId": "8865cf1e-9e53-433e-b2ca-64d2fcfdec8e",
+      "containerId": "",
+      "name": "get_sale_deals_data",
+      "url": "https://mlfts.kintone.com/k/v1/records.json?app=19",
+      "method": "GET",
+      "sortNum": 140000,
+      "created": "2023-09-22T02:08:08.136Z",
+      "modified": "2023-09-22T02:08:08.136Z",
+      "headers": [
+        {
+          "name": "X-Cybozu-API-Token",
+          "value": "Gy8WSEFUaTPkNCNjbdWl09rY3t5qR3G9FWP9tEsK"
+        }
+      ],
+      "params": [
+        {
+          "name": "app",
+          "value": "19",
+          "isPath": false
+        }
+      ],
+      "tests": []
+    }
+  ]
+}
