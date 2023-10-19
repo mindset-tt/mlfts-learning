@@ -553,7 +553,7 @@
             if (age_Start.value.trim() === "" && age_End.value.trim() !== "") {
                 search_condition.age_End = age_End.value;
             }
-
+            // End check Age
             let queryStrings = [];
             let searchChoice = "and"; // Default to "AND"
 
