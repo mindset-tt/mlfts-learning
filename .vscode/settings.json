@@ -1,7 +1,7 @@
 {
   "liveServer.settings.port": 5501,
   "liveServer.settings.root": "/",
-  "liveServer.settings.CustomBrowser": "microsoft-edge",
+  "liveServer.settings.CustomBrowser": "chrome",
   "liveServer.settings.https": {
     "enable": true,
     "cert": "D:\\mlfts-learning\\localhost.pem",
