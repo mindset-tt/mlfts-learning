@@ -1,0 +1,2796 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/png" href="imgs/es6.png" />
+    <title>ES6 examples</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <!-- ES6 examples code -->
+    <script src="build/main.js"></script>
+</head>
+
+<body>
+
+    <button onclick="topFunction()" id="goTop" title="Go to top"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+
+    <div class="container">
+        <nav class="navbar navbar-toggleable-md navbar-inverse bg-primary">
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="./6to5">
+                <img src="imgs/es6.png" width="30" height="30" class="d-inline-block align-top" alt=""> ECMAScript 6
+            </a>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item active dropdown">
+                        <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Features
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-header h6" href="#constants">Constants</a>
+                            <a class="dropdown-item" href="#constants-01">Constants</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-header h6" href="#scoping">Scoping</a>
+                            <a class="dropdown-item" href="#block-scoped-variables">Block-Scoped Variables</a>
+                            <a class="dropdown-item" href="#block-scoped-functions">Block-Scoped Functions</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-header h6" href="#arrow-functions">Arrow Functions</a>
+                            <a class="dropdown-item" href="#expression-bodies">Expression Bodies</a>
+                            <a class="dropdown-item" href="#statement-bodies">Statement Bodies</a>
+                            <a class="dropdown-item" href="#lexical-this">Lexical <code>this</code></a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-header h6" href="#extended-parameter-handling">Extended Parameter Handling</a>
+                            <a class="dropdown-item" href="#default-parameter-values">Default Parameter Values</a>
+                            <a class="dropdown-item" href="#rest-parameter">Rest Parameter</a>
+                            <a class="dropdown-item" href="#spread-operator">Spread Operator</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-header h6" href="#template-literals">Template Literals</a>
+                            <a class="dropdown-item" href="#string-interpolation">String Interpolation</a>
+                            <a class="dropdown-item" href="#custom-interpolation">Custom Interpolation</a>
+                            <a class="dropdown-item" href="#raw-string-access">Raw String Access</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-header h6" href="#extended-literals">Extended Literals</a>
+                            <a class="dropdown-item" href="#binary-and-octal-literal">Binary & Octal Literal</a>
+                            <a class="dropdown-item" href="#unicode-string-and-regexp-literal">Unicode String & RegExp Literal</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-header h6" href="#enhanced-regular-expression">Enhanced Regular Expression</a>
+                            <a class="dropdown-item" href="#regular-expression-sticky-matching">Regular Expression Sticky Matching</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-header h6" href="#enhanced-object-properties">Enhanced Object Properties</a>
+                            <a class="dropdown-item" href="#property-shorthand">Property Shorthand</a>
+                            <a class="dropdown-item" href="#computed-property-names">Computed Property Names</a>
+                            <a class="dropdown-item" href="#method-properties">Method Properties</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-header h6" href="#destructuring-assignment">Destructuring Assignment</a>
+                            <a class="dropdown-item" href="#array-matching">Array Matching</a>
+                            <a class="dropdown-item" href="#object-matching-shorthand-notation">Object Matching, Shorthand Notation</a>
+                            <a class="dropdown-item" href="#object-matching-deep-matching">Object Matching, Deep Matching</a>
+                            <a class="dropdown-item" href="#object-and-array-matching-default-values">Object And Array Matching, Default Values</a>
+                            <a class="dropdown-item" href="#parameter-context-matching">Parameter Context Matching</a>
+                            <a class="dropdown-item" href="#fail-soft-destructuring">Fail-Soft Destructuring</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-header h6" href="#modules">Modules</a>
+                            <a class="dropdown-item" href="#value-export-import">Value Export/Import</a>
+                            <a class="dropdown-item" href="#default-and-wildcard">Default & Wildcard</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-header h6" href="#classes">Classes</a>
+                            <a class="dropdown-item" href="#class-definition">Class Definition</a>
+                            <a class="dropdown-item" href="#class-inheritance">Class Inheritance</a>
+                            <a class="dropdown-item" href="#class-inheritance-from-expressions">Class Inheritance, From Expressions</a>
+                            <a class="dropdown-item" href="#base-class-access">Base Class Access</a>
+                            <a class="dropdown-item" href="#static-members">Static Members</a>
+                            <a class="dropdown-item" href="#getter-setter">Getter/Setter</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-header h6" href="#symbol-type">Symbol Type</a>
+                            <a class="dropdown-item" href="#symbol-type-01">Symbol Type</a>
+                            <a class="dropdown-item" href="#global-symbols">Global Symbols</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-header h6" href="#iterators">Iterators</a>
+                            <a class="dropdown-item" href="#iterator-and-for-of-operator">Iterator & For-Of Operator</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-header h6" href="#generators">Generators</a>
+                            <a class="dropdown-item" href="#generator-function-iterator-protocol">Generator Function, Iterator Protocol</a>
+                            <a class="dropdown-item" href="#generator-function-direct-use">Generator Function, Direct Use</a>
+                            <a class="dropdown-item" href="#generator-matching">Generator Matching</a>
+                            <a class="dropdown-item" href="#generator-control-flow">Generator Control-Flow</a>
+                            <a class="dropdown-item" href="#generator-methods">Generator Methods</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-header h6" href="#map-set-and-weakmap-weakset">Map/Set & WeakMap/WeakSet</a>
+                            <a class="dropdown-item" href="#set-data-structure">Set Data-Structure</a>
+                            <a class="dropdown-item" href="#map-data-structure">Map Data-Structure</a>
+                            <a class="dropdown-item" href="#weak-link-data-structures">Weak-Link Data-Structures</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-header h6" href="#typed-arrays">Typed Arrays</a>
+                            <a class="dropdown-item" href="#typed-arrays-01">Typed Arrays</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-header h6" href="#new-built-in-methods">New Built-In Methods</a>
+                            <a class="dropdown-item" href="#object-property-assignment">Object Property Assignment</a>
+                            <a class="dropdown-item" href="#array-element-finding">Array Element Finding</a>
+                            <a class="dropdown-item" href="#string-repeating">String Repeating</a>
+                            <a class="dropdown-item" href="#string-searching">String Searching</a>
+                            <a class="dropdown-item" href="#number-type-checking">Number Type Checking</a>
+                            <a class="dropdown-item" href="#number-safety-checking">Number Safety Checking</a>
+                            <a class="dropdown-item" href="#number-comparison">Number Comparison</a>
+                            <a class="dropdown-item" href="#number-truncation">Number Truncation</a>
+                            <a class="dropdown-item" href="#number-sign-determination">Number Sign Determination</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-header h6" href="#promises">Promises</a>
+                            <a class="dropdown-item" href="#promise-usage">Promise Usage</a>
+                            <a class="dropdown-item" href="#promise-combination">Promise Combination</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-header h6" href="#meta-programming">Meta-Programming</a>
+                            <a class="dropdown-item" href="#proxying">Proxying</a>
+                            <a class="dropdown-item" href="#reflection">Reflection</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-header h6" href="#internationalization-and-localization">Internationalization & Localization</a>
+                            <a class="dropdown-item" href="#collation">Collation</a>
+                            <a class="dropdown-item" href="#number-formatting">Number Formatting</a>
+                            <a class="dropdown-item" href="#currency-formatting">Currency Formatting</a>
+                            <a class="dropdown-item" href="#date-time-formatting">Date/Time Formatting</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <br/>
+        <div class="jumbotron">
+            <a href="https://github.com/gatosnake/ES6-examples">
+                <img title="ES6-pic" style="position: absolute; top: 80px; right: 15px; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png">
+            </a>
+            <h1 class="display-3 hidden-xs-down">ECMAScript 6</h1>
+            <h1 class="display-3 hidden-sm-up">ES6</h1>
+            <p class="lead">Examples of all features in ECMAScript 6</p>
+            <hr class="my-4">
+            <p>This page shows examples of all features in ECMAScript 6. They are based on examples from the site <a rel="noopener" href="http://es6-features.org" target="_blank">http://es6-features.org</a>.</p>
+            <p>All credits to <a rel="noopener"  href="http://es6-features.org" target="_blank">http://es6-features.org</a>.</p>
+            <p>The GitHub repository is available at <a rel="noopener"  href="https://github.com/gatosnake/es6-examples" target="_blank">https://github.com/gatosnake/es6-examples</a>.</p>
+            <p>All examples are executed in this page, just open the developer tools in your browser and look at the console ;) . If you want to see ES6 native code running in your browser, go to <a href="./">this link</a>.</p>
+        </div>
+        <!-- Constants -->
+        <article id="constants">
+            <div class="row">
+                <div class="col">
+                    <h2>Constants</h2>
+                    <br/>
+                </div>
+            </div>
+            <section id="constants-01">
+                <div class="row">
+                    <div class="col">
+                        <h4>Constants</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Support for constants (also known as "immutable variables"), i.e., variables which cannot be re-assigned new content. Notice: this only makes the variable itself immutable, not its assigned content (for instance, in case the content
+                            is an object, this means the object itself can still be altered).</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">const PI = 3.141593;
+console.log(PI > 3.0);</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">true</code></pre>
+                    </div>
+                </div>
+            </section>
+        </article>
+        <br/>
+        <!-- Scoping -->
+        <article id="scoping">
+            <div class="row">
+                <div class="col">
+                    <h2>Scoping</h2>
+                    <br/>
+                </div>
+            </div>
+            <!-- block scoped variables -->
+            <section id="block-scoped-variables">
+                <div class="row">
+                    <div class="col">
+                        <h4>Block-Scoped Variables</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Block-scoped variables (and constants) without hoisting.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">let a = new Array('a', 'b', 'c');
+let b = new Array('d', 'e', 'f');
+
+let x = new Array('1', '2');
+let y = new Array('3', '4');
+
+for (let i = 0; i < a.length; i++) {
+  let x = a[i];
+  console.log(`Value x[${i}]:`, x);
+}
+for (let i = 0; i < b.length; i++) {
+  let y = b[i];
+  console.log(`Value y[${i}]:`, y);
+}
+
+console.log(`Array x:`, JSON.stringify(x));
+console.log(`Array y:`, JSON.stringify(y));
+
+let callbacks = []
+for (let i = 0; i <= 2; i++) {
+  callbacks[i] = function() {
+    return i * 2;
+  }
+}
+console.log(`Compare callback[0] === 0:`, callbacks[0]() === 0);
+console.log(`Compare callback[1] === 2:`, callbacks[1]() === 2);
+console.log(`Compare callback[2] === 4:`, callbacks[2]() === 4);</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Value x[0]: a
+Value x[1]: b
+Value x[2]: c
+Value y[0]: d
+Value y[1]: e
+Value y[2]: f
+Array x: ["1","2"]
+Array y: ["3","4"]
+Compare callback[0] === 0: true
+Compare callback[1] === 2: true
+Compare callback[2] === 4: true</code></pre>
+                    </div>
+                </div>
+            </section>
+            <!-- block scoped functions -->
+            <br/>
+            <section id="block-scoped-functions">
+                <div class="row">
+                    <div class="col">
+                        <h4>Block-Scoped Functions</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Block-scoped function definitions.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">function foo() {
+  return 1;
+}
+console.log(`Compare foo() === 1:`, foo() === 1);
+
+{
+  function foo() {
+    return 2;
+  }
+  console.log(`Compare foo() === 2:`, foo() === 2);
+}
+
+console.log(`Compare foo() === 1:`, foo() === 1);</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Compare foo() === 1: true
+Compare foo() === 2: true
+Compare foo() === 1: true</code></pre>
+                    </div>
+                </div>
+            </section>
+        </article>
+        <br/>
+        <!-- Arrow Functions -->
+        <article id="arrow-functions">
+            <div class="row">
+                <div class="col">
+                    <h2>Arrow Functions</h2>
+                    <br/>
+                </div>
+            </div>
+            <!-- expression bodies-->
+            <section id="expression-bodies">
+                <div class="row">
+                    <div class="col">
+                        <h4>Expression Bodies</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>More expressive closure syntax.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">let evens = new Array(1, 2, 3);
+
+let odds = evens.map(v => v + 1);
+let pairs = evens.map(v => ({
+  even: v,
+  odd: v + 1
+}));
+let nums = evens.map((v, i) => v + i);
+
+console.log(`Array odds:`, JSON.stringify(odds));
+console.log(`Array pairs:`, JSON.stringify(pairs));
+console.log(`Array nums:`, JSON.stringify(nums));</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Array odds: [2,3,4]
+Array pairs: [{"even":1,"odd":2},{"even":2,"odd":3},{"even":3,"odd":4}]
+Array nums: [1,3,5]</code></pre>
+                    </div>
+                </div>
+            </section>
+            <!-- statement bodies-->
+            <br/>
+            <section id="statement-bodies">
+                <div class="row">
+                    <div class="col">
+                        <h4>Statement Bodies</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>More expressive closure syntax.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">let nums = new Array(2, 5, 3, 6, 8, 4, 5, 1, 5);
+let fives = new Array();
+
+nums.forEach(v => {
+  if (v % 5 === 0)
+    fives.push(v);
+});
+
+console.log(`Array fives:`, JSON.stringify(fives));</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Array fives: [5,5,5]</code></pre>
+                    </div>
+                </div>
+            </section>
+            <br/>
+            <!-- lexical this-->
+            <section id="lexical-this">
+                <div class="row">
+                    <div class="col">
+                        <h4>Lexical <code>This</code></h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>More intuitive handling of current object context.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">let example = {
+  nums: [2, 5, 3, 6, 8, 4, 5, 1, 5],
+  fives: [],
+  getFives: function() {
+    this.nums.forEach((v) => {
+      if (v % 5 === 0)
+        this.fives.push(v);
+      });
+  }
+}
+
+example.getFives();
+
+console.log(`Array example.nums:`, JSON.stringify(example.fives));</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Array example.nums: [5,5,5]</code></pre>
+                    </div>
+                </div>
+            </section>
+        </article>
+        <br/>
+        <!-- extended parameter handling -->
+        <article id="extended-parameter-handling">
+            <div class="row">
+                <div class="col">
+                    <h2>Extended Parameter Handling</h2>
+                    <br/>
+                </div>
+            </div>
+            <!-- Default Parameter Values-->
+            <section id="default-parameter-values">
+                <div class="row">
+                    <div class="col">
+                        <h4>Default Parameter Values</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Simple and intuitive default values for function parameters.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">function function1(x, y = 7, z = 42) {
+  return x + y + z;
+}
+console.log(`Compare function1() === 50:`, function1(1) === 50);</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Compare function1() === 50: true</code></pre>
+                    </div>
+                </div>
+            </section>
+            <br/>
+            <!-- Rest Parameter-->
+            <section id="rest-parameter">
+                <div class="row">
+                    <div class="col">
+                        <h4>Rest Parameter</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Aggregation of remaining arguments into single parameter of variadic functions.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">let a = new Array(1, 2, 3, 4, 5);
+
+function function2(x, y, ...a) {
+  return (x + y) * a.length;
+}
+console.log(`Compare function2() === 9:`, function2(1, 2, "hello", true, 7) === 9);</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Compare function2() === 9: true</code></pre>
+                    </div>
+                </div>
+            </section>
+            <br/>
+            <!-- Spread Operator-->
+            <section id="spread-operator">
+                <div class="row">
+                    <div class="col">
+                        <h4>Spread Operator</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Spreading of elements of an iterable collection (like an array or even a string) into both literal elements and individual function parameters.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">function function2(x, y, ...a) {
+  return (x + y) * a.length;
+}
+
+let params = ["hello", true, 7];
+console.log(`Compare function2() === 9:`, function2(1, 2, ...params) === 9);
+let other = [1, 2, ...params];
+console.log(`Array other:`, JSON.stringify(other));
+
+let str = "foo";
+let chars = [...str];
+console.log(`Array chars:`, JSON.stringify(chars));</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Compare function2() === 9: true
+Array other: [1,2,"hello",true,7]
+Array chars: ["f","o","o"]</code></pre>
+                    </div>
+                </div>
+            </section>
+        </article>
+        <br/>
+        <!-- Template Literals -->
+        <article id="template-literals">
+            <div class="row">
+                <div class="col">
+                    <h2>Template Literals</h2>
+                    <br/>
+                </div>
+            </div>
+            <!-- String Interpolation-->
+            <section id="string-interpolation">
+                <div class="row">
+                    <div class="col">
+                        <h4>String Interpolation</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Intuitive expression interpolation for single-line and multi-line strings. (Notice: don't be confused, Template Literals were originally named "Template Strings" in the drafts of the ECMAScript 6 language specification)</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">let customer = {
+  name: "Foo"
+};
+
+let card = {
+  amount: 7,
+  product: "Bar",
+  unitprice: 42
+};
+
+let message = `Hello ${customer.name},
+want to buy ${card.amount} ${card.product} for
+a total of ${card.amount * card.unitprice} bucks?`;
+
+console.log(`Value message:`, message);</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Value message: Hello Foo,
+want to buy 7 Bar for
+a total of 294 bucks?</code></pre>
+                    </div>
+                </div>
+            </section>
+            <br/>
+            <!-- Custom Interpolation-->
+            <section id="custom-interpolation">
+                <div class="row">
+                    <div class="col">
+                        <h4>Custom Interpolation</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Flexible expression interpolation for arbitrary methods.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">function get(array, param1, param2) {
+  console.log(`Value params get():`, JSON.stringify(array), param1, param2);
+  let url = `${array[0]}${param1}${array[1]}${param2}`;
+  console.log(`Value url:`, url);
+}
+
+let bar = `Hola`;
+let baz = `Mundo`;
+let asd = `Cristhian`;
+
+get `http://example.com/foo?bar=${bar + baz}&quux=${asd}`;</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Value params get(): ["http://example.com/foo?bar=","&quux=",""] HolaMundo Cristhian
+Value url: http://example.com/foo?bar=HolaMundo&quux=Cristhian</code></pre>
+                    </div>
+                </div>
+            </section>
+            <br/>
+            <!-- Raw String Access-->
+            <section id="raw-string-access">
+                <div class="row">
+                    <div class="col">
+                        <h4>Raw String Access</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Access the raw template string content (backslashes are not interpreted).</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">function quux(strings, ...values) {
+  console.log(`Compare strings[0] === "foo\\n":`, strings[0] === "foo\n");
+  console.log(`Compare strings[1] === "bar":`, strings[1] === "bar");
+  console.log(`Compare values[0] === 42:`, values[0] === 42);
+  console.log(`Compare strings.raw[0] === "foo\\\\n":`, strings.raw[0] === "foo\\n");
+  console.log(`Compare strings.raw[1] === "bar":`, strings.raw[1] === "bar");
+}
+quux `foo\n${ 42 }bar`;
+
+console.log(`Compare String.war:`, String.raw `foo\n${ 42 }bar` === "foo\\n42bar");</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Compare strings[0] === "foo\n": true
+Compare strings[1] === "bar": true
+Compare values[0] === 42: true
+Compare strings.raw[0] === "foo\\n": true
+Compare strings.raw[1] === "bar": true
+Compare String.war: true</code></pre>
+                    </div>
+                </div>
+            </section>
+        </article>
+        <br/>
+        <!-- Extended Literals -->
+        <article id="extended-literals">
+            <div class="row">
+                <div class="col">
+                    <h2>Extended Literals</h2>
+                    <br/>
+                </div>
+            </div>
+            <!-- Binary & Octal Literal-->
+            <section id="binary-and-octal-literal">
+                <div class="row">
+                    <div class="col">
+                        <h4>Binary & Octal Literal</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Direct support for safe binary and octal literals.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">console.log(`Compare binary 0b111110111 === 503:`, 0b111110111 === 503);
+console.log(`Compare octal 0o767 === 503:`, 0o767 === 503);</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Compare binary 0b111110111 === 503: true
+Compare octal 0o767 === 503: true</code></pre>
+                    </div>
+                </div>
+            </section>
+            <br/>
+            <!-- Unicode String & RegExp Literal-->
+            <section id="unicode-string-and-regexp-literal">
+                <div class="row">
+                    <div class="col">
+                        <h4>Unicode String & RegExp Literal</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Extended support using Unicode within strings and regular expressions.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">console.log(`Compare "𠮷".length === 2:`, "𠮷".length === 2);
+console.log(`Compare "𠮷".match(/./u)[0].length === 2:`, "𠮷".match(/./u)[0].length === 2);
+console.log(`Compare "𠮷" === "\\uD842\\uDFB7":`, "𠮷" === "\uD842\uDFB7");
+console.log(`Compare "𠮷" === "\\u{20BB7}":`, "𠮷" === "\u{20BB7}");
+console.log(`Compare "𠮷".codePointAt(0) == 0x20BB7:`, "𠮷".codePointAt(0) == 0x20BB7);
+for (let codepoint of "𠮷") console.log(`Value codepoint:`, codepoint);</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Compare "𠮷".length === 2: true
+Compare "𠮷".match(/./u)[0].length === 2: true
+Compare "𠮷" === "\uD842\uDFB7": true
+Compare "𠮷" === "\u{20BB7}": true
+Compare "𠮷".codePointAt(0) == 0x20BB7: true
+Value codepoint: 𠮷</code></pre>
+                    </div>
+                </div>
+            </section>
+        </article>
+        <br/>
+        <!-- Enhanced Regular Expression -->
+        <article id="enhanced-regular-expression">
+            <div class="row">
+                <div class="col">
+                    <h2>Enhanced Regular Expression</h2>
+                    <br/>
+                </div>
+            </div>
+            <!-- Regular Expression Sticky Matching-->
+            <section id="regular-expression-sticky-matching">
+                <div class="row">
+                    <div class="col">
+                        <h4>Regular Expression Sticky Matching</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Keep the matching position sticky between matches and this way support efficient parsing of arbitrary long input strings, even with an arbitrary number of distinct regular expressions.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">let message = "My name is Foo and my lastname is Bar."
+let pattern = /my [a-zA-Z]+/y;
+
+console.log(`Return pattern /my [a-zA-Z]+/y:`, JSON.stringify(pattern.exec(message)));
+
+pattern.lastIndex = 19;
+
+console.log(`Return pattern /my [a-zA-Z]+/y:`, JSON.stringify(pattern.exec(message)));
+console.log(`Return pattern /my [a-zA-Z]+/y:`, JSON.stringify(pattern.exec(message)));</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Return pattern /my [a-zA-Z]+/y: null
+Return pattern /my [a-zA-Z]+/y: ["my lastname"]
+Return pattern /my [a-zA-Z]+/y: null</code></pre>
+                    </div>
+                </div>
+            </section>
+        </article>
+        <br/>
+        <!-- Enhanced Object Properties -->
+        <article id="enhanced-object-properties">
+            <div class="row">
+                <div class="col">
+                    <h2>Enhanced Object Properties</h2>
+                    <br/>
+                </div>
+            </div>
+            <!-- Property Shorthand-->
+            <section id="property-shorthand">
+                <div class="row">
+                    <div class="col">
+                        <h4>Property Shorthand</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Shorter syntax for common object property definition idiom.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">let x = 1;
+let y = 2;
+
+let obj = {
+  x,
+  y
+};
+
+console.log(`Value obj:`, JSON.stringify(obj));</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Value obj: {"x":1,"y":2}</code></pre>
+                    </div>
+                </div>
+            </section>
+            <br/>
+            <!-- Computed Property Names-->
+            <section id="computed-property-names">
+                <div class="row">
+                    <div class="col">
+                        <h4>Computed Property Names</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Support for computed names in object property definitions.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">let quux = () => ` foo`;
+
+let obj2 = {
+  foo: "bar",
+  ["baz" + quux()]: 42
+};
+
+console.log(`Value obj2:`, JSON.stringify(obj2));</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Value obj2: {"foo":"bar","baz foo":42}</code></pre>
+                    </div>
+                </div>
+            </section>
+            <br/>
+            <!-- Method Properties-->
+            <section id="method-properties">
+                <div class="row">
+                    <div class="col">
+                        <h4>Method Properties</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Support for method notation in object property definitions, for both regular functions and generator functions.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">let obj3 = {
+foo(a, b) {
+  a + b;
+},
+bar(x, y) {
+  x * y;
+},
+* quux2(x, y) {
+  x + y;
+}
+};
+
+console.log(`Value obj3:`, obj3);</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Value obj3: Object {foo: function, bar: function, quux2: function}</code></pre>
+                    </div>
+                </div>
+            </section>
+        </article>
+        <br/>
+        <!-- Destructuring Assignment -->
+        <article id="destructuring-assignment">
+            <div class="row">
+                <div class="col">
+                    <h2>Destructuring Assignment</h2>
+                    <br/>
+                </div>
+            </div>
+            <!-- Array Matching-->
+            <section id="array-matching">
+                <div class="row">
+                    <div class="col">
+                        <h4>Array Matching</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Intuitive and flexible destructuring of Arrays into individual variables during assignment.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">var list = [1, 2, 3];
+var [a, , b] = list;
+console.log(`Value a:`, a);
+console.log(`Value b:`, b);
+
+[b, a] = [a, b];
+console.log(`Value a:`, a);
+console.log(`Value b:`, b);</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Value a: 1
+Value b: 3
+Value a: 3
+Value b: 1</code></pre>
+                    </div>
+                </div>
+            </section>
+            <br/>
+            <!-- Object Matching, Shorthand Notation-->
+            <section id="object-matching-shorthand-notation">
+                <div class="row">
+                    <div class="col">
+                        <h4>Object Matching, Shorthand Notation</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Intuitive and flexible destructuring of Objects into individual variables during assignment.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">function getASTNode() {
+  return {op: 1, lhs: 2, rhs: 3};
+};
+
+var {op, lhs, rhs} = getASTNode();
+
+console.log(`Value op:`, op);
+console.log(`Value lhs:`, lhs);
+console.log(`Value rhs:`, rhs);</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Value op: 1
+Value lhs: 2
+Value rhs: 3</code></pre>
+                    </div>
+                </div>
+            </section>
+            <br/>
+            <!-- Object Matching, Deep Matching-->
+            <section id="object-matching-deep-matching">
+                <div class="row">
+                    <div class="col">
+                        <h4>Object Matching, Deep Matching</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Intuitive and flexible destructuring of Objects into individual variables during assignment.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">function getASTNode2() {
+  return {op: 1, lhs: {op: 2}, rhs: 3};
+};
+
+var {op: a, lhs: {op: b}, rhs: c} = getASTNode2();
+
+console.log(`Value a:`, a);
+console.log(`Value b:`, b);
+console.log(`Value c:`, c);</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Value a: 1
+Value b: 2
+Value c: 3</code></pre>
+                    </div>
+                </div>
+            </section>
+            <br/>
+            <!-- Object And Array Matching, Default Values-->
+            <section id="object-and-array-matching-default-values">
+                <div class="row">
+                    <div class="col">
+                        <h4>Object And Array Matching, Default Values</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Simple and intuitive default values for destructuring of Objects and Arrays.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">var obj = {a: 1};
+var {a, b = 2} = obj;
+
+console.log(`Value a:`, a);
+console.log(`Value b:`, b);
+
+var list = [1];
+var [x, y = 2] = list;
+
+console.log(`Value x:`, x);
+console.log(`Value y:`, y);</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Value a: 1
+Value b: 2
+Value x: 1
+Value y: 2</code></pre>
+                    </div>
+                </div>
+            </section>
+            <br/>
+            <!-- Parameter Context Matching-->
+            <section id="parameter-context-matching">
+                <div class="row">
+                    <div class="col">
+                        <h4>Parameter Context Matching</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Intuitive and flexible destructuring of Arrays and Objects into individual parameters during function calls.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">function f([name, val]) {
+  console.log(name, val);
+}
+
+function g({name: n, val: v}) {
+  console.log(n, v);
+}
+
+function h({name, val}) {
+  console.log(name, val);
+}
+
+f(["bar", 42]);
+g({name: "foo", val: 7});
+h({name: "bar", val: 42});</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">bar 42
+foo 7
+bar 42</code></pre>
+                    </div>
+                </div>
+            </section>
+            <br/>
+            <!-- Fail-Soft Destructuring-->
+            <section id="fail-soft-destructuring">
+                <div class="row">
+                    <div class="col">
+                        <h4>Fail-Soft Destructuring</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Fail-soft destructuring, optionally with defaults.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">var list = [7, 42];
+var [a = 1, b = 2, c = 3, d] = list;
+console.log(`Compare a === 7:`, a === 7);
+console.log(`Compare b === 42:`, b === 42);
+console.log(`Compare c === 3:`, c === 3);
+console.log(`Compare d === undefined:`, d === undefined);</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Compare a === 7: true
+Compare b === 42: true
+Compare c === 3: true
+Compare d === undefined: true</code></pre>
+                    </div>
+                </div>
+            </section>
+        </article>
+        <br/>
+        <!-- Modules -->
+        <article id="modules">
+            <div class="row">
+                <div class="col">
+                    <h2>Modules</h2>
+                    <br/>
+                </div>
+            </div>
+            <!-- Value Export/Import-->
+            <section id="value-export-import">
+                <div class="row">
+                    <div class="col">
+                        <h4>Value Export/Import</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Support for exporting/importing values from/to modules without global namespace pollution.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">//  lib/math.js
+export function sum (x, y){
+  return x + y;
+};
+export var pi = 3.141593;
+
+//  someApp.js
+import * as math from "./lib/math";
+import { sum, pi } from "./lib/math";
+
+console.log("2π = ", math.sum(math.pi, math.pi));
+console.log("2π = ", sum(pi, pi));</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">2π =  6.283186
+2π =  6.283186</code></pre>
+                    </div>
+                </div>
+            </section>
+            <br/>
+            <!-- Default & Wildcard-->
+            <section id="default-and-wildcard">
+                <div class="row">
+                    <div class="col">
+                        <h4>Default & Wildcard</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Marking a value as the default exported value and mass-mixin of values.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">//  lib/mathplusplus.js
+export * from './math';
+export var e = 2.71828182846;
+export default (x) => Math.exp(x);
+
+//  someApp.js
+import exp, { pi, e } from './lib/mathplusplus';
+console.log(`e:`, e);
+console.log(`e^{π}:`, exp(pi));</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">e: 2.71828182846
+e^{π}: 23.140700648952773</code></pre>
+                    </div>
+                </div>
+            </section>
+        </article>
+        <br/>
+        <!-- Classes -->
+        <article id="classes">
+            <div class="row">
+                <div class="col">
+                    <h2>Classes</h2>
+                    <br/>
+                </div>
+            </div>
+            <!-- Class Definition-->
+            <section id="class-definition">
+                <div class="row">
+                    <div class="col">
+                        <h4>Class Definition</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>More intuitive, OOP-style and boilerplate-free classes.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">class Shape {
+  constructor(id, x, y) {
+    this.id = id;
+    this.move(x, y);
+  }
+  move(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+  getPos() {
+    return {
+      x: this.x,
+      y: this.y
+    };
+  }
+}
+
+let shape = new Shape(1, 10, 20);
+console.log(`Shape pos:`, JSON.stringify(shape.getPos()));
+shape.move(15, 35);
+console.log(`Shape pos:`, JSON.stringify(shape.getPos()));</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Shape pos: {"x":10,"y":20}
+Shape pos: {"x":15,"y":35}</code></pre>
+                    </div>
+                </div>
+            </section>
+            <br/>
+            <!-- Class Inheritance-->
+            <section id="class-inheritance">
+                <div class="row">
+                    <div class="col">
+                        <h4>Class Inheritance</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>More intuitive, OOP-style and boilerplate-free inheritance.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">class Rectangle extends Shape {
+  constructor(id, x, y, width, height) {
+    super(id, x, y);
+    this.width = width;
+    this.height = height;
+  }
+  getSize() {
+    return {
+      width: this.width,
+      height: this.height
+    };
+  }
+}
+
+class Circle extends Shape {
+  constructor(id, x, y, radius) {
+    super(id, x, y);
+    this.radius = radius;
+  }
+}
+
+let rectangle = new Rectangle(2, 11, 21, 100, 200);
+console.log(`Rectangle size:`, JSON.stringify(rectangle.getSize()));
+
+let circle = new Circle(2, 80, 90, 50);
+console.log(`Circle pos:`, JSON.stringify(circle.getPos()));</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Rectangle size: {"width":100,"height":200}
+Circle pos: {"x":80,"y":90}</code></pre>
+                    </div>
+                </div>
+            </section>
+            <br/>
+            <!-- Class Inheritance, From Expressions-->
+            <section id="class-inheritance-from-expressions">
+                <div class="row">
+                    <div class="col">
+                        <h4>Class Inheritance, From Expressions</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Support for mixin-style inheritance by extending from expressions yielding function objects. [Notice: the generic aggregation function is usually provided by a library like <a rel="noopener" href="https://github.com/rse/aggregation" target="_blank">this one</a>, of course]</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">var aggregation = (baseClass, ...mixins) => {
+  let base = class _Combined extends baseClass {
+    constructor(...args) {
+      super(...args);
+      mixins.forEach((mixin) => {
+        mixin.prototype.initializer.call(this);
+      });
+    }
+  };
+  let copyProps = (target, source) => {
+    Object.getOwnPropertyNames(source)
+      .concat(Object.getOwnPropertySymbols(source))
+      .forEach((prop) => {
+        if (prop.match(/^(?:constructor|prototype|arguments|caller|name|bind|call|apply|toString|length)$/))
+          return
+        Object.defineProperty(target, prop, Object.getOwnPropertyDescriptor(source, prop))
+      })
+  }
+  mixins.forEach((mixin) => {
+    copyProps(base.prototype, mixin.prototype);
+    copyProps(base, mixin);
+  });
+  return base;
+};
+
+class Colored {
+  initializer() {
+    this._color = 'white';
+  }
+  get color() {
+    return this._color;
+  }
+  set color(v) {
+    this._color = v;
+  }
+}
+
+class ZCoord {
+  initializer() {
+    this._z = 0;
+  }
+  get z() {
+    return this._z;
+  }
+  set z(v) {
+    this._z = v;
+  }
+}
+
+class Shape {
+  constructor(x, y) {
+    this._x = x;
+    this._y = y;
+  }
+  get x() {
+    return this._x;
+  }
+  set x(v) {
+    this._x = v;
+  }
+  get y() {
+    return this._y;
+  }
+  set y(v) {
+    this._y = v;
+  }
+}
+
+class Rectangle extends aggregation(Shape, Colored, ZCoord) {}
+
+var rect = new Rectangle(7, 42);
+rect.z = 1000;
+rect.color = 'red';
+console.log(`Rectangle data:
+  pos x: ${rect.x}
+  pos y: ${rect.y}
+  pos z: ${rect.z}
+  color: ${rect.color}`);</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Rectangle data:
+  pos x: 7
+  pos y: 42
+  pos z: 1000
+  color: red</code></pre>
+                    </div>
+                </div>
+            </section>
+            <br/>
+            <!-- Base Class Access-->
+            <section id="base-class-access">
+                <div class="row">
+                    <div class="col">
+                        <h4>Base Class Access</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Intuitive access to base class constructor and methods.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">class Shape {
+  constructor(id, x, y) {
+    this.id = id;
+    this.x = x;
+    this.y = y;
+  }
+  toString() {
+    return `Shape(${this.id})`;
+  }
+}
+class Rectangle extends Shape {
+  constructor(id, x, y, width, height) {
+    super(id, x, y);
+  }
+  toString() {
+    return `Rectangle > ${super.toString()}`;
+  }
+}
+class Circle extends Shape {
+  constructor(id, x, y, radius) {
+    super(id, x, y);
+  }
+  toString() {
+    return `Circle > ${super.toString()}`;
+  }
+}
+
+let shape = new Shape(1, 10, 20);
+console.log(shape.toString());
+let rectangle = new Rectangle(2, 20, 30);
+console.log(rectangle.toString());
+let circle = new Circle(3, 30, 40);
+console.log(circle.toString());</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Shape(1)
+Rectangle > Shape(2)
+Circle > Shape(3)</code></pre>
+                    </div>
+                </div>
+            </section>
+            <br/>
+            <!-- Static Members-->
+            <section id="static-members">
+                <div class="row">
+                    <div class="col">
+                        <h4>Static Members</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Simple support for static class members.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">class Rectangle extends Shape {
+  constructor(id, x, y, width, height) {
+    super(id, x, y);
+    this.width = width;
+    this.height = height;
+  }
+  static defaultRectangle() {
+    return new Rectangle('default', 2, 2, 100, 100);
+  }
+}
+class Circle extends Shape {
+  constructor(id, x, y, radius) {
+    super(id, x, y);
+    this.radius = radius;
+  }
+  static defaultCircle() {
+    return new Circle('default', 4, 4, 100);
+  }
+}
+
+let rectangle = Rectangle.defaultRectangle();
+console.log(`Rectangle data:`, JSON.stringify(rectangle));
+let circle = Circle.defaultCircle();
+console.log(`Circle data:`, JSON.stringify(circle));</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Rectangle data: {"id":"default","x":2,"y":2,"width":100,"height":100}
+Circle data: {"id":"default","x":4,"y":4,"radius":100}</code></pre>
+                    </div>
+                </div>
+            </section>
+            <br/>
+            <!-- Getter/Setter-->
+            <section id="getter-setter">
+                <div class="row">
+                    <div class="col">
+                        <h4>Getter/Setter</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Getter/Setter also directly within classes (and not just within object initializers, as it is possible since ECMAScript 5.1).</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">class Rectangle {
+  constructor(width, height) {
+    this._width = width;
+    this._height = height;
+  }
+  set width(width) {
+    this._width = width;
+  }
+  get width() {
+    return this._width;
+  }
+  set height(height) {
+    this._height = height;
+  }
+  get height() {
+    return this._height;
+  }
+  get area() {
+    return this._width * this._height;
+  }
+};
+
+var r = new Rectangle(50, 20);
+console.log(`Compare rectangle.area === 1000:`, r.area === 1000);</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Compare rectangle.area === 1000: true</code></pre>
+                    </div>
+                </div>
+            </section>
+        </article>
+        <br/>
+        <!-- Symbol Type -->
+        <article id="symbol-type">
+            <div class="row">
+                <div class="col">
+                    <h2>Symbol Type</h2>
+                    <br/>
+                </div>
+            </div>
+            <!-- Symbol Type-->
+            <section id="symbol-type-01">
+                <div class="row">
+                    <div class="col">
+                        <h4>Symbol Type</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Unique and immutable data type to be used as an identifier for object properties. Symbol can have an optional description, but for debugging purposes only.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">console.log(`Symbol("foo"):`, Symbol('foo'));
+console.log(`Symbol("foo") !== Symbol("foo"):`, Symbol("foo") !== Symbol("foo"));
+
+const foo = Symbol();
+const bar = Symbol();
+console.log(`typeof foo === "symbol":`, typeof foo === 'symbol');
+console.log(`typeof bar === "symbol":`, typeof bar === 'symbol');
+
+let obj = {};
+obj[foo] = "foo";
+obj[bar] = "bar";
+console.log(`Value obj:`, JSON.stringify(obj));
+console.log(`Value Object.keys(obj):`, Object.keys(obj));
+console.log(`Value Object.getOwnPropertyNames(obj):`, Object.getOwnPropertyNames(obj));
+console.log(`Value Object.getOwnPropertySymbols(obj):`, Object.getOwnPropertySymbols(obj));
+console.log(`Value obj["foo"]:`, obj['foo']);
+console.log(`Value obj[foo]:`, obj[foo]);</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Symbol("foo"): Symbol(foo)
+Symbol("foo") !== Symbol("foo"): true
+typeof foo === "symbol": true
+typeof bar === "symbol": true
+Value obj: {}
+Value Object.keys(obj): []
+Value Object.getOwnPropertyNames(obj): []
+Value Object.getOwnPropertySymbols(obj): [Symbol(), Symbol()]
+Value obj["foo"]: undefined
+Value obj[foo]: foo</code></pre>
+                    </div>
+                </div>
+            </section>
+            <br/>
+            <!-- Global Symbols-->
+            <section id="global-symbols">
+                <div class="row">
+                    <div class="col">
+                        <h4>Global Symbols</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Global symbols, indexed through unique keys.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">console.log(`Symbol.for("app.foo") === Symbol.for("app.foo"):`, Symbol.for("app.foo") === Symbol.for("app.foo"));
+
+const foo = Symbol.for("app.foo");
+const bar = Symbol.for("app.bar");
+console.log(`Symbol.keyFor(foo) === "app.foo":`, Symbol.keyFor(foo) === "app.foo");
+console.log(`Symbol.keyFor(bar) === "app.bar":`, Symbol.keyFor(bar) === "app.bar");
+console.log(`typeof foo === "symbol":`, typeof foo === "symbol");
+console.log(`typeof bar === "symbol":`, typeof bar === "symbol");
+
+let obj = {};
+obj[foo] = "foo";
+obj[bar] = "bar";
+console.log(`Value obj:`, JSON.stringify(obj));
+console.log(`Value Object.keys(obj):`, Object.keys(obj));
+console.log(`Value Object.getOwnPropertyNames(obj):`, Object.getOwnPropertyNames(obj));
+console.log(`Value Object.getOwnPropertySymbols(obj):`, Object.getOwnPropertySymbols(obj));
+console.log(`Value obj[foo]:`, obj[foo]);</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Symbol.for("app.foo") === Symbol.for("app.foo"): true
+Symbol.keyFor(foo) === "app.foo": true
+Symbol.keyFor(bar) === "app.bar": true
+typeof foo === "symbol": true
+typeof bar === "symbol": true
+Value obj: {}
+Value Object.keys(obj): []
+Value Object.getOwnPropertyNames(obj): []
+Value Object.getOwnPropertySymbols(obj): [Symbol(app.foo), Symbol(app.bar)]
+Value obj[foo]: foo</code></pre>
+                    </div>
+                </div>
+            </section>
+        </article>
+        <br/>
+        <!-- Iterators -->
+        <article id="iterators">
+            <div class="row">
+                <div class="col">
+                    <h2>Iterators</h2>
+                    <br/>
+                </div>
+            </div>
+            <!-- Iterator & For-Of Operator-->
+            <section id="iterator-and-for-of-operator">
+                <div class="row">
+                    <div class="col">
+                        <h4>Iterator & For-Of Operator</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Support "iterable" protocol to allow objects to customize their iteration behaviour. Additionally, support "iterator" protocol to produce sequence of values (either finite or infinite). Finally, provide convenient of operator to iterate over all values of an iterable object.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">let fibonacci = {
+  [Symbol.iterator]() {
+    let pre = 0,
+      cur = 1;
+    return {
+      next() {
+        [pre, cur] = [cur, pre + cur];
+        return {
+          done: false,
+          value: cur
+        };
+      }
+    };
+  }
+}
+
+for (let n of fibonacci) {
+  if (n > 1000)
+    break;
+  console.log(`Current value fibonacci:`, n);
+}</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Current value fibonacci: 1
+Current value fibonacci: 2
+Current value fibonacci: 3
+Current value fibonacci: 5
+Current value fibonacci: 8
+Current value fibonacci: 13
+Current value fibonacci: 21
+Current value fibonacci: 34
+Current value fibonacci: 55
+Current value fibonacci: 89
+Current value fibonacci: 144
+Current value fibonacci: 233
+Current value fibonacci: 377
+Current value fibonacci: 610
+Current value fibonacci: 987</code></pre>
+                    </div>
+                </div>
+            </section>
+        </article>
+        <br/>
+        <!-- Generators -->
+        <article id="generators">
+            <div class="row">
+                <div class="col">
+                    <h2>Generators</h2>
+                    <br/>
+                </div>
+            </div>
+            <!-- Generator Function, Iterator Protocol-->
+            <section id="generator-function-iterator-protocol">
+                <div class="row">
+                    <div class="col">
+                        <h4>Generator Function, Iterator Protocol</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Support for generators, a special case of Iterators containing a generator function, where the control flow can be paused and resumed, in order to produce sequence of values (either finite or infinite).</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">let fibonacci = {
+  *[Symbol.iterator]() {
+    let pre = 0,
+      cur = 1;
+    for (;;) {
+      [pre, cur] = [cur, pre + cur];
+      yield cur;
+    }
+  }
+}
+
+for (let n of fibonacci) {
+  if (n > 1000)
+    break;
+  console.log(`Current value fibonacci:`, n);
+}</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Current value fibonacci: 1
+Current value fibonacci: 2
+Current value fibonacci: 3
+Current value fibonacci: 5
+Current value fibonacci: 8
+Current value fibonacci: 13
+Current value fibonacci: 21
+Current value fibonacci: 34
+Current value fibonacci: 55
+Current value fibonacci: 89
+Current value fibonacci: 144
+Current value fibonacci: 233
+Current value fibonacci: 377
+Current value fibonacci: 610
+Current value fibonacci: 987</code></pre>
+                    </div>
+                </div>
+            </section>
+            <br/>
+            <!-- Generator Function, Direct Use-->
+            <section id="generator-function-direct-use">
+                <div class="row">
+                    <div class="col">
+                        <h4>Generator Function, Direct Use</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Support for generator functions, a special variant of functions where the control flow can be paused and resumed, in order to produce sequence of values (either finite or infinite).</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">function* range(start, end, step) {
+  while (start < end) {
+    yield start;
+    start += step;
+  }
+}
+
+for (let i of range(0, 10, 2)) {
+  console.log(`Current value range:`, i);
+}</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Current value range: 0
+Current value range: 2
+Current value range: 4
+Current value range: 6
+Current value range: 8</code></pre>
+                    </div>
+                </div>
+            </section>
+            <br/>
+            <!-- Generator Matching-->
+            <section id="generator-matching">
+                <div class="row">
+                    <div class="col">
+                        <h4>Generator Matching</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Support for generator functions, i.e., functions where the control flow can be paused and resumed, in order to produce and spread sequence of values (either finite or infinite).</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">let fibonacci = function*(numbers) {
+  let pre = 0,
+    cur = 1;
+  while (numbers-- > 0) {
+    [pre, cur] = [cur, pre + cur];
+    yield cur;
+  }
+};
+
+for (let n of fibonacci(10)) {
+  console.log(`Current value fibonacci:`, n);
+}
+
+let numbers = [...fibonacci(10)];
+console.log(`Value numbers:`, JSON.stringify(numbers));
+let [n1, n2, n3, ...others] = fibonacci(10);
+console.log(`Values n1, n2, n3, others:`, n1, n2, n3, others);</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Current value fibonacci: 1
+Current value fibonacci: 2
+Current value fibonacci: 3
+Current value fibonacci: 5
+Current value fibonacci: 8
+Current value fibonacci: 13
+Current value fibonacci: 21
+Current value fibonacci: 34
+Current value fibonacci: 55
+Current value fibonacci: 89
+Value numbers: [1,2,3,5,8,13,21,34,55,89]
+Values n1, n2, n3, others: 1 2 3 [5, 8, 13, 21, 34, 55, 89]</code></pre>
+                    </div>
+                </div>
+            </section>
+            <br/>
+            <!-- Generator Control-Flow-->
+            <section id="generator-control-flow">
+                <div class="row">
+                    <div class="col">
+                        <h4>Generator Control-Flow</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Support for generators, a special case of Iterators where the control flow can be paused and resumed, in order to support asynchronous programming in the style of "co-routines" in combination with Promises (see below). [Notice: the generic async function usually is provided by a reusable library and given here just for better understanding. See <a rel="noopener"  href="https://github.com/tj/co" target="_blank">co</a> or <a rel="noopener" href="https://github.com/petkaantonov/bluebird/blob/master/API.md#promisecoroutinegeneratorfunction-generatorfunction---function" target="_blank">Bluebird</a>'s coroutine in practice.]</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">//  generic asynchronous control-flow driver
+function async(proc, ...params) {
+  var iterator = proc(...params);
+  return new Promise((resolve, reject) => {
+    let loop = (value) => {
+      let result;
+      try {
+        result = iterator.next(value);
+      } catch (err) {
+        reject(err);
+      }
+      if (result.done)
+        resolve(result.value);
+      else if (typeof result.value === 'object' &&
+        typeof result.value.then === 'function')
+        result.value.then((value) => {
+          loop(value);
+        }, (err) => {
+          reject(err);
+        });
+      else
+        loop(result.value);
+    }
+    loop();
+  });
+}
+
+//  application-specific asynchronous builder
+function makeAsync(text, after) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => resolve(text), after);
+  });
+}
+
+//  application-specific asynchronous procedure
+async(function*(greeting) {
+  let foo = yield makeAsync('foo', 300)
+  let bar = yield makeAsync('bar', 600)
+  let baz = yield makeAsync('baz', 100)
+  return `${greeting} ${foo} ${bar} ${baz}`
+}, 'Hello').then((msg) => {
+  console.log(`Result:`, msg);
+})</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Result: Hello foo bar baz</code></pre>
+                    </div>
+                </div>
+            </section>
+            <br/>
+            <!-- Generator Methods-->
+            <section id="generator-methods">
+                <div class="row">
+                    <div class="col">
+                        <h4>Generator Methods</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Support for generator methods, i.e., methods in classes and on objects, based on generator functions.
+</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">class Clz {
+  * bar() {
+    console.log('Hello bar');
+  }
+};
+let Obj = {
+  * foo() {
+    console.log('Hello foo');
+    yield 1;
+    console.log('Bye foo');
+    yield 2;
+    return "finish!";
+  }
+};
+
+let clz = new Clz();
+console.log(`Clz bar:`, JSON.stringify(clz.bar().next()));
+
+let obj = Obj.foo();
+console.log(`Obj.foo:`, JSON.stringify(obj.next()));
+console.log(`Obj.foo:`, JSON.stringify(obj.next()));
+console.log(`Obj.foo:`, JSON.stringify(obj.next()));</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Hello bar
+Clz bar: {"done":true}
+Hello foo
+Obj.foo: {"value":1,"done":false}
+Bye foo
+Obj.foo: {"value":2,"done":false}
+Obj.foo: {"value":"finish!","done":true}</code></pre>
+                    </div>
+                </div>
+            </section>
+        </article>
+        <br/>
+        <!-- Map/Set & WeakMap/WeakSet -->
+        <article id="map-set-and-weakmap-weakset">
+            <div class="row">
+                <div class="col">
+                    <h2>Map/Set & WeakMap/WeakSet</h2>
+                    <br/>
+                </div>
+            </div>
+            <!-- Set Data-Structure-->
+            <section id="set-data-structure">
+                <div class="row">
+                    <div class="col">
+                        <h4>Set Data-Structure</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Cleaner data-structure for common algorithms based on sets.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">let s = new Set();
+s.add('hello').add('goodbye').add('hello');
+console.log(`s.size === 2:`, s.size === 2);
+console.log(`s.has("hello"):`, s.has('hello') === true);
+for (let key of s.values()) {
+  console.log(`Data s:`, key);
+}</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">s.size === 2: true
+s.has("hello"): true
+Data s: hello
+Data s: goodbye</code></pre>
+                    </div>
+                </div>
+            </section>
+            <br/>
+            <!-- Map Data-Structure-->
+            <section id="map-data-structure">
+                <div class="row">
+                    <div class="col">
+                        <h4>Map Data-Structure</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Cleaner data-structure for common algorithms based on maps.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">let m = new Map();
+m.set('hello', 42);
+m.set(s, 34);
+console.log(`m.get(s) === 34:`, m.get(s) === 34);
+console.log(`m.size === 2:`, m.size === 2);
+for (let [key, val] of m.entries()) {
+  console.log(`key:`, key, ` - val:`, val);
+}</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">m.get(s) === 34: true
+m.size === 2: true
+key: hello  - val: 42
+key: Set(2) {"hello", "goodbye"}  - val: 34</code></pre>
+                    </div>
+                </div>
+            </section>
+            <br/>
+            <!-- Weak-Link Data-Structures-->
+            <section id="weak-link-data-structures">
+                <div class="row">
+                    <div class="col">
+                        <h4>Weak-Link Data-Structures</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Memory-leak-free Object-key’d side-by-side data-structures.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">let isMarked = new WeakSet();
+let attachedData = new WeakMap();
+
+class Node {
+  constructor(id) {
+    this.id = id;
+  }
+  mark() {
+    isMarked.add(this);
+  }
+  unmark() {
+    isMarked.delete(this);
+  }
+  marked() {
+    return isMarked.has(this);
+  }
+  set data(data) {
+    attachedData.set(this, data);
+  }
+  get data() {
+    return attachedData.get(this);
+  }
+}
+
+let foo = new Node('foo');
+
+console.log(`Value foo:`, JSON.stringify(foo));
+foo.mark();
+foo.data = "bar";
+console.log(`foo.data === "data":`, foo.data === 'bar');
+console.log(`Value foo:`, JSON.stringify(foo));
+console.log(`foo isMarked:`,isMarked.has(foo));
+console.log(`attached data foo:`, attachedData.has(foo));
+foo = null /* remove only reference to foo */
+console.log(`attached data foo:`, attachedData.has(foo));
+console.log(`foo isMarked:`, isMarked.has(foo));</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Value foo: {"id":"foo"}
+foo.data === "data": true
+Value foo: {"id":"foo"}
+foo isMarked: true
+attached data foo: true
+attached data foo: false
+foo isMarked: false</code></pre>
+                    </div>
+                </div>
+            </section>
+        </article>
+        <br/>
+        <!-- Typed Arrays -->
+        <article id="typed-arrays">
+            <div class="row">
+                <div class="col">
+                    <h2>Typed Arrays</h2>
+                    <br/>
+                </div>
+            </div>
+            <!-- Typed Arrays-->
+            <section id="typed-arrays-01">
+                <div class="row">
+                    <div class="col">
+                        <h4>Typed Arrays</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Support for arbitrary byte-based data structures to implement network protocols, cryptography algorithms, file format manipulations, etc.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">//  ES6 class equivalent to the following C structure:
+//  struct Example { unsigned long id; char username[16]; float amountDue; };
+class Example {
+  constructor(buffer = new ArrayBuffer(24)) {
+    this.buffer = buffer;
+  }
+  set buffer(buffer) {
+    this._buffer = buffer;
+    this._id = new Uint32Array(this._buffer, 0, 1);
+    this._username = new Uint8Array(this._buffer, 4, 16);
+    this._amountDue = new Float32Array(this._buffer, 20, 1);
+  }
+  get buffer() {
+    return this._buffer;
+  }
+  set id(v) {
+    this._id[0] = v;
+  }
+  get id() {
+    return this._id[0];
+  }
+  set username(v) {
+    this._username[0] = v;
+  }
+  get username() {
+    return this._username[0];
+  }
+  set amountDue(v) {
+    this._amountDue[0] = v;
+  }
+  get amountDue() {
+    return this._amountDue[0];
+  }
+}
+
+let example = new Example();
+example.id = 7;
+example.username = "John Doe";
+example.amountDue = 42.0;
+
+console.log(`Value example.id:`, example.id);
+console.log(`Value example.username:`, example.username);
+console.log(`Value example.amountDue:`, example.amountDue);</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Value example.id: 7
+Value example.username: 0
+Value example.amountDue: 42</code></pre>
+                    </div>
+                </div>
+            </section>
+        </article>
+        <br/>
+        <!-- New Built-In Methods -->
+        <article id="new-built-in-methods">
+            <div class="row">
+                <div class="col">
+                    <h2>New Built-In Methods</h2>
+                    <br/>
+                </div>
+            </div>
+            <!-- Object Property Assignment-->
+            <section id="object-property-assignment">
+                <div class="row">
+                    <div class="col">
+                        <h4>Object Property Assignment</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>New function for assigning enumerable properties of one or more source objects onto a destination object.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">var dst = {
+  quux: 0
+};
+var src1 = {
+  foo: 1,
+  bar: 2
+};
+var src2 = {
+  foo: 3,
+  baz: 4
+};
+Object.assign(dst, src1, src2);
+console.log(`Value dst.quux:`, dst.quux);
+console.log(`Value dst.foo:`, dst.foo);
+console.log(`Value dst.bar:`, dst.bar);
+console.log(`Value dst.baz:`, dst.baz);</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Value dst.quux: 0
+Value dst.foo: 3
+Value dst.bar: 2
+Value dst.baz: 4</code></pre>
+                    </div>
+                </div>
+            </section>
+            <br/>
+            <!-- Array Element Finding-->
+            <section id="array-element-finding">
+                <div class="row">
+                    <div class="col">
+                        <h4>Array Element Finding</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>New function for finding an element in an array.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">let find = [1, 3, 4, 2].find(x => x > 3);
+console.log(`Find value x > 3:`, find);</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Find value x > 3: 4</code></pre>
+                    </div>
+                </div>
+            </section>
+            <br/>
+            <!-- String Repeating-->
+            <section id="string-repeating">
+                <div class="row">
+                    <div class="col">
+                        <h4>String Repeating</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>New string repeating functionality.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">let repeat1 = ' '.repeat(4 * 2);
+let repeat2 = 'foo'.repeat(3);
+console.log(`' '.repeat(4 * 2):`, repeat1);
+console.log(`'foo'.repeat(3):`, repeat2);</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">' '.repeat(4 * 2):
+new_built_in_methods.js:44 'foo'.repeat(3): foofoofoo</code></pre>
+                    </div>
+                </div>
+            </section>
+            <br/>
+            <!-- String Searching-->
+            <section id="string-searching">
+                <div class="row">
+                    <div class="col">
+                        <h4>String Searching</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>New specific string functions to search for a sub-string.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">console.log(`'hello'.startsWith('ello', 1):`, 'hello'.startsWith('ello', 1));
+console.log(`'hello'.endsWith('hell', 4):`, 'hello'.endsWith('hell', 4));
+console.log(`'hello'.includes('ell'):`, 'hello'.includes('ell'));
+console.log(`'hello'.includes('ell', 1):`, 'hello'.includes('ell', 1));
+console.log(`'hello'.includes('ell', 2):`, 'hello'.includes('ell', 2));</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">'hello'.startsWith('ello', 1): true
+'hello'.endsWith('hell', 4): true
+'hello'.includes('ell'): true
+'hello'.includes('ell', 1): true
+'hello'.includes('ell', 2): false</code></pre>
+                    </div>
+                </div>
+            </section>
+            <br/>
+            <!-- Number Type Checking-->
+            <section id="number-type-checking">
+                <div class="row">
+                    <div class="col">
+                        <h4>Number Type Checking</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>New functions for checking for non-numbers and finite numbers.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">console.log(`Number.isNaN(42):`, Number.isNaN(42));
+console.log(`Number.isNaN(NaN):`, Number.isNaN(NaN));
+console.log(`Number.isFinite(Infinity):`, Number.isFinite(Infinity));
+console.log(`Number.isFinite(-Infinity):`, Number.isFinite(-Infinity));
+console.log(`Number.isFinite(NaN):`, Number.isFinite(NaN));
+console.log(`Number.isFinite(123):`, Number.isFinite(123));</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Number.isNaN(42): false
+Number.isNaN(NaN): true
+Number.isFinite(Infinity): false
+Number.isFinite(-Infinity): false
+Number.isFinite(NaN): false
+Number.isFinite(123): true</code></pre>
+                    </div>
+                </div>
+            </section>
+            <br/>
+            <!-- Number Safety Checking-->
+            <section id="number-safety-checking">
+                <div class="row">
+                    <div class="col">
+                        <h4>Number Safety Checking</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Checking whether an integer number is in the safe range, i.e., it is correctly represented by JavaScript (where all numbers, including integer numbers, are technically floating point number).</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">let isSafety1 = Number.isSafeInteger(42);
+let isSafety2 = Number.isSafeInteger(9007199254740992);
+console.log(`Number.isSafeInteger(42):`, isSafety1);
+console.log(`Number.isSafeInteger(9007199254740992):`, isSafety2);</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Number.isSafeInteger(42): true
+Number.isSafeInteger(9007199254740992): false</code></pre>
+                    </div>
+                </div>
+            </section>
+            <br/>
+            <!-- Number Comparison-->
+            <section id="number-comparison">
+                <div class="row">
+                    <div class="col">
+                        <h4>Number Comparison</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Availability of a standard Epsilon value for more precise comparison of floating point numbers.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">let num_comp1 = (0.1 + 0.2 === 0.3);
+let num_comp2 = (Math.abs((0.1 + 0.2) - 0.3) < Number.EPSILON);
+console.log(`0.1 + 0.2 === 0.3:`, num_comp1);
+console.log(`Math.abs((0.1 + 0.2) - 0.3) < Number.EPSILON:`, num_comp2);</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">0.1 + 0.2 === 0.3: false
+Math.abs((0.1 + 0.2) - 0.3) < Number.EPSILON: true</code></pre>
+                    </div>
+                </div>
+            </section>
+            <br/>
+            <!-- Number Truncation-->
+            <section id="number-truncation">
+                <div class="row">
+                    <div class="col">
+                        <h4>Number Truncation</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Truncate a floating point number to its integral part, completely dropping the fractional part.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">console.log(`Math.trunc(42.7):`, Math.trunc(42.7));
+console.log(`Math.trunc( 0.1):`, Math.trunc(0.1));
+console.log(`Math.trunc(-0.1):`, Math.trunc(-0.1));</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Math.trunc(42.7): 42
+Math.trunc( 0.1): 0
+Math.trunc(-0.1): -0</code></pre>
+                    </div>
+                </div>
+            </section>
+            <br/>
+            <!-- Number Sign Determination-->
+            <section id="number-sign-determination">
+                <div class="row">
+                    <div class="col">
+                        <h4>Number Sign Determination</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Determine the sign of a number, including special cases of signed zero and non-number.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">console.log(`Math.sign(7):`, Math.sign(7));
+console.log(`Math.sign(0):`, Math.sign(0));
+console.log(`Math.sign(-0):`, Math.sign(-0));
+console.log(`Math.sign(-7):`, Math.sign(-7));
+console.log(`Math.sign(NaN):`, Math.sign(NaN));</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Math.sign(7): 1
+Math.sign(0): 0
+Math.sign(-0): -0
+Math.sign(-7): -1
+Math.sign(NaN): NaN</code></pre>
+                    </div>
+                </div>
+            </section>
+        </article>
+        <br/>
+        <!-- Promises -->
+        <article id="promises">
+            <div class="row">
+                <div class="col">
+                    <h2>Promises</h2>
+                    <br/>
+                </div>
+            </div>
+            <!-- Promise Usage-->
+            <section id="promise-usage">
+                <div class="row">
+                    <div class="col">
+                        <h4>Promise Usage</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>First class representation of a value that may be made asynchronously and be available in the future.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">function msgAfterTimeout(msg, who, timeout) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => resolve(`${msg} Hello ${who}!`), timeout);
+  });
+}
+
+msgAfterTimeout('', 'Foo', 100).then((msg) =>
+  msgAfterTimeout(msg, 'Bar', 200)
+).then((msg) => {
+  console.log(`Response promise after 300ms:`, msg);
+});</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Response promise after 300ms:  Hello Foo! Hello Bar!</code></pre>
+                    </div>
+                </div>
+            </section>
+            <br/>
+            <!-- Promise Combination-->
+            <section id="promise-combination">
+                <div class="row">
+                    <div class="col">
+                        <h4>Promise Combination</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Combine one or more promises into new promises without having to take care of ordering of the underlying asynchronous operations yourself.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">let fetchPromised = (name, timeout) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => resolve(`Hi ${name}`), timeout);
+  });
+}
+
+Promise.all([
+  fetchPromised('Foo', 1000),
+  fetchPromised('Bar', 500),
+  fetchPromised('Baz', 200)
+]).then((data) => {
+  let [foo, bar, baz] = data;
+  console.log(`Response all promises: foo=${foo} bar=${bar} baz=${baz}`);
+}, (err) => {
+  console.log(`Error: ${err}`);
+});</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Response all promises: foo=Hi Foo bar=Hi Bar baz=Hi Baz</code></pre>
+                    </div>
+                </div>
+            </section>
+        </article>
+        <br/>
+        <!-- Meta-Programming -->
+        <article id="meta-programming">
+            <div class="row">
+                <div class="col">
+                    <h2>Meta-Programming</h2>
+                    <br/>
+                </div>
+            </div>
+            <!-- Proxying-->
+            <section id="proxying">
+                <div class="row">
+                    <div class="col">
+                        <h4>Proxying</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Hooking into runtime-level object meta-operations.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">let target = {
+  foo: 'Welcome, foo'
+};
+let proxy = new Proxy(target, {
+  get(receiver, name) {
+        return name in receiver ? receiver[name] : `Hello, ${name}`;
+  }
+});
+console.log(`proxy.foo:`, proxy.foo);
+console.log(`proxy.world:`, proxy.world);</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">proxy.foo: Welcome, foo
+proxy.world: Hello, world</code></pre>
+                    </div>
+                </div>
+            </section>
+            <br/>
+            <!-- Reflection-->
+            <section id="reflection">
+                <div class="row">
+                    <div class="col">
+                        <h4>Reflection</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Make calls corresponding to the object meta-operations.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">let obj = {
+  a: 1
+};
+Object.defineProperty(obj, "b", {
+  value: 2
+});
+obj[Symbol("c")] = 3;
+console.log(`Reflect.ownKeys(obj):`, Reflect.ownKeys(obj));</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Reflect.ownKeys(obj): ["a", "b", Symbol(c)]</code></pre>
+                    </div>
+                </div>
+            </section>
+        </article>
+        <br/>
+        <!-- Internationalization & Localization -->
+        <article id="internationalization-and-localization">
+            <div class="row">
+                <div class="col">
+                    <h2>Internationalization & Localization</h2>
+                    <br/>
+                </div>
+            </div>
+            <!-- Collation-->
+            <section id="collation">
+                <div class="row">
+                    <div class="col">
+                        <h4>Collation</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Sorting a set of strings and searching within a set of strings. Collation is parameterized by locale and aware of Unicode.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">// in German,  'ä' sorts with 'a'
+// in Swedish, 'ä' sorts after 'z'
+let list = ['ä', 'a', 'z'];
+let l10nDE = new Intl.Collator('de');
+let l10nSV = new Intl.Collator('sv');
+console.log(`l10nDE.compare('ä', 'z'):`, l10nDE.compare('ä', 'z'));
+console.log(`l10nSV.compare('ä', 'z'):`, l10nSV.compare('ä', 'z'));
+console.log(`list.sort(l10nDE.compare):`, list.sort(l10nDE.compare));
+console.log(`list.sort(l10nSV.compare):`, list.sort(l10nSV.compare));</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">l10nDE.compare('ä', 'z'): -1
+l10nSV.compare('ä', 'z'): 1
+list.sort(l10nDE.compare): ["a", "ä", "z"]
+list.sort(l10nSV.compare): ["a", "z", "ä"]</code></pre>
+                    </div>
+                </div>
+            </section>
+            <br/>
+            <!-- Number Formatting-->
+            <section id="number-formatting">
+                <div class="row">
+                    <div class="col">
+                        <h4>Number Formatting</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Format numbers with digit grouping and localized separators.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">let l10nEN = new Intl.NumberFormat('en-US');
+let l10nDE = new Intl.NumberFormat('de-DE');
+console.log(`Compare number format EN:`, l10nEN.format(1234567.89) === '1,234,567.89');
+console.log(`Compare number format DE:`, l10nDE.format(1234567.89) === '1.234.567,89');</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Compare number format EN: true
+Compare number format DE: true</code></pre>
+                    </div>
+                </div>
+            </section>
+            <br/>
+            <!-- Currency Formatting-->
+            <section id="currency-formatting">
+                <div class="row">
+                    <div class="col">
+                        <h4>Currency Formatting</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Format numbers with digit grouping, localized separators and attached currency symbol.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">let l10nUSD = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD'
+});
+let l10nGBP = new Intl.NumberFormat('en-GB', {
+  style: 'currency',
+  currency: 'GBP'
+});
+let l10nEUR = new Intl.NumberFormat('de-DE', {
+  style: 'currency',
+  currency: 'EUR'
+});
+console.log(`Compare currency format USD:`, l10nUSD.format(100200300.40) === '$100,200,300.40');
+console.log(`Compare currency format GBP:`, l10nGBP.format(100200300.40) === '£100,200,300.40');
+console.log(`Compare currency format EUR:`, l10nEUR.format(100200300.40) === '100.200.300,40 €');</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Compare currency format USD: true
+Compare currency format GBP: true
+Compare currency format EUR: true</code></pre>
+                    </div>
+                </div>
+            </section>
+            <br/>
+            <!-- Date/Time Formatting-->
+            <section id="date-time-formatting">
+                <div class="row">
+                    <div class="col">
+                        <h4>Date/Time Formatting</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Format date/time with localized ordering and separators.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <h6>Code</h6>
+                        <pre><code class="language-javascript">let l10nEN = new Intl.DateTimeFormat('en-US');
+let l10nDE = new Intl.DateTimeFormat('de-DE');
+console.log(`Compare date format EN:`, l10nEN.format(new Date('2017-01-02')) === '1/2/2017');
+console.log(`Compare date format DE:`, l10nDE.format(new Date('2017-01-02')) === '2.1.2017');</code></pre>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h6>Result</h6>
+                        <pre><code class="language-javascript">Compare date format EN: true
+Compare date format DE: true</code></pre>
+                    </div>
+                </div>
+            </section>
+        </article>
+        <br/>
+
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted text-center mb-0">Made with <i class="fa fa-heart text-danger" aria-hidden="true"></i> by Khampaserth XAYYAVONG(MLFTS).</p>
+      </div>
+    </footer>
+
+    <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="node_modules/tether/dist/js/tether.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Prism highlight code -->
+    <link rel="stylesheet" href="node_modules/prismjs/themes/prism.css">
+    <script src="node_modules/prismjs/prism.js"></script>
+
+    <script>
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function() {
+            scrollFunction()
+        };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                document.getElementById("goTop").style.display = "block";
+            } else {
+                document.getElementById("goTop").style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
+
+</body>
+
+</html>
