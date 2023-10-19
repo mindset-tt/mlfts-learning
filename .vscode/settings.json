@@ -1,11 +1,13 @@
 {
-    "liveServer.settings.port": 5501,
-    "liveServer.settings.root": "/",
-    "liveServer.settings.CustomBrowser": "microsoft-edge",
-    "liveServer.settings.https": {
-      "enable": true,
-      "cert": "D:\\mlfts-learning\\localhost.pem",
-      "key": "D:\\mlfts-learning\\localhost.key",
-      "passphrase": "1234"
-    }
+  "liveServer.settings.port": 5501,
+  "liveServer.settings.root": "/",
+  "liveServer.settings.CustomBrowser": "microsoft-edge",
+  "liveServer.settings.https": {
+    "enable": true,
+    "cert": "D:\\mlfts-learning\\localhost.pem",
+    "key": "D:\\mlfts-learning\\localhost.key",
+    "passphrase": "1234"
   }
+}
+
+
