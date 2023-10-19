@@ -1,0 +1,75 @@
+body{
+  background-image: url('selva.jpg');
+  background-size: cover;
+  position: absolute;
+  left: 13%;
+  color: black;
+
+}
+
+h1{
+  font-size: 50px;
+  color: black;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 20px;
+  border-style: solid;
+  border-color: black;
+  border-width: 5px;
+}
+
+button{
+  color: green;
+  font-size: 23px;
+  border-style: solid;
+  border-color: black;
+  border-width: 5px;
+  border-radius: 20px;
+}
+
+.imagenes{
+  text-align: center;
+  font-size: 25px;
+  background-color: rgba(255, 255, 0, 0.4);
+}
+
+#img2{
+  margin-left:200px;
+}
+
+#imagesrc2{
+  border-style: solid;
+  border-color: black;
+  border-width: 10px;
+}
+#imagesrc{
+  border-style: solid;
+  border-color: black;
+  border-width: 7px;
+}
+
+b{
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
+}
+
+h4{
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
+  margin-left: 150px;
+  margin-right: 150px;
+}
+
+#botones{
+  text-align: center;
+  padding-top: 10px;
+}
+
+#deslizadores{
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  margin-left: 200px;
+  margin-right:200px;
+  border-radius: 20px;
+  font-size: 20px;
+}

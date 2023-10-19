@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      var arr = [
+	  "Hi",
+	  "Hello",
+	  "Bonjour"
+      ];
+
+      // append new value to the array
+      arr.push("Hola");
+      alert(arr);
+
+      var arr2 = ["Hi", "Hello", "Bonjour", "Hola"];
+
+      // append multiple values to the array
+      arr2.push("Salut", "Hey");
+      alert(arr2);
+
+      var arr3 = [
+	  "apple",
+	  "banana",
+	  "cherry"
+      ];
+
+      // Do not forget to assign the result as, unlike push, concat does not change the existing array
+      arr3 = arr3.concat([
+	  "dragonfruit",
+	  "elderberry",
+	  "fig"
+      ]);
+      alert(arr3);
+
+      var arr4 = [1, 2, 3];
+      arr4 = arr4 + [] + [4, 5, 6];
+      alert(arr4);
+      
+    </script>
+  </head>
+<body>
+
+<h1>For in Javascript</h1>
+<p>My First Paragraph</p>
+<p id="demo"></p>
+
+</body>
+</html>

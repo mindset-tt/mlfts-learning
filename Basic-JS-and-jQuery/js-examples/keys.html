@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      var arr = ['a', 'b', 'c'];
+      alert(Object.keys(arr)); // console: ['0', '1', '2']
+
+      // arreglo como objeto
+      var obj = { 0: 'a', 1: 'b', 2: 'c' };
+      alert(Object.keys(obj)); // console: ['0', '1', '2']
+
+      // arreglo como objeto con nombres ordenados aleatoriamente
+      var an_obj = { 100: 'a', 2: 'b', 7: 'c' };
+      alert(Object.keys(an_obj)); // console: ['2', '7', '100']
+
+      // getFoo es una propiedad no enumerable
+      var my_obj = Object.create({}, { getFoo: { value: function() { return this.foo; } } });
+      my_obj.foo = 1;
+
+      alert(Object.keys(my_obj)); // console: ['foo']
+    </script>
+  </head>
+<body>
+
+<h1>For in Javascript</h1>
+<p>My First Paragraph</p>
+<p id="demo"></p>
+
+</body>
+</html>

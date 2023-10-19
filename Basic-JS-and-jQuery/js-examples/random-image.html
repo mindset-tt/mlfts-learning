@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <p>
+      <img id="image" src="img/1.jpg" alt="image" />
+    </p>
+
+    <script>
+      var description = [
+      "img/2.jpg",
+      "img/3.jpg",
+      "img/4.jpg",
+      "img/5.jpg"
+      ];
+      var size = description.length
+      alert(size)
+      var x = Math.floor(size*Math.random())
+      alert(x)
+      alert(description[x])
+      document.getElementById('image').src=description[x];
+    </script>
+
+
+  </body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      var txt = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      var sln = txt.length;
+      alert(txt + ": " + sln);
+
+      var str = "Please locate where 'locate' occurs!";
+      var pos = str.indexOf("locate");
+      alert(str + ":  " + pos);
+      
+      var str = "Please locate where 'locate' occurs!";
+      var pos = str.lastIndexOf("locate");
+      alert(str + ": " + pos);
+
+      var str = "Please locate where 'locate' occurs!";
+      var pos = str.search("locate");
+      alert(str + ": " + pos);
+      
+      //Another way concatenating strings
+      alert(str.concat(', ', pos));
+      
+    </script>
+  </head>
+
+  <body>
+    <h1>String example</h1>
+    <p id="demo"></p>
+
+  </body>
+</html>

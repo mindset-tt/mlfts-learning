@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      var sales = 'Toyota';
+
+      function carTypes(name) {
+	  if (name === 'Honda') {
+	      return name;
+	  } else {
+	      return "Lo sentimos, no vendemos " + name + ".";
+	  }
+      }
+
+      var car = { myCar: 'Saturn', getCar: carTypes('Honda'), special: sales };
+
+      alert(car.myCar);   // Saturn
+      alert(car.getCar);  // Honda
+      alert(car.special); // Toyota
+    </script>
+  </head>
+<body>
+
+<h1>For in Javascript</h1>
+<p>My First Paragraph</p>
+<p id="demo"></p>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+body{
+  background-image: url('tenor.gif');
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+}
+
+#display{
+  background-color: rgba(255, 0, 0, 0.5);
+  padding: 15px;
+  border-radius: 5px;
+  width: 400px;
+}
+
+button{
+  border-width: medium;
+  border-color: Navy;
+  border: solid;
+  border-radius: 10px;
+  width: 75px;
+  padding: 10px;
+  margin: 2px;
+  background-color: rgba(255, 255, 255, 0.5);
+  font-weight: bold;
+  font-size: 20px;
+}
+
+button:hover{
+  background-color: red;
+}
+
+.Calculadora{
+  border-width: medium;
+  border-color: Navy;
+  border: solid;
+  border-radius: 10px;
+  width: 430px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  margin: auto;
+  font-weight: bold;
+  font-size: 20px;
+}

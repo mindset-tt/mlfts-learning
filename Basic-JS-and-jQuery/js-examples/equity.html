@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      var num = 0;
+      var obj = new String("0");
+      var str = "0";
+      var b = false;
+
+      function numnum() {
+	  var num = 0;
+	  return alert(num === num); // true
+      }
+
+      function objobj() {
+	  var obj = new String("0");	  
+	  alert(obj === obj); // true
+      }
+
+      function strstr() {
+	  var str = "0";
+	  alert(str === str); // true
+      }
+
+      function numobj() {
+	  var num = 0;
+	  var obj = new String("0");
+	  alert(num === obj); // false
+      }
+      
+      function numstr() {
+	  var num = 0;
+	  var str = "0";
+	  alert(num === str); // false
+      }
+
+      function objstr() {
+	  var obj = new String("0");	  
+	  var str = "0";
+	  alert(obj === str); // false
+      }
+
+      function nullundefined() {
+	  alert(null === undefined); // false	  
+      }
+      
+      function objnull() {
+	  var obj = new String("0");	  
+	  alert(obj === null); // false	  
+      }
+      
+      function objundefined() {
+	  var obj = new String("0");	  
+	  alert(obj === undefined); // false	  
+      }
+
+    </script>
+
+  </head>
+  <body>
+
+    <p>Checking falsehood and truehood in the equity:</p>
+
+    <button onclick="numnum()">Try numnum</button>
+
+    <button onclick="objobj()">Try objobj</button>
+
+    <button onclick="strstr()">Try strstr</button>
+
+    <button onclick="numobj()">Try numobj</button>
+
+    <button onclick="numstr()">Try numstr</button>
+
+    <button onclick="objstr()">Try objstr</button>
+
+    <button onclick="nullundefined()">Try nullundefined</button>
+
+    <button onclick="objnull()">Try objnull</button>
+
+    <button onclick="objundefined()">Try objnull</button>    
+
+    <p id="demo"></p>
+
+</body>
+</html>

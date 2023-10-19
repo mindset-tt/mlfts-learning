@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      let iterable = new Map([["a", 1], ["b", 2], ["c", 3]]);
+
+      for (let entry of iterable) {
+	  alert(entry);
+      }
+// ['a', 1]
+// ['b', 2]
+// ['c', 3]
+
+      for (let [key, value] of iterable) {
+	  alert(value);
+      }
+    </script>
+  </head>
+<body>
+
+<h1>For in Javascript</h1>
+<p>My First Paragraph</p>
+<p id="demo"></p>
+
+</body>
+</html>

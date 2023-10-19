@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Practica 5: Filtros</title>
+    <link rel="stylesheet" href="filtro.css">
+    <script src="filtro.js" defer></script>
+  </head>
+  <body>
+    <h1>Procesado de imagenes de Jurassic World</h1>
+    <div class="imagenes">
+      <b id="img1">Imagen 1</b>
+      <b id="img2">Imagen 2</b>
+      <br>
+      <img src="dino1.jpeg" id="imagesrc">
+      <img src="dino2.jpg" id="imagesrc2">
+      <br>
+      <h4 id="manipulada">Imagen Manipulada</h4>
+      <canvas id="canvas"></canvas>
+      <br>
+      <br>
+      <button id='foto1'>IMAGEN1</button>
+      <button id='foto2'>IMAGEN2</button>
+      <br>
+      <br>
+    </div>
+    <div id="botones">
+      <button id="grises">GRISES</button>
+      <button id="colores">COLORES</button>
+      <button id="negativo">NEGATIVO</button>
+      <button id ="reflejo">REFLEJO HORIZONTAL</button>
+      <button id="abajo">REFLEJO ABAJO</button>
+    </div>
+      <br>
+    <div id="deslizadores">
+      <b >Rojo:</b>
+      <input type="range" id="rojo" min="0" max="255" value="255"/>
+      <b id="value_r">00</b>
+      <br>
+      <b>Verde:</b>
+      <input type="range" id="verde" min="0" max="255" value="255"/>
+      <b id="value_g">00</b>
+      <br>
+      <b>Azul:</b>
+      <input type="range" id="azul" min="0" max="255" value="255"/>
+      <b id="value_b">00</b>
+    </div>
+  </body>
+</html>

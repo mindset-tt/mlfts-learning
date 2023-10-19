@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      var arr1 = ['a', 'b', 'c'];
+      var arr2 = [1, 2, 3];
+      var arr3 = arr1.concat(arr2);
+      alert(arr3);
+      size = arr3.length;
+      alert(size);
+      first = arr3[0];
+      alert(first);
+      last = arr3[arr3.length -1];
+      alert(last);
+      var fruits = ["Banana", "Orange", "Apple", "Mango"];
+      alert(fruits.pop());
+      alert(fruits.push("Kiwi"));
+      alert(fruits[fruits.length - 1]);
+      fruits.unshift('Fresa');
+      alert(fruits);
+      fruits.shift('Fresa');
+      alert(fruits);
+      var pos = 1;
+      var numElementos = 2;
+      var arr4 = fruits.splice(pos, numElementos);
+      alert(arr4);
+      var fruits = ["Banana", "Orange", "Lemon", "Apple", "Mango"];
+      // fruits without the first element
+      var citrus = fruits.slice(1);
+      alert(citrus);
+      var set = fruits.slice(2);
+      alert(set);
+    </script>
+  </head>
+<body>
+
+<h1>For in Javascript</h1>
+<p>My First Paragraph</p>
+<p id="demo"></p>
+
+</body>
+</html>

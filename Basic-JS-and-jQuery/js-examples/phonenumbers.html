@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>My First Web Page</h1>
+<p>My First Paragraph</p>
+
+<p id="demo"></p>
+
+<script>
+function validate(phone) {
+  var regex = /^\+(?:[0-9] ?){6,14}[0-9]$/;
+
+  if (regex.test(phone)) {
+    alert("Valid international phone number");
+  } else {
+    alert("Invalid international phone number");
+  }
+
+}
+
+document.getElementById("demo").innerHTML = validate(649033040);
+</script>
+
+</body>
+</html>

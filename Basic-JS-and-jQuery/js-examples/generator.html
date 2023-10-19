@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      function* idMaker() {
+	    var index = 0;
+	    while(true)
+	        yield index++;
+      }
+
+      var gen = idMaker(); // "Generator { }"
+
+      alert(gen.next().value); // 0
+      alert(gen.next().value); // 1
+      alert(gen.next().value); // 2
+
+      // while(true)
+      // 	  alert(gen.next().value);
+    </script>
+  </head>
+<body>
+
+<h1>Generator in Javascript</h1>
+<p>My First Paragraph</p>
+<p id="demo"></p>
+
+</body>
+</html>

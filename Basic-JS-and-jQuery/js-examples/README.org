@@ -1,0 +1,8 @@
+You can learn javascript in very good places such as:
++ [[https://developer.mozilla.org/en-US/docs/Web/Javascript][Mozilla]]
++ [[https://www.codecademy.com/catalog/language/javascript][Code Academy]]
++ [[https://www.w3schools.com/js/default.asp][W3schools]]
+
+And read about the JavaScript standard in [[https://tc39.es/ecma262/][Ecma]].
+  
+This repository is only for funny or academic examples with javascript

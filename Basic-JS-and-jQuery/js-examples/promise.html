@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      alert("Wait 10 seconds");
+      let myFirstPromise = new Promise((resolve, reject) => {
+  // Llamamos a resolve(...) cuando lo que estábamos haciendo de forma 
+  // asíncrona fue exitoso, y reject(...) cuando falló.
+  // En este ejemplo, usamos setTimeout(...) para simular código asíncrono.
+  // En realidad, probablemente usará algo como XHR o una API HTML5.
+	  setTimeout( function() {
+	      resolve(alert("Success!"))  // ¡Hurra! ¡Todo salió bien!
+	  }, 10000)
+      });
+      
+      // n = 0;    
+      // for (var i = 0; i < 9; i++) {
+      // 	  n += i;
+      // 	  alert(n);
+      // }
+    </script>
+  </head>
+<body>
+
+<h1>Promise in Javascript</h1>
+<p>My First Paragraph</p>
+<p id="demo"></p>
+
+</body>
+</html>

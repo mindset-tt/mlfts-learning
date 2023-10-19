@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>My First Web Page</h1>
+<p>My First Paragraph</p>
+
+<p id="demo"></p>
+
+<script>
+function htmlFromPlainText(subject) {
+	// Step 1
+	subject = subject.replace(/\r\n?|\n/g, "<br>");
+	// Step 2
+	subject = "<p>" + subject + "</p>";
+	return subject;
+}
+
+// htmlFromPlainText("Test.");
+// htmlFromPlainText("Test.\n");
+// htmlFromPlainText("Test.\n\n");
+// htmlFromPlainText("Test1.\nTest2.");
+// htmlFromPlainText("Test1.\n\nTest2.");
+
+document.getElementById("demo").innerHTML = htmlFromPlainText("5 > 4 \n It's True!.");
+</script>
+
+</body>
+</html>

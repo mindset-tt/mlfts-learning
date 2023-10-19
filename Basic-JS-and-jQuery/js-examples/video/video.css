@@ -1,0 +1,47 @@
+body{
+  background-image: url('https://github.com/anapgh/Fuentes/raw/master/Construcci%C3%B3n/lab.jpg');
+}
+
+h1{
+  font-size: 50px;
+  color: white;
+  text-align: center;
+}
+
+#display{
+  position:relative;
+  left: 25%;
+  top: 20%;
+}
+
+video, img{
+  padding-top: 10px;
+  position:relative;
+  top: 20%;
+  border-style: solid;
+  border-color: white;
+  border-width: 5px;
+  border-radius: 10px;
+}
+
+button{
+  position:relative;
+  left: 9%;
+  top: 20%;
+  margin-right: 250px;
+  margin-bottom: 10px;
+  font-size: 15px;
+  border-style: solid;
+  border-color: black;
+  border-width: 5px;
+  border-radius: 20px;
+}
+
+#funciones{
+  text-align: center;
+  padding-top: 10px;
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  padding-top: 10px;
+}

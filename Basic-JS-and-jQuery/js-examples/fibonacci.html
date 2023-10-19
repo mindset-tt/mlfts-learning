@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      function* fibonacci() { // una función generador
+	  let [prev, curr] = [0, 1];
+	  while (true) {
+	      [prev, curr] = [curr, prev + curr];
+	      yield curr;
+	  }
+      }
+
+      for (let n of fibonacci()) {
+	  alert(n);
+	  // interrumpir la secuencia en 1000
+	  if (n >= 1000) {
+	      break;
+	  }
+      }
+    </script>
+  </head>
+<body>
+
+<h1>For in Javascript</h1>
+<p>My First Paragraph</p>
+<p id="demo"></p>
+
+</body>
+</html>

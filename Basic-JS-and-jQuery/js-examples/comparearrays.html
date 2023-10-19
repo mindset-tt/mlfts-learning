@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      alert("En javascript debemos usar funciones auxiliares para comparar arrays");
+
+      function arrayEqualTo(a, b) {
+	  return JSON.stringify(a)==JSON.stringify(b);
+      }
+
+      alert(arrayEqualTo([1, 2, 3], [1, 2, 3]));
+      alert(arrayEqualTo(["1", "2", "3"], [1, 2, 3]));
+      
+      function arrayEqualTo2(a, b) {
+	  if(a.length!=b.length)
+	      return "False";
+	  else {
+	      // Comparing each element of array
+	      for(var i=0;i<a.length;i++)
+		  if(a[i]!=b[i])
+		      return "False";
+	              return "True";
+	  }
+      }
+
+      alert(arrayEqualTo2([1, 2, 3], [1, 2, 3]));
+      alert(arrayEqualTo2(["a", "b", "c"], [1, 2, 3]));
+      alert(arrayEqualTo2(["a"], [1, 2, 3]));             
+
+      
+    </script>
+  </head>
+<body>
+
+<h1>For in Javascript</h1>
+<p>My First Paragraph</p>
+<p id="demo"></p>
+
+</body>
+</html>

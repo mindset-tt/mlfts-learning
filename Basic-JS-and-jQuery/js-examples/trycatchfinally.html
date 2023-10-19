@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      function myFunction() {      
+	  try {
+	      try {
+		  throw new Error('oops');
+	      }
+	      catch (ex) {
+		  alert('inner', ex.message);
+	      }
+	      finally {
+		  alert('finally');
+	      }
+	  }
+	  catch (ex) {
+	      alert('outer', ex.message);
+	  }
+      }
+    </script>
+
+  </head>
+  <body>
+
+<p>Click the button to execute try catch code:</p>
+
+<button onclick="myFunction()">Try it</button>
+
+<p id="demo"></p>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      let arr = [3, 5, 7];
+      arr.foo = "hola";
+
+      for (let i in arr) {
+	  alert(i); // logs "0", "1", "2", "foo"
+      }
+
+      for (let i of arr) {
+	  alert(i); // logs "3", "5", "7"
+      }
+
+      for (var i of arr) {
+	  alert(i); // logs "3", "5", "7"
+      }
+    </script>
+  </head>
+<body>
+
+<h1>For in Javascript</h1>
+<p>My First Paragraph</p>
+<p id="demo"></p>
+
+</body>
+</html>
