@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jQuery.getJSON demo</title>
+  <style>
+  img {
+    height: 100px;
+    float: left;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+</head>
+<body>
+ 
+<div id="images"></div>
+ 
+<script>
+$.getJSON("example.json", function() {
+  alert("success");
+})
+.done(function() { alert("second success"); })
+.fail(function() { alert("error"); })
+.always(function() { alert("complete"); });
+</script>
+ 
+</body>
+</html>

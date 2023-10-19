@@ -1,0 +1,13 @@
+You can learn jquery in very good places such as:
++ [[https://www.codecademy.com/learn/learn-jquery][Code Academy]]
++ [[https://www.w3schools.com/jquery/default.asp][W3schools]]
++ [[https://www.geeksforgeeks.org/jquery/?ref=lbp][Geeksforgeeks]]
+
+This repository is only for funny or academic examples with jquery
+
+You can be interested in other repositories related from me:
++ [[https://github.com/davidam/html-examples][HTML]]
++ [[https://github.com/davidam/css-examples][CSS]]
++ [[https://github.com/davidam/bootstrap-examples][Bootstrap]]
++ [[https://github.com/davidam/js-examples][JavaScript]]
++ [[https://github.com/davidam/angular-examples/][AngularJS]]

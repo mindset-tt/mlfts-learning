@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>multiple demo</title>
+  <style>
+  b {
+    color: red;
+    font-size: 16px;
+    display: block;
+    clear:left;
+  }
+  div, span, p {
+    width: 40px;
+    height: 40px;
+    float: left;
+    margin: 10px;
+    background-color: blue;
+    padding: 3px;
+    color: white;
+  }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+</head>
+<body>
+
+<span>span</span>
+<p>p</p>
+<p>p</p>
+<div>div</div>
+<span>span</span>
+<p>p</p>
+<div>div</div>
+<b></b>
+
+<script>
+var list = $( "div, p, span" )
+  .map( function() {
+    return this.tagName;
+  })
+  .get()
+  .join( ", " );
+$( "b" ).append( document.createTextNode( list ) );
+</script>
+
+</body>
+</html>
