@@ -554,6 +554,8 @@
                 search_condition.age_End = age_End.value;
             }
             // End check Age
+
+            // Search the records Code
             let queryStrings = [];
             let searchChoice = "and"; // Default to "AND"
 
