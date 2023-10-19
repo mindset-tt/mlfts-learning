@@ -221,9 +221,7 @@
     kintone.events.on("app.record.index.show", async (event) => {
         // Check if there are properties to process
         let fields = await kintone.api(kintone.api.url('/k/v1/app/form/fields.json', true), 'GET', { app: kintone.app.getId() });
-        console.log(fields);
         const currentURL = window.location.href;
-        console.log(currentURL.length);
         // Process and display fields
         processFields(fields);
         function processFields(fields) {
@@ -235,7 +233,6 @@
                 showText.appendChild(message);
             } else {
                 for (const propertyName in a) {
-                    console.log(propertyName);
                     const fieldType = a[propertyName].type;
                     if (fieldType === "SINGLE_LINE_TEXT") {
                         addSingleLineText(`${propertyName}`);
@@ -557,9 +554,6 @@
                 search_condition.age_End = age_End.value;
             }
 
-            // End check Age
-            console.log(search_condition);
-
             let queryStrings = [];
             let searchChoice = "and"; // Default to "AND"
 
@@ -641,13 +635,11 @@
             }
 
             const combinedQueryString = queryStrings.join(` ${searchChoice} `);
-            console.log(combinedQueryString);
 
             localStorage.setItem("search_condition", JSON.stringify(search_condition));
             const url = new URL(kintone.api.url('/k').split('.json')[0] + "/" + kintone.app.getId() + "/");
             url.searchParams.append("query", combinedQueryString);
 
-            console.log(url.toString());
             // Redirect to the search URL
             window.location.href = url.toString();
         });
