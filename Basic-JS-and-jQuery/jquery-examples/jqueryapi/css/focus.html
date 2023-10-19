@@ -1,22 +1,23 @@
 <!DOCTYPE html>
-<html>
-<head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>
-$(document).ready(function(){
-    $("input").focus(function(){
-        $(this).css("background-color", "#cccccc");
-    });
-    $("input").blur(function(){
-        $(this).css("background-color", "#ffffff");
-    });
-});
-</script>
-</head>
-<body>
-
-Name: <input type="text" name="fullname"><br>
-Email: <input type="text" name="email">
-
-</body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>focus with jQuery</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("input").focus(function () {
+          $(this).css("background-color", "#cccccc");
+        });
+        $("input").blur(function () {
+          $(this).css("background-color", "#ffffff");
+        });
+      });
+    </script>
+  </head>
+  <body>
+    Name: <input title="fullname" type="text" name="fullname" /><br />
+    Email: <input title="email" type="text" name="email" />
+  </body>
 </html>

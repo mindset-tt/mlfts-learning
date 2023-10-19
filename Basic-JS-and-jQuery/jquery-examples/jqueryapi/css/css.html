@@ -1,20 +1,21 @@
 <!DOCTYPE html>
-<html>
-<head><meta charset="utf-8">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>
-$(document).ready(function(){
-    $("button").click(function(){
-        $("#p1").css("color", "red").slideUp(2000).slideDown(2000);
-    });
-});
-</script>
-</head>
-<body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>css part 1 with jQuery</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("button").click(function () {
+          $("#p1").css("color", "red").slideUp(2000).slideDown(2000);
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <p id="p1">jQuery is fun!!</p>
 
-<p id="p1">jQuery is fun!!</p>
-
-<button>Click me</button>
-
-</body>
+    <button>Click me</button>
+  </body>
 </html>
