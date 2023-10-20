@@ -450,29 +450,6 @@
         $('.kintone-spinner').hide();
       }
   
-      // Record List Event
-      kintone.events.on('app.record.index.show', (event) => {
-        // Prevent duplication of the button
-        if (document.getElementById('my_index_button') !== null) {
-          return;
-        }
-        // Set a button
-        const myIndexButton = document.createElement('button');
-        myIndexButton.id = 'my_index_button';
-        myIndexButton.innerHTML = 'Click Me!';
-  
-        // Button onclick function
-        myIndexButton.onclick = () => {
-          showSpinner(); // Display the spinner
-          setTimeout(() => {
-            hideSpinner(); // Hide the spinner
-          }, (3600000));
-        };
-  
-        // Retrieve the header menu space element and set the button there
-        kintone.app.getHeaderMenuSpaceElement().appendChild(myIndexButton);
-  
-      });
   
   
       const name = document.getElementById("singlelineText");
