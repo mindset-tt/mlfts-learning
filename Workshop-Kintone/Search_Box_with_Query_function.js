@@ -140,7 +140,7 @@
     formElement.appendChild(footerContent);
 
     // Set the properties for the button element
-    buttonToggle.className = "kintoneplugin-button-normal";
+    buttonToggle.className = "kintone-button-normal";
     buttonToggle.type = "button";
     buttonToggle.style.position = "absolute";
     buttonToggle.style.backgroundColor = "#ffd700";
@@ -148,7 +148,7 @@
     buttonToggle.innerText = "Show";
 
     // Set the properties for the "Search" button
-    searchButton.className = "kintoneplugin-button-normal";
+    searchButton.className = "kintone-button-normal";
     searchButton.id = "searchButton";
     searchButton.innerText = "Search";
     searchButton.style.color = "white";
@@ -156,14 +156,14 @@
     searchButton.style.backgroundColor = "blue";
 
     // Set the properties for the "Reset" button
-    resetButton.className = "kintoneplugin-button-dialog-cancel";
+    resetButton.className = "kintone-button-dialog-cancel";
     resetButton.innerText = "Reset";
     resetButton.style.color = "white";
     resetButton.style.width = "75px";
     resetButton.style.backgroundColor = "red";
 
     //div of radio
-    containerRadio.className = "kintoneplugin-input-radio";
+    containerRadio.className = "kintone-input-radio";
     containerRadio.style.position = "relative";
     containerRadio.style.padding = "10px";
     containerRadio.style.width = "150px";
@@ -172,9 +172,9 @@
     containerRadio.style.marginRight = "20px";
 
     // Create the first radio button item
-    radioItem1.className = "kintoneplugin-input-radio-item";
+    radioItem1.className = "kintone-input-radio-item";
     radioItem1.style.marginLeft = "12px";
-    radioItem2.className = "kintoneplugin-input-radio-item";
+    radioItem2.className = "kintone-input-radio-item";
 
     // Create the first radio button
     radioInput1.type = "radio";
@@ -208,85 +208,81 @@
     containerRadio.appendChild(radioItem2);
 
     // -------------------------------------------------------------------event Function-----------------------------------------------------------------------------------------
-
-    kintone.events.on("app.record.index.show", async (event) => {
+    let checkJson = "";
+    kintone.events.on("app.record.index.show", async () => {
+        if (checkJson) return;
         let fields = await kintone.api(kintone.api.url("/k/v1/app/form/fields.json", true), "GET", { app: kintone.app.getId() });
-        const properties = fields.properties;
 
-        for (const propertyName in properties) {
-            console.log(propertyName);
+        let options = fields.properties.favourite_foods.options;
+
+        checkJson = fields.properties;
+        for (const propertyName in fields.properties) {
             if (propertyName === "name") {
-                addSingleLineText(`${propertyName}`);
+                addSingleLineText(propertyName);
             } else if (propertyName === "date_of_birth") {
-                addDatePicker(`${propertyName}`);
+                addRangeInputField(propertyName, "date");
             } else if (propertyName === "date_and_time") {
-                addDateTimePicker(`${propertyName}`);
-            } else if (propertyName === "favourite_sports") {
-                addMultilineText(`${propertyName}`);
+                addRangeInputField(propertyName, "datetime-local");
             } else if (propertyName === "age") {
-                addNumber(`${propertyName}`);
+                addRangeInputField(propertyName, "number");
+            } else if (propertyName === "favourite_sports") {
+                addMultilineText(propertyName);
             } else if (propertyName === "favourite_foods") {
-                addMultiSelectDropdown(`${propertyName}`);
+                addMultiSelectDropdown(propertyName, options);
             }
-
         }
+        // console.log(Object.entries(properties).length)
         radioSearchReset.style.display = "flex";
-
 
         function addSingleLineText(fieldName) {
             const inputElement = document.createElement("div");
-            inputElement.classList.add("kintoneplugin-input-outer");
+            inputElement.classList.add("kintone-input-outer");
             inputElement.innerHTML = `
-          <b>${fieldName}</b><br>
-          <input class="kintoneplugin-input-text" type="text" id="singlelineText">
-          `;
+            <b>${fieldName}</b><br>
+            <input class="kintone-input-text" type="text" id="singlelineText">
+            `;
             divName.appendChild(inputElement);
         }
 
-        function addDatePicker(fieldName) {
-            const datePickerElement = document.createElement("div");
-            datePickerElement.classList.add("kintoneplugin-input-outer");
-            datePickerElement.innerHTML = `
-    <div style="display: flex; justify-content: space-between;">
-      <b>${fieldName} (Start)</b>
-      <b>${fieldName} (End)</b>
-    </div>
-    </div>
-    <input class="kintoneplugin-input-text" type="date" id="dateStart"> ~
-    <input class="kintoneplugin-input-text" type="date" id="dateEnd">
-  `;
-            divDate.appendChild(datePickerElement);
+        function addRangeInputField(fieldName, fieldType) {
+            const inputFieldElement = document.createElement("div");
+            inputFieldElement.classList.add("kintone-input-outer");
+            inputFieldElement.innerHTML = `
+            <div style="display: flex; justify-content: space-between;">
+              <b>${fieldName} (Start)</b>
+              <b>${fieldName} (End)</b>
+            </div>
+            </div>
+            <input class="kintone-input-text" type="${fieldType}" id="${fieldType}Start"> ~
+            <input class="kintone-input-text" type="${fieldType}" id="${fieldType}End">
+          `;
+            // Adjust the container based on the fieldType
+            const container = fieldType === "number" ? divNumber :
+                fieldType === "date" ? divDate :
+                    fieldType === "datetime-local" ? divDateTime :
+                        null; // Add a null check or specify a default container
+
+            if (container) {
+                container.appendChild(inputFieldElement);
+            }
         }
 
-        function addDateTimePicker(fieldName) {
-            const dateTimePickerElement = document.createElement("div");
-            dateTimePickerElement.classList.add("kintoneplugin-input-outer");
-            dateTimePickerElement.innerHTML = `
-    <div style="display: flex; justify-content: space-between;">
-      <b>${fieldName} (Start)</b>
-      <b>${fieldName} (End)</b>
-    </div>
-    </div>
-    <input class="kintoneplugin-input-text" type="datetime-local" id="dateTimeStart"> ~
-    <input class="kintoneplugin-input-text" type="datetime-local" id="dateTimeEnd">
-  `;
-            divDateTime.appendChild(dateTimePickerElement);
-        }
+
 
         function addMultilineText(fieldName) {
             const textareaElement = document.createElement("div");
-            textareaElement.classList.add("kintoneplugin-input-outer");
+            textareaElement.classList.add("kintone-input-outer");
             // Create a container div to hold both the textarea and "Partial Match" label
             const containerRadio = document.createElement("div");
             containerRadio.style.display = "flex";
             containerRadio.style.alignItems = "center";
             containerRadio.innerHTML = `
-    <div style="flex-grow: 1;">
-      <b>${fieldName}</b><br>
-      <textarea class="kintoneplugin-input-text" type="textarea" style="width: 299px; height: 91px;" id="multilineText"></textarea>
-    </div>
-  `;
-            partialMatch.classList.add("kintoneplugin-input-checkbox");
+      <div style="flex-grow: 1;">
+        <b>${fieldName}</b><br>
+        <textarea class="kintone-input-text" type="textarea" style="width: 299px; height: 91px;" id="multilineText"></textarea>
+      </div>
+    `;
+            partialMatch.classList.add("kintone-input-checkbox");
             partialMatch.type = "checkbox";
             partialMatch.style.marginLeft = "10px";
             partialMatch.style.width = "25px";
@@ -307,34 +303,21 @@
             divMultiLine.appendChild(textareaElement);
         }
 
-        function addNumber(fieldName) {
-            const inputNumberElement = document.createElement("div");
-            inputNumberElement.classList.add("kintoneplugin-input-outer");
-            inputNumberElement.innerHTML = `
-    <div style="display: flex; justify-content: space-between;">
-      <b>${fieldName} (Start)</b>
-      <b>${fieldName} (End)</b>
-    </div>
-    </div>
-    <input class="kintoneplugin-input-text" type="number" id="ageStart"> ~
-    <input class="kintoneplugin-input-text" type="number" id="ageEnd">
-  `;
-            divNumber.appendChild(inputNumberElement);
-        }
 
-        function addMultiSelectDropdown(fieldName) {
-            const multiValue = ["Fried rice", "Pizza", "Salad", "Noodle"];
+
+        function addMultiSelectDropdown(fieldName, options) {
+            console.log(options);
             const dropdownElement = document.createElement("div");
             dropdownElement.style.width = "150px";
-            dropdownElement.classList.add("kintoneplugin-dropdown-list");
-            dropdownElement.innerHTML = `<b>${fieldName}<b><br><br>`;
-            multiValue.forEach((value) => {
-                const dropdownItem = document.createElement("div");
-                dropdownItem.classList.add("kintoneplugin-dropdown-list-item");
-                dropdownItem.innerHTML = `
-          <span class="kintoneplugin-dropdown-list-item-name" id="item">${value}</span>
-          `;
+            dropdownElement.classList.add("kintone-dropdown-list");
+            dropdownElement.innerHTML = `<b>${fieldName}</b><br><br>`;
 
+            Object.values(options).forEach((value) => {
+                const dropdownItem = document.createElement("div");
+                dropdownItem.classList.add("kintone-dropdown-list-item");
+                dropdownItem.innerHTML = `
+            <span class="kintone-dropdown-list-item-name" id="item">${value.label}</span>
+          `;
                 dropdownElement.appendChild(dropdownItem);
             });
 
@@ -450,50 +433,47 @@
             $('.kintone-spinner').hide();
         }
 
-        //   // Record List Event
-        //   kintone.events.on('app.record.index.show', (event) => {
-        //     // Prevent duplication of the button
-        //     if (document.getElementById('my_index_button') !== null) {
-        //       return;
-        //     }
-        //     // Set a button
-        //     const myIndexButton = document.createElement('button');
-        //     myIndexButton.id = 'my_index_button';
-        //     myIndexButton.innerHTML = 'Click Me!';
-
-        //     // Button onclick function
-        //     myIndexButton.onclick = () => {
-        //       showSpinner(); // Display the spinner
-        //       setTimeout(() => {
-        //         hideSpinner(); // Hide the spinner
-        //       }, (3600000));
-        //     };
-
-        //     // Retrieve the header menu space element and set the button there
-        //     kintone.app.getHeaderMenuSpaceElement().appendChild(myIndexButton);
-
-        //   });
-
 
         const name = document.getElementById("singlelineText");
         const favourite_foods = allValues.multiSelect;
         const favourite_sports = document.getElementById("multilineText");
         const date_of_birthStart = document.getElementById("dateStart");
         const date_of_birthEnd = document.getElementById("dateEnd");
-        const date_and_timeStart = document.getElementById("dateTimeStart");
-        const date_and_timeEnd = document.getElementById("dateTimeEnd");
-        const age_Start = document.getElementById("ageStart");
-        const age_End = document.getElementById("ageEnd");
+        const date_and_timeStart = document.getElementById("datetime-localStart");
+        const date_and_timeEnd = document.getElementById("datetime-localEnd");
+        const age_Start = document.getElementById("numberStart");
+        const age_End = document.getElementById("numberEnd");
 
         const partial_Match = document.getElementById("partialMatch");
         const And = document.getElementById("radio-0");
         const Or = document.getElementById("radio-1");
 
         const SearchButton = document.getElementById("searchButton");
-        const multiSelectDropdownItems = document.querySelectorAll(".kintoneplugin-dropdown-list-item span");
+        // const multiSelectDropdownItems = document.querySelectorAll(".kintone-dropdown-list-item span");
         const savedSearchCondition = localStorage.getItem("search_condition");
 
+        const multiSelectDropdownItems = document.querySelectorAll(".kintone-dropdown-list-item span");
 
+        multiSelectDropdownItems.forEach((dropdownItem) => {
+            dropdownItem.addEventListener("click", function () {
+                const selectedItem = this.textContent;
+                const itemIndex = allValues.multiSelect.indexOf(selectedItem);
+
+                // Toggle the selection based on item existence in the array
+                if (itemIndex !== -1) {
+                    // Item is already in the array, so remove it
+                    allValues.multiSelect.splice(itemIndex, 1);
+                } else {
+                    // Item is not in the array, so add it
+                    allValues.multiSelect.push(selectedItem);
+                }
+                // Toggle the class on the parentDiv element
+                const parentDiv = this.closest(".kintone-dropdown-list-item");
+                if (parentDiv) {
+                    parentDiv.classList.toggle("kintone-dropdown-list-item-selected");
+                }
+            });
+        });
 
         if (savedSearchCondition) {
             const searchCondition = JSON.parse(savedSearchCondition);
@@ -511,11 +491,11 @@
                     if (searchCondition.favourite_foods.includes(selectedItem)) {
                         // Item is in the saved condition, select it
                         const parentDiv = dropdownItem.closest(
-                            ".kintoneplugin-dropdown-list-item"
+                            ".kintone-dropdown-list-item"
                         );
                         if (parentDiv) {
                             parentDiv.classList.add(
-                                "kintoneplugin-dropdown-list-item-selected"
+                                "kintone-dropdown-list-item-selected"
                             );
                         }
 
@@ -561,41 +541,48 @@
         }
 
         SearchButton.addEventListener("click", function (e) {
-            // define queryStrings array
-            let queryStrings = [];
-            let searchChoice = "and"; // Default to "AND"
-            e.preventDefault();
-
-            // Hide the form and show the spinner
-            hideForm();
-            showSpinner();
-
-            // Validate the input values
-            const search_condition = {};
-            let date = new Date();
-            let today = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
-            let todayTime = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes();
             try {
-                // Validate and assign input values to search_condition object
+                // define queryStrings array
+                let queryStrings = [];
+                let searchChoice = "and"; // Default to "AND"
+                e.preventDefault();
+
+                // Hide the form and show the spinner
+                hideForm();
+                showSpinner();
+
+                // Validate the input values
+                const search_condition = {};
+                // Validate and assign input values to search_condition object and queryStrings array
                 // Start check name
-                if (name.value.trim() !== "") {
-                    search_condition.name = name.value.trim();
+                if (name.value !== "") {
+                    search_condition.name = name.value;
+                    queryStrings.push(`(name in ("${search_condition.name}"))`);
                 }
                 // End check name
 
                 // Check favourite_foods
                 if (Array.isArray(favourite_foods) && favourite_foods.length > 0) {
                     search_condition.favourite_foods = favourite_foods;
+                    // Convert the array to a string
+                    const jsonString = JSON.stringify(search_condition.favourite_foods);
+                    // Add the query string with favourite_foods field
+                    queryStrings.push(`(favourite_foods in (${jsonString.slice(1, -1)}))`);
                 }
                 // End Check favourite_foods
 
                 //Start check favourite_sports
-                if (favourite_sports.value.trim() !== "") {
-                    search_condition.favourite_sports = favourite_sports.value.trim();
+                if (favourite_sports.value !== "") {
+                    search_condition.favourite_sports = favourite_sports.value;
+                    // Check if the partial_Match is true or false
                     if (partial_Match.checked) {
                         search_condition.partial_Match = true;
+                        // Add the query string with partial match (like)
+                        queryStrings.push(`(favourite_sports like "${search_condition.favourite_sports}")`);
                     } else {
                         search_condition.partial_Match = false;
+                        // Add the query string without partial match (not like)
+                        queryStrings.push(`(favourite_sports not like "${search_condition.favourite_sports}")`);
                     }
                 }
                 // End check favourite_sports
@@ -609,211 +596,85 @@
                 // End check "And" or "Or"
 
                 // Start check date_of_birth
-                if (
-                    date_of_birthStart.value.trim() !== "" &&
-                    date_of_birthEnd.value.trim() !== ""
-                ) {
+                if (date_of_birthStart.value !== "" && date_of_birthEnd.value !== "") {
+                    // Check if the date_of_birthStart is greater than date_of_birthEnd
                     if (date_of_birthStart.value > date_of_birthEnd.value) {
-                        alert(
-                            "Date of Birth (Start) should be less than Date of Birth (End)"
-                        );
-                        return;
+                        throw("Date of Birth (Start) should be less than Date of Birth (End)");
                     } else {
+                        // Assign the value to the search_condition
                         search_condition.date_of_birthStart = date_of_birthStart.value;
                         search_condition.date_of_birthEnd = date_of_birthEnd.value;
+                        // Add the query string with date_of_birthStart and date_of_birthEnd
+                        queryStrings.push(`(date_of_birth >= "${search_condition.date_of_birthStart}" and date_of_birth <= "${search_condition.date_of_birthEnd}")`);
                     }
                 }
 
-                if (
-                    date_of_birthStart.value.trim() !== "" &&
-                    date_of_birthEnd.value.trim() === ""
-                ) {
-                    if (date_of_birthStart.value > today) {
-                        alert("Date of Birth (Start) should be less than Today");
-                        return;
-                    } else {
-                        search_condition.date_of_birthStart = date_of_birthStart.value;
-                    }
+                if (date_and_timeStart.value !== "" && date_and_timeEnd.value === "") {
+                    search_condition.date_of_birthStart = date_of_birthStart.value;
+                    // Add the query string with date_of_birthStart
+                    queryStrings.push(`(date_of_birth >= "${search_condition.date_of_birthStart}")`);
                 }
 
-                if (
-                    date_of_birthStart.value.trim() === "" &&
-                    date_of_birthEnd.value.trim() !== ""
-                ) {
+                if (date_and_timeStart.value === "" && date_and_timeEnd.value !== "") {
                     search_condition.date_of_birthEnd = date_of_birthEnd.value;
+                    // Add the query string with date_of_birthEnd
+                    queryStrings.push(`(date_of_birth <= "${search_condition.date_of_birthEnd}")`);
                 }
                 // End check date_of_birthStart
 
                 // Start check date_and_time
-                if (
-                    date_and_timeStart.value.trim() !== "" &&
-                    date_and_timeEnd.value.trim() !== ""
-                ) {
+                if (date_and_timeStart.value !== "" && date_and_timeEnd.value !== "") {
+                    // Check if the date_and_timeStart is greater than date_and_timeEnd
                     if (date_and_timeStart.value > date_and_timeEnd.value) {
-                        alert(
-                            "Date and Time (Start) should be less than Date and Time (End)"
-                        );
-                        return;
+                        throw("Date and Time (Start) should be less than Date and Time (End)");
                     } else {
                         search_condition.date_and_timeStart = date_and_timeStart.value;
                         search_condition.date_and_timeEnd = date_and_timeEnd.value;
+                        // Add the query string with date_and_timeStart and date_and_timeEnd
+                        queryStrings.push(`(date_and_time >= "${search_condition.date_and_timeStart}" and date_and_time <= "${search_condition.date_and_timeEnd}")`);
                     }
                 }
 
-                if (
-                    date_and_timeStart.value.trim() !== "" &&
-                    date_and_timeEnd.value.trim() === ""
-                ) {
-                    if (date_and_timeStart.value > todayTime) {
-                        alert("Date and Time (Start) should be less than Today");
-                        return;
-                    } else {
-                        search_condition.date_and_timeStart = date_and_timeStart.value;
-                    }
+
+                if (date_and_timeStart.value !== "" && date_and_timeEnd.value === "") {
+                    search_condition.date_and_timeStart = date_and_timeStart.value;
+                    // Add the query string with date_and_timeStart
+                    queryStrings.push(`(date_and_time >= "${search_condition.date_and_timeStart}")`);
                 }
 
-                if (
-                    date_and_timeStart.value.trim() === "" &&
-                    date_and_timeEnd.value.trim() !== ""
-                ) {
+                if (date_and_timeStart.value === "" && date_and_timeEnd.value !== "") {
                     search_condition.date_and_timeEnd = date_and_timeEnd.value;
+                    // Add the query string with date_and_timeEnd
+                    queryStrings.push(`(date_and_time <= "${search_condition.date_and_timeEnd}")`);
                 }
                 // End check date_and_time
 
                 // Start check Age
-                if (age_Start.value.trim() !== "" && age_End.value.trim() !== "") {
+                if (age_Start.value !== "" && age_End.value !== "") {
+                    // Check if the age_Start is greater than age_End
                     if (age_Start.value > age_End.value) {
-                        alert("Age (Start) should be less than Age (End)");
-                        return;
+                        throw("Age (Start) should be less than Age (End)");
                     } else {
                         search_condition.age_Start = age_Start.value;
                         search_condition.age_End = age_End.value;
+                        // Add the query string with age_Start and age_End
+                        queryStrings.push(`(age >= "${search_condition.age_Start}" and age <= "${search_condition.age_End}")`);
                     }
                 }
 
-                if (age_Start.value.trim() !== "" && age_End.value.trim() === "") {
+                if (age_Start.value !== "" && age_End.value === "") {
                     search_condition.age_Start = age_Start.value;
+                    // Add the query string with age_Start
+                    queryStrings.push(`(age >= "${search_condition.age_Start}")`);
                 }
-                if (age_Start.value.trim() === "" && age_End.value.trim() !== "") {
+                if (age_Start.value === "" && age_End.value !== "") {
                     search_condition.age_End = age_End.value;
+                    // Add the query string with age_End
+                    queryStrings.push(`(age <= "${search_condition.age_End}")`);
                 }
                 // End check Age
-
-                // Loop through the search_condition object
-                for (const [key, val] of Object.entries(search_condition)) {
-                    // Create the query string based on the key and value
-                    let queryString = "";
-                    // Check the key and assign the query string
-                    switch (key) {
-                        // check name
-                        case "name":
-                            // Add the query string with Name field
-                            queryString = `(name in ("${val}"))`;
-                            break;
-                        // check favorite_sports
-                        case "favourite_sports":
-                            // Check if the partial_Match is true or false
-                            if (search_condition.partial_Match) {
-                                // Add the query string with partial match (like)
-                                queryString = `(favourite_sports like "${val}")`;
-                            } else {
-                                // Add the query string without partial match (not like)
-                                queryString = `(favourite_sports not like "${val}")`;
-                            }
-                            break;
-                        // check favourite_foods
-                        case "favourite_foods":
-                            // Convert the array to a string
-                            const jsonString = JSON.stringify(val);
-                            // Add the query string with favourite_foods field
-                            queryString = `(favourite_foods in (${jsonString.slice(1, -1)}))`;
-                            break;
-                        // check date_and_time
-                        case "date_and_timeStart":
-                            // Check if the date_and_timeEnd is in the search_condition object
-                            if (key in search_condition && "date_and_timeEnd" in search_condition) {
-                                // Add the query string with date_and_timeStart and date_and_timeEnd
-                                queryString = `(date_and_time >= "${val}" and date_and_time <= "${search_condition.date_and_timeEnd}")`;
-                            } else {
-                                // Add the query string with date_and_timeStart
-                                queryString = `(date_and_time >= "${val}")`;
-                            }
-                            break;
-                        case "date_and_timeEnd":
-                            // Check if the date_and_timeStart is in the search_condition object
-                            if (key in search_condition && "date_and_timeStart" in search_condition) {
-                                // Add the query string with date_and_timeStart and date_and_timeEnd
-                                queryString = `(date_and_time >= "${search_condition.date_and_timeStart}" and date_and_time <= "${val}")`;
-                            }
-                            else {
-                                // Add the query string with date_and_timeEnd
-                                queryString = `(date_and_time <= "${val}")`;
-                            }
-                            break;
-                        // check age
-                        case "age_Start":
-                            // Check if the age_End is in the search_condition object
-                            if (key in search_condition && "age_End" in search_condition) {
-                                // Add the query string with age_Start and age_End
-                                queryString = `(age >= "${val}" and age <= "${search_condition.age_End}")`;
-                            } else {
-                                // Add the query string with age_Start
-                                queryString = `(age >= "${val}")`;
-                            }
-                            break;
-                        case "age_End":
-                            // Check if the age_Start is in the search_condition object
-                            if ("age_Start" in search_condition) {
-                                // Add the query string with age_Start and age_End
-                                queryString = `(age >= "${search_condition.age_Start}" and age <= "${val}")`;
-                            } else {
-                                // Add the query string with age_End
-                                queryString = `(age <= "${val}")`;
-                            }
-                            break;
-                        // check date_of_birth
-                        case "date_of_birthStart":
-                            // Check if the date_of_birthEnd is in the search_condition object
-                            if (key in search_condition && "date_of_birthEnd" in search_condition) {
-                                // Add the query string with date_of_birthStart and date_of_birthEnd
-                                queryString = `(date_of_birth >= "${val}" and date_of_birth <= "${search_condition.date_of_birthEnd}")`;
-                            }
-                            else {
-                                // Add the query string with date_of_birthStart
-                                queryString = `(date_of_birth >= "${val}")`;
-                            }
-                            break;
-                        case "date_of_birthEnd":
-                            // Check if the date_of_birthStart is in the search_condition object
-                            if ("date_of_birthStart" in search_condition) {
-                                // Add the query string with date_of_birthStart and date_of_birthEnd
-                                queryString = `(date_of_birth >= "${search_condition.date_of_birthStart}" and date_of_birth <= "${val}")`;
-                            }
-                            else {
-                                // Add the query string with date_of_birthEnd
-                                queryString = `(date_of_birth <= "${val}")`;
-                            }
-                            break;
-                        // check search_choice
-                        case "search_choice":
-                            // Check if the value is "And" or "Or"
-                            if (val === "Or") {
-                                // Set the searchChoice to "or"
-                                searchChoice = "or";
-                            }
-                            break;
-                        default:
-                            break;
-                    }
-                    // Add the query string to the queryStrings array
-                    if (queryString !== "") {
-                        queryStrings.push(queryString);
-                    }
-                }
-                // Remove duplicates using Set
-                const uniqueConditions = [...new Set(queryStrings)];
                 // Combine the unique query strings
-                const combinedQueryString = uniqueConditions.join(` ${searchChoice} `);
+                const combinedQueryString = queryStrings.join(` ${searchChoice} `);
                 // Save the search condition to the local storage
                 localStorage.setItem("search_condition", JSON.stringify(search_condition));
                 // Create the search URL
@@ -824,15 +685,17 @@
                 // Redirect to the search URL
                 window.location.href = url.toString();
             } catch (error) {
-                console.log(error);
+                alert(error);
+                hideSpinner();
+                return;
             }
         });
 
         resetButton.addEventListener("click", function (e) {
             localStorage.removeItem("search_condition");
-            const divElements = document.querySelectorAll(".kintoneplugin-dropdown-list-item-selected");
+            const divElements = document.querySelectorAll(".kintone-dropdown-list-item-selected");
             divElements.forEach((divElement) => {
-                divElement.classList.remove("kintoneplugin-dropdown-list-item-selected");
+                divElement.classList.remove("kintone-dropdown-list-item-selected");
             });
             name.value = "";
             date_of_birthStart.value = "";
@@ -845,26 +708,5 @@
                 kintone.api.url("/k").split(".json")[0] + "/" + kintone.app.getId() + "/");
             window.location.href = url.toString();
         });
-        multiSelectDropdownItems.forEach((dropdownItem) => {
-            dropdownItem.addEventListener("click", function () {
-                const selectedItem = this.textContent;
-                const itemIndex = allValues.multiSelect.indexOf(selectedItem);
-
-                // Toggle the selection based on item existence in the array
-                if (itemIndex !== -1) {
-                    // Item is already in the array, so remove it
-                    allValues.multiSelect.splice(itemIndex, 1);
-                } else {
-                    // Item is not in the array, so add it
-                    allValues.multiSelect.push(selectedItem);
-                }
-                // Toggle the class on the parentDiv element
-                const parentDiv = this.closest(".kintoneplugin-dropdown-list-item");
-                if (parentDiv) {
-                    parentDiv.classList.toggle("kintoneplugin-dropdown-list-item-selected");
-                }
-            });
-        });
-
     });
 })();
