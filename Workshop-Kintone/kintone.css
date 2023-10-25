@@ -1,0 +1,131 @@
+.form-container{
+    position: relative;
+    overflow: hidden;
+    height: 80px;
+    border:2px solid #ffd700;
+    margin-right: 60px;
+    margin-top: 5px;
+    margin-right: 60px;
+    border-radius: 10px;
+    transition: height 0.5s;
+}
+.buttonHead{
+    display: flex;
+    height: 60px;
+    margin: 0;
+    border-radius: 10px;
+    padding: 15px;
+    justify-content: right;
+
+}
+.bodyContent{
+    display: flex;
+    border: none;
+    height: 200px;
+
+}
+.showText{
+    display: flex;
+    height: 10px;
+    
+}
+.divInBody{
+    display: flex;
+    border: none;
+    height: 100px;
+
+}
+.footerContent{
+    display: flex;
+    margin-left: 225px;
+    height: 100px;
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+    border: none;
+}
+.divName{
+    display: flex;
+    flex-direction: column;
+    margin-left:255px ;
+    height: 80px;
+    align-items: center;
+
+}
+.divMultiSelect{
+    display: flex;
+    justify-content: center;
+    height: 200px;
+    width: 400px;
+    margin-left: 50px;
+    margin-bottom: 10px;
+    align-items: center;
+}
+.divDate{
+    display: flex;
+    justify-content:center;
+    height: 80px;
+    width: 300px;
+    margin-right: 20px;
+}
+.divMultiLine{
+    display: flex;
+    justify-content: center;
+    height: 100px;
+    width: 500px;
+    margin-left: 180px;
+    align-items: center;
+}
+.divNumber{
+    display:flex;
+    justify-content: center;
+    height: 80px;
+    width: 400px;
+    margin-left: 150px;
+}
+.divDateTime{
+    display: flex;
+    justify-content: center;
+    height: 100px;
+    width: 450px;
+    margin-left:100px ;
+    align-items: center;
+}
+.radioSearchReset{
+    display: none;
+    justify-content: center;
+    height: 50px;
+    width: 600px;
+    margin-left: 100px;
+    margin-top: 20px;
+    align-items: center;
+}
+#buttonToggle{
+    position: absolute;
+    background-color: #ffd700;
+    color: black;
+}
+#searchButton{
+    color: white;
+    width: 75px;
+    background-color: blue;
+}
+.kintone-button-dialog-cancel{
+    color: white;
+    width: 75px;
+    background-color: red;
+}
+#containerRadio{
+    position: relative;
+    padding: 10px;
+    width: 150px;
+    height: 26px;
+    border: 1px solid #000;
+    margin-right: 20px;
+}
+#partialMatch{
+    margin-left: 10px;
+    width: 25px;
+    height: 25px;
+    
+}

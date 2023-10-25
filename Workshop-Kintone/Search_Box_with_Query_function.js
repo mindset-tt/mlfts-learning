@@ -2,11 +2,22 @@
     "use strict";
     const space = kintone.app.getHeaderSpaceElement();
     const buttonToggle = document.createElement("button");
+    buttonToggle.classList.add('buttonToggle')
+
     const formElement = document.createElement("div");
+    formElement.classList.add('form-container');
+
     const buttonHead = document.createElement("div");
+    buttonHead.classList.add('buttonHead');
+
     const bodyContent = document.createElement("div");
+    bodyContent.classList.add('bodyContent');
+
     const footerContent = document.createElement("div");
+    footerContent.classList.add('footerContent');
+
     const searchButton = document.createElement("button");
+
     const resetButton = document.createElement("button");
     const partialMatch = document.createElement("input");
     const radioInput2 = document.createElement("input");
@@ -14,168 +25,69 @@
     const radioInput1 = document.createElement("input");
     const radioItem1 = document.createElement("span");
     const containerRadio = document.createElement("div");
+
     const divName = document.createElement("div");
+    divName.classList.add('divName')
+
     const divDate = document.createElement("div");
+    divDate.classList.add('divDate')
+
     const divMultiSelect = document.createElement("div");
+    divMultiSelect.classList.add('divMultiSelect')
+
     const divNumber = document.createElement("div");
+    divNumber.classList.add('divNumber');
+
     const divMultiLine = document.createElement("div");
+    divMultiLine.classList.add('divMultiLine')
+
     const divInBody = document.createElement("div");
+    divInBody.classList.add('divInBody')
+
     const divDateTime = document.createElement("div");
+    divDateTime.classList.add('divDateTime')
+
     const radioSearchReset = document.createElement("div");
+    radioSearchReset.classList.add('radioSearchReset');
+
     const showText = document.createElement("div");
+    showText.classList.add('shoeText');
+
     const label1 = document.createElement("label");
     const label2 = document.createElement("label");
 
-    // Set up the form
-    formElement.style.position = "relative";
-    formElement.style.overflow = "hidden";
-    formElement.style.height = "80px";
-    formElement.style.border = "2px solid #ffd700";
-    formElement.style.marginRight = "60px";
-    formElement.style.marginTop = "5px";
-    formElement.style.marginLeft = "60px";
-    formElement.style.borderRadius = "10px";
-    formElement.style.transition = "height 0.5s";
-
-    //div of button show hide
-    buttonHead.style.display = "flex";
-    buttonHead.style.height = "60px";
-    buttonHead.style.margin = "0";
-    buttonHead.style.borderRadius = "10px";
-    buttonHead.style.padding = "15px";
-    buttonHead.style.justifyContent = "right";
     buttonHead.appendChild(buttonToggle);
     formElement.appendChild(buttonHead);
-
-    //form
-    bodyContent.style.display = "flex";
-    bodyContent.style.border = "none";
-    bodyContent.style.height = "200px";
-    bodyContent.style.border = "none";
-    //form show text if not data
-    showText.style.display = "flex";
-    showText.style.height = "10px";
-    showText.style.justifyContent = "center";
-
-    //form
-    divInBody.style.display = "flex";
-    divInBody.style.border = "none";
-    divInBody.style.height = "100px";
-    divInBody.style.border = "none";
-
-    //div of footer content
-    footerContent.style.display = "flex";
-    footerContent.style.height = "100px";
-    footerContent.style.padding = "20px";
-    footerContent.style.alignItems = "center";
-    footerContent.style.justifyContent = "center";
-    footerContent.style.border = "none";
-
-    //div Name
-    divName.style.display = "flex";
-    divName.style.flexDirection = "column";
-    divName.style.marginLeft = "225px";
-    divName.style.height = "80px";
-    divName.style.padding = "10";
-    divName.style.alignItems = "center";
     bodyContent.appendChild(divName);
-
-    //div multiSelect
-    divMultiSelect.style.display = "flex";
-    divMultiSelect.style.justifyContent = "center";
-    divMultiSelect.style.height = "200px";
-    divMultiSelect.style.width = "400px";
-    divMultiSelect.style.marginLeft = "50px";
-    divMultiSelect.style.marginBottom = "10px";
-    divMultiSelect.style.alignItems = "center";
     bodyContent.appendChild(divMultiSelect);
-
-    //div date
-    divDate.style.display = "flex";
-    divDate.style.justifyContent = "center";
-    divDate.style.height = "80px";
-    divDate.style.width = "300px";
-    divDate.style.marginRight = "20px";
     bodyContent.appendChild(divDate);
-
-    //div Multiline
-    divMultiLine.style.display = "flex";
-    divMultiLine.style.justifyContent = "center";
-    divMultiLine.style.height = "100px";
-    divMultiLine.style.width = "500px";
-    divMultiLine.style.marginLeft = "180px";
-    divMultiLine.style.alignItems = "center";
     divInBody.appendChild(divMultiLine);
-
-    //number
-    divNumber.style.display = "flex";
-    divNumber.style.justifyContent = "center";
-    divNumber.style.height = "80px";
-    divNumber.style.width = "400px";
-    divNumber.style.marginLeft = "85px";
     divInBody.appendChild(divNumber);
     formElement.appendChild(bodyContent);
     formElement.appendChild(showText);
-
     formElement.appendChild(divInBody);
-
-    //div radioSearchReset
-    radioSearchReset.style.display = "none";
-    radioSearchReset.style.justifyContent = "center";
-    radioSearchReset.style.height = "50px";
-    radioSearchReset.style.width = "600px";
-    radioSearchReset.style.marginLeft = "100px";
-    radioSearchReset.style.marginTop = "20px";
-    radioSearchReset.style.alignItems = "center";
-
-    //div date time
-    divDateTime.style.display = "flex";
-    divDateTime.style.justifyContent = "center";
-    divDateTime.style.height = "100px";
-    divDateTime.style.width = "450px";
-    divDateTime.style.marginLeft = "100px";
-    divDateTime.style.alignItems = "center";
     footerContent.appendChild(divDateTime);
     footerContent.appendChild(radioSearchReset);
     formElement.appendChild(footerContent);
 
     // Set the properties for the button element
     buttonToggle.className = "kintone-button-normal";
-    buttonToggle.type = "button";
-    buttonToggle.style.position = "absolute";
-    buttonToggle.style.backgroundColor = "#ffd700";
-    buttonToggle.style.color = "black";
+    buttonToggle.id = "buttonToggle"
     buttonToggle.innerText = "Show";
-
     // Set the properties for the "Search" button
     searchButton.className = "kintone-button-normal";
     searchButton.id = "searchButton";
     searchButton.innerText = "Search";
-    searchButton.style.color = "white";
-    searchButton.style.width = "75px";
-    searchButton.style.backgroundColor = "blue";
-
     // Set the properties for the "Reset" button
     resetButton.className = "kintone-button-dialog-cancel";
     resetButton.innerText = "Reset";
-    resetButton.style.color = "white";
-    resetButton.style.width = "75px";
-    resetButton.style.backgroundColor = "red";
-
     //div of radio
     containerRadio.className = "kintone-input-radio";
-    containerRadio.style.position = "relative";
-    containerRadio.style.padding = "10px";
-    containerRadio.style.width = "150px";
-    containerRadio.style.height = "26px";
-    containerRadio.style.border = "1px solid #000";
-    containerRadio.style.marginRight = "20px";
-
+    containerRadio.id = "containerRadio";
     // Create the first radio button item
     radioItem1.className = "kintone-input-radio-item";
     radioItem1.style.marginLeft = "12px";
     radioItem2.className = "kintone-input-radio-item";
-
     // Create the first radio button
     radioInput1.type = "radio";
     radioInput1.name = "logicalOperatorRadio";
@@ -185,7 +97,7 @@
 
     // Create the second radio button
     radioInput2.type = "radio";
-    radioInput2.name = "logicalOperatorRadio";
+    radioInput2.name = "logicalOperatorRadioF";
     radioInput2.value = "Or";
     radioInput2.id = "radio-1";
 
@@ -370,12 +282,14 @@
             if (radioInput1.checked) {
                 allValues.logicalOperator = "And";
             }
+            radioInput2.checked = false;
         });
 
         radioInput2.addEventListener("click", function () {
             if (radioInput2.checked) {
                 allValues.logicalOperator = "Or";
             }
+            radioInput1.checked = false;
         });
 
 
@@ -479,10 +393,10 @@
             const searchCondition = JSON.parse(savedSearchCondition);
 
             // Repopulate the input fields
-            if (searchCondition.name) {
+            if (searchCondition.name !== "") {
                 name.value = searchCondition.name;
             }
-            if (searchCondition.favourite_foods) {
+            if (searchCondition.favourite_foods !== "") {
                 // Loop through the multiSelectDropdownItems
                 multiSelectDropdownItems.forEach((dropdownItem) => {
                     const selectedItem = dropdownItem.textContent;
@@ -505,37 +419,39 @@
                 });
             }
 
-            if (searchCondition.favourite_sports) {
+            if (searchCondition.favourite_sports !== "") {
                 favourite_sports.value = searchCondition.favourite_sports;
             }
-            if (searchCondition.partial_Match) {
+            if (searchCondition.partial_Match !== "") {
                 partial_Match.checked = true;
-            } else if (!searchCondition.partial_Match) {
+            } else if (!searchCondition.partial_Match !== "") {
                 partial_Match.checked = false;
             } else {
                 partial_Match.checked = true;
             }
             if (searchCondition.search_choice === "And") {
                 And.checked = true;
+                Or.checked = false;
             } else if (searchCondition.search_choice === "Or") {
                 Or.checked = true;
+                And.checked = false;
             }
-            if (searchCondition.date_of_birthStart) {
+            if (searchCondition.date_of_birthStart !== "") {
                 date_of_birthStart.value = searchCondition.date_of_birthStart;
             }
-            if (searchCondition.date_of_birthEnd) {
+            if (searchCondition.date_of_birthEnd !== "") {
                 date_of_birthEnd.value = searchCondition.date_of_birthEnd;
             }
-            if (searchCondition.date_and_timeStart) {
+            if (searchCondition.date_and_timeStart !== "") {
                 date_and_timeStart.value = searchCondition.date_and_timeStart;
             }
-            if (searchCondition.date_and_timeEnd) {
+            if (searchCondition.date_and_timeEnd !== "") {
                 date_and_timeEnd.value = searchCondition.date_and_timeEnd;
             }
-            if (searchCondition.age_Start) {
+            if (searchCondition.age_Start !== "") {
                 age_Start.value = searchCondition.age_Start;
             }
-            if (searchCondition.age_End) {
+            if (searchCondition.age_End !== "") {
                 age_End.value = searchCondition.age_End;
             }
         }
@@ -544,7 +460,7 @@
             try {
                 // define queryStrings array
                 let queryStrings = [];
-                let searchChoice = "and"; // Default to "AND"
+
                 e.preventDefault();
 
                 // Hide the form and show the spinner
@@ -588,10 +504,16 @@
                 // End check favourite_sports
 
                 // Start check "And" or "Or"
+                let searchChoice = "and"; // Default to "AND"
                 if (And.checked == true) {
                     search_condition.search_choice = And.value;
-                } else if (Or.checked == true) {
+                    Or.checked = false;
+                    searchChoice = "and";
+                }
+                if (Or.checked == true) {
                     search_condition.search_choice = Or.value;
+                    And.checked = false;
+                    searchChoice = "or";
                 }
                 // End check "And" or "Or"
 
@@ -673,6 +595,7 @@
                     queryStrings.push(`(age <= "${search_condition.age_End}")`);
                 }
                 // End check Age
+                
                 // Combine the unique query strings
                 const combinedQueryString = queryStrings.join(` ${searchChoice} `);
                 // Save the search condition to the local storage
@@ -683,7 +606,7 @@
                 url.searchParams.append("query", combinedQueryString);
                 console.log(combinedQueryString);
                 // Redirect to the search URL
-                window.location.href = url.toString();
+                // window.location.href = url.toString();
             } catch (error) {
                 alert(error);
                 hideSpinner();
