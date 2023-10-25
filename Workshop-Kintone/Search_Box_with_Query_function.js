@@ -393,10 +393,10 @@
             const searchCondition = JSON.parse(savedSearchCondition);
 
             // Repopulate the input fields
-            if (searchCondition.name !== "") {
+            if (searchCondition.name) {
                 name.value = searchCondition.name;
             }
-            if (searchCondition.favourite_foods !== "") {
+            if (searchCondition.favourite_foods) {
                 // Loop through the multiSelectDropdownItems
                 multiSelectDropdownItems.forEach((dropdownItem) => {
                     const selectedItem = dropdownItem.textContent;
@@ -419,12 +419,12 @@
                 });
             }
 
-            if (searchCondition.favourite_sports !== "") {
+            if (searchCondition.favourite_sports) {
                 favourite_sports.value = searchCondition.favourite_sports;
             }
-            if (searchCondition.partial_Match !== "") {
+            if (searchCondition.partial_Match) {
                 partial_Match.checked = true;
-            } else if (!searchCondition.partial_Match !== "") {
+            } else if (!searchCondition.partial_Match) {
                 partial_Match.checked = false;
             } else {
                 partial_Match.checked = true;
@@ -436,22 +436,22 @@
                 Or.checked = true;
                 And.checked = false;
             }
-            if (searchCondition.date_of_birthStart !== "") {
+            if (searchCondition.date_of_birthStart) {
                 date_of_birthStart.value = searchCondition.date_of_birthStart;
             }
-            if (searchCondition.date_of_birthEnd !== "") {
+            if (searchCondition.date_of_birthEnd) {
                 date_of_birthEnd.value = searchCondition.date_of_birthEnd;
             }
-            if (searchCondition.date_and_timeStart !== "") {
+            if (searchCondition.date_and_timeStart) {
                 date_and_timeStart.value = searchCondition.date_and_timeStart;
             }
-            if (searchCondition.date_and_timeEnd !== "") {
+            if (searchCondition.date_and_timeEnd) {
                 date_and_timeEnd.value = searchCondition.date_and_timeEnd;
             }
-            if (searchCondition.age_Start !== "") {
+            if (searchCondition.age_Start) {
                 age_Start.value = searchCondition.age_Start;
             }
-            if (searchCondition.age_End !== "") {
+            if (searchCondition.age_End) {
                 age_End.value = searchCondition.age_End;
             }
         }
@@ -529,18 +529,17 @@
                         // Add the query string with date_of_birthStart and date_of_birthEnd
                         queryStrings.push(`(date_of_birth >= "${search_condition.date_of_birthStart}" and date_of_birth <= "${search_condition.date_of_birthEnd}")`);
                     }
-                }
-
-                if (date_and_timeStart.value !== "" && date_and_timeEnd.value === "") {
+                } else if (date_of_birthStart.value !== "" && date_of_birthEnd.value === "") {
                     search_condition.date_of_birthStart = date_of_birthStart.value;
                     // Add the query string with date_of_birthStart
                     queryStrings.push(`(date_of_birth >= "${search_condition.date_of_birthStart}")`);
-                }
-
-                if (date_and_timeStart.value === "" && date_and_timeEnd.value !== "") {
+                }else if (date_of_birthStart.value === "" && date_of_birthEnd.value !== "") {
                     search_condition.date_of_birthEnd = date_of_birthEnd.value;
                     // Add the query string with date_of_birthEnd
                     queryStrings.push(`(date_of_birth <= "${search_condition.date_of_birthEnd}")`);
+                }
+                else{
+                    
                 }
                 // End check date_of_birthStart
 
