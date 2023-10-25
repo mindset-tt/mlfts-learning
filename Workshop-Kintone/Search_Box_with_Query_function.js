@@ -606,7 +606,7 @@
                 url.searchParams.append("query", combinedQueryString);
                 console.log(combinedQueryString);
                 // Redirect to the search URL
-                // window.location.href = url.toString();
+                window.location.href = url.toString();
             } catch (error) {
                 alert(error);
                 hideSpinner();
