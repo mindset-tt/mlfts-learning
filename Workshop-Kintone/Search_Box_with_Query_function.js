@@ -181,12 +181,12 @@
     }
     // -------------------------------------------------------------------event Function-----------------------------------------------------------------------------------------
     let checkJson = "";
-    kintone.events.on("app.record.index.show", function () {
+    kintone.events.on("app.record.index.show", async function () {
         try {
             // Check checkJson is empty or not
             if (checkJson) return;
             // Get the fields of the app
-            let fields = kintone.api(kintone.api.url("/k/v1/app/form/fields.json", true), "GET", { app: kintone.app.getId() });
+            let fields = await kintone.api(kintone.api.url("/k/v1/app/form/fields.json", true), "GET", { app: kintone.app.getId() });
             // Get the options of the favourite_foods field
             let options = fields.properties.favourite_foods.options;
             // Get the properties of the fields
