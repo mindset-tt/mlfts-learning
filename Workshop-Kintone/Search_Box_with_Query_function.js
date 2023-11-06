@@ -181,12 +181,12 @@
     }
     // -------------------------------------------------------------------event Function-----------------------------------------------------------------------------------------
     let checkJson = "";
-    kintone.events.on("app.record.index.show", async () => {
+    kintone.events.on("app.record.index.show", function () {
         try {
             // Check checkJson is empty or not
             if (checkJson) return;
             // Get the fields of the app
-            let fields = await kintone.api(kintone.api.url("/k/v1/app/form/fields.json", true), "GET", { app: kintone.app.getId() });
+            let fields = kintone.api(kintone.api.url("/k/v1/app/form/fields.json", true), "GET", { app: kintone.app.getId() });
             // Get the options of the favourite_foods field
             let options = fields.properties.favourite_foods.options;
             // Get the properties of the fields
@@ -244,8 +244,6 @@
                 }
             }
 
-
-
             function addMultilineText(fieldName) {
                 const textareaElement = document.createElement("div");
                 textareaElement.classList.add("kintone-input-outer");
@@ -279,8 +277,6 @@
                 textareaElement.appendChild(containerRadio);
                 divMultiLine.appendChild(textareaElement);
             }
-
-
 
             function addMultiSelectDropdown(fieldName, options) {
                 console.log(options);
@@ -683,13 +679,13 @@
         }
     });
 
-    kintone.events.on("app.record.detail.show", async (event) => {
+    kintone.events.on("app.record.detail.show", function (event) {
         // Hide the Text_area field
         kintone.app.record.setFieldShown('Text_area', false)
         return event;
     });
 
-    kintone.events.on("app.record.edit.show", async (event) => {
+    kintone.events.on("app.record.edit.show", function (event) {
         // Hide the Text_area field
         kintone.app.record.setFieldShown('Text_area', false)
         // Add a button to save with partial match search
@@ -725,7 +721,7 @@
         return event;
     });
 
-    kintone.events.on("app.record.index.edit.submit", async (event) => {
+    kintone.events.on("app.record.index.edit.submit", function (event) {
         // Get the record data
         let data = event.record;
         // get the value of favourite_sports
