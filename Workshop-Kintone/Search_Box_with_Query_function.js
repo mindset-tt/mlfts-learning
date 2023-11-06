@@ -1,5 +1,6 @@
 (function () {
     "use strict";
+    // -------------------------------------------------------------------Create Element-----------------------------------------------------------------------------------------
     const space = kintone.app.getHeaderSpaceElement();
     const buttonToggle = document.createElement("button");
     buttonToggle.classList.add('buttonToggle')
@@ -119,17 +120,80 @@
     containerRadio.appendChild(radioItem1);
     containerRadio.appendChild(radioItem2);
 
+    // Function to show the spinner
+    function showSpinner() {
+        try {
+            // Initialize
+            if ($('.kintone-spinner').length === 0) {
+                // Create elements for the spinner and the background of the spinner
+                const spin_div = $('<div id ="kintone-spin" class="kintone-spinner"></div>');
+                const spin_bg_div = $('<div id ="kintone-spin-bg" class="kintone-spinner"></div>');
+
+                // Append spinner to the body
+                $(document.body).append(spin_div, spin_bg_div);
+
+                // Set a style for the spinner
+                $(spin_div).css({
+                    'position': 'fixed',
+                    'top': '50%',
+                    'left': '50%',
+                    'z-index': '510',
+                    'background-color': '#fff',
+                    'padding': '26px',
+                    '-moz-border-radius': '4px',
+                    '-webkit-border-radius': '4px',
+                    'border-radius': '4px'
+                });
+                $(spin_bg_div).css({
+                    'position': 'fixed',
+                    'top': '0px',
+                    'left': '0px',
+                    'z-index': '500',
+                    'width': '100%',
+                    'height': '200%',
+                    'background-color': '#000',
+                    'opacity': '0.5',
+                    'filter': 'alpha(opacity=50)',
+                    '-ms-filter': 'alpha(opacity=50)'
+                });
+
+                // Set options for the spinner
+                const opts = {
+                    'color': '#000'
+                };
+
+                // Create the spinner
+                new Spinner(opts).spin(document.getElementById('kintone-spin'));
+            }
+
+            // Display the spinner
+            $('.kintone-spinner').show();
+        } catch (error) {
+            alert(error);
+            return;
+        }
+    }
+
+    // Function to hide the spinner
+    function hideSpinner() {
+        // Hide the spinner
+        $('.kintone-spinner').hide();
+    }
     // -------------------------------------------------------------------event Function-----------------------------------------------------------------------------------------
     let checkJson = "";
     kintone.events.on("app.record.index.show", async () => {
         try {
+            // Check checkJson is empty or not
             if (checkJson) return;
+            // Get the fields of the app
             let fields = await kintone.api(kintone.api.url("/k/v1/app/form/fields.json", true), "GET", { app: kintone.app.getId() });
-
+            // Get the options of the favourite_foods field
             let options = fields.properties.favourite_foods.options;
-
+            // Get the properties of the fields
             checkJson = fields.properties;
+            // Loop through the properties
             for (const propertyName in fields.properties) {
+                // Check if the property is name, date_of_birth, date_and_time, age, favourite_sports, favourite_foods
                 if (propertyName === "name") {
                     addSingleLineText(propertyName);
                 } else if (propertyName === "date_of_birth") {
@@ -144,7 +208,7 @@
                     addMultiSelectDropdown(propertyName, options);
                 }
             }
-            // console.log(Object.entries(properties).length)
+            // Append the "Search" and "Reset" and containerRadio to containerbutton
             radioSearchReset.style.display = "flex";
 
             function addSingleLineText(fieldName) {
@@ -293,67 +357,6 @@
                 radioInput1.checked = false;
             });
 
-
-            function showSpinner() {
-                try {
-                    // Initialize
-                    if ($('.kintone-spinner').length === 0) {
-                        // Create elements for the spinner and the background of the spinner
-                        const spin_div = $('<div id ="kintone-spin" class="kintone-spinner"></div>');
-                        const spin_bg_div = $('<div id ="kintone-spin-bg" class="kintone-spinner"></div>');
-
-                        // Append spinner to the body
-                        $(document.body).append(spin_div, spin_bg_div);
-
-                        // Set a style for the spinner
-                        $(spin_div).css({
-                            'position': 'fixed',
-                            'top': '50%',
-                            'left': '50%',
-                            'z-index': '510',
-                            'background-color': '#fff',
-                            'padding': '26px',
-                            '-moz-border-radius': '4px',
-                            '-webkit-border-radius': '4px',
-                            'border-radius': '4px'
-                        });
-                        $(spin_bg_div).css({
-                            'position': 'fixed',
-                            'top': '0px',
-                            'left': '0px',
-                            'z-index': '500',
-                            'width': '100%',
-                            'height': '200%',
-                            'background-color': '#000',
-                            'opacity': '0.5',
-                            'filter': 'alpha(opacity=50)',
-                            '-ms-filter': 'alpha(opacity=50)'
-                        });
-
-                        // Set options for the spinner
-                        const opts = {
-                            'color': '#000'
-                        };
-
-                        // Create the spinner
-                        new Spinner(opts).spin(document.getElementById('kintone-spin'));
-                    }
-
-                    // Display the spinner
-                    $('.kintone-spinner').show();
-                } catch (error) {
-                    alert(error);
-                    return;
-                }
-            }
-
-            // Function to hide the spinner
-            function hideSpinner() {
-                // Hide the spinner
-                $('.kintone-spinner').hide();
-            }
-
-
             const name = document.getElementById("singlelineText");
             const favourite_foods = allValues.multiSelect;
             const favourite_sports = document.getElementById("multilineText");
@@ -369,7 +372,7 @@
             const Or = document.getElementById("radio-1");
 
             const SearchButton = document.getElementById("searchButton");
-            // const multiSelectDropdownItems = document.querySelectorAll(".kintone-dropdown-list-item span");
+            // Get the saved search condition from the local storage
             const savedSearchCondition = localStorage.getItem("search_condition");
 
             const multiSelectDropdownItems = document.querySelectorAll(".kintone-dropdown-list-item span");
@@ -402,11 +405,14 @@
             });
 
             if (savedSearchCondition) {
+                // Parse the saved search condition
                 const searchCondition = JSON.parse(savedSearchCondition);
-                // Repopulate the input fields
+                // Check if the search condition has the name field
                 if (searchCondition.name) {
                     name.value = searchCondition.name;
                 }
+
+                // Check if the search condition has the favourite_foods field
                 if (searchCondition.favourite_foods) {
                     // Loop through the multiSelectDropdownItems
                     multiSelectDropdownItems.forEach((dropdownItem) => {
@@ -430,9 +436,12 @@
                     });
                 }
 
+                // Check if the search condition has the favourite_sports field
                 if (searchCondition.favourite_sports) {
                     favourite_sports.value = searchCondition.favourite_sports;
                 }
+
+                // Check if the search condition has the partial_Match field
                 if (searchCondition.partial_Match) {
                     partial_Match.checked = true;
                 } else if (!searchCondition.partial_Match) {
@@ -440,6 +449,8 @@
                 } else {
                     partial_Match.checked = true;
                 }
+
+                // Check if the search condition has the search_choice field
                 if (searchCondition.search_choice === "And") {
                     And.checked = true;
                     Or.checked = false;
@@ -447,18 +458,24 @@
                     Or.checked = true;
                     And.checked = false;
                 }
+
+                // Check if the search condition has the date_of_birthStart and date_of_birthEnd field
                 if (searchCondition.date_of_birthStart) {
                     date_of_birthStart.value = searchCondition.date_of_birthStart;
                 }
                 if (searchCondition.date_of_birthEnd) {
                     date_of_birthEnd.value = searchCondition.date_of_birthEnd;
                 }
+
+                // Check if the search condition has the date_and_timeStart and date_and_timeEnd field
                 if (searchCondition.date_and_timeStart) {
                     date_and_timeStart.value = searchCondition.date_and_timeStart;
                 }
                 if (searchCondition.date_and_timeEnd) {
                     date_and_timeEnd.value = searchCondition.date_and_timeEnd;
                 }
+
+                // Check if the search condition has the age_Start and age_End field
                 if (searchCondition.age_Start) {
                     age_Start.value = searchCondition.age_Start;
                 }
@@ -506,11 +523,11 @@
                         if (partial_Match.checked) {
                             search_condition.partial_Match = true;
                             // Add the query string with partial match (like)
-                            queryStrings.push(`(favourite_sports like "${search_condition.favourite_sports}")`);
+                            queryStrings.push(`(Text_area like "${search_condition.favourite_sports}")`);
                         } else {
                             search_condition.partial_Match = false;
                             // Add the query string without partial match (not like)
-                            queryStrings.push(`(favourite_sports not like "${search_condition.favourite_sports}")`);
+                            queryStrings.push(`(Text_area not like "${search_condition.favourite_sports}")`);
                         }
                     }
                     // End check favourite_sports
@@ -608,20 +625,18 @@
                     const combinedQueryString = queryStrings.join(` ${searchChoice} `);
                     // Save the search condition to the local storage
                     localStorage.setItem("search_condition", JSON.stringify(search_condition));
-                    // Create the search URL
-                    // const url = new URL(kintone.api.url('/k').split('.json')[0] + "/" + kintone.app.getId() + "/");
-                    // // Add the query string to the URL
-                    // url.searchParams.append("query", combinedQueryString);
-                    // console.log(combinedQueryString);
 
                     //check if link have query
                     if (window.location.href.includes("?view=")) {
                         // Ask for confirmation
-                        var proceed = confirm("Do you want to search with value in the box?");
+                        var proceed = confirm("Do you want to search with value in the box? You will lose the current view");
+                        // Check if the user wants to proceed
                         if (proceed) {
+                            // Redirect to the URL
                             window.location.href = '../../' + "k" + "/" + kintone.app.getId() + "/" + "?query=" + combinedQueryString;
                         }
                         else {
+                            // alert("You have canceled the search");
                             throw ("You have canceled the search");
                         }
                     }
@@ -638,6 +653,7 @@
 
             resetButton.addEventListener("click", function (e) {
                 try {
+                    // clear all value in the box and local storage
                     localStorage.removeItem("search_condition");
                     const divElements = document.querySelectorAll(".kintone-dropdown-list-item-selected");
                     divElements.forEach((divElement) => {
@@ -650,6 +666,7 @@
                     date_and_timeEnd.value = "";
                     age_Start.value = "";
                     age_End.value = "";
+                    // redirect to the app without query
                     const url = new URL(
                         kintone.api.url("/k").split(".json")[0] + "/" + kintone.app.getId() + "/");
                     window.location.href = url.toString();
@@ -664,5 +681,71 @@
             hideSpinner();
             return;
         }
+    });
+
+    kintone.events.on("app.record.detail.show", async (event) => {
+        // Hide the Text_area field
+        kintone.app.record.setFieldShown('Text_area', false)
+        return event;
+    });
+
+    kintone.events.on("app.record.edit.show", async (event) => {
+        // Hide the Text_area field
+        kintone.app.record.setFieldShown('Text_area', false)
+        // Add a button to save with partial match search
+        let btn = $('<button style="margin-left: 30px; height:48px; background-color:lightgreen; border:none; color:white">Save with patial match search</button>');
+        // Add a click event to the button
+        $(btn).on('click', function () {
+            // Get the record data
+            let data = kintone.app.record.get();
+            // Get the favourite_sports value
+            console.log(data);
+            // get the value of favourite_sports
+            let favourite_sports = data.record.favourite_sports.value;
+            // Create an array to store the combination of favourite_sports
+            const arr = [];
+            // Loop through the favourite_sports array
+            for (let i = 0; i <= favourite_sports.length; i++) {
+                for (let j = i + 1; j <= favourite_sports.length; j++) {
+                    // Push the combination to the array
+                    arr.push(favourite_sports.slice(i, j));
+                }
+            }
+            console.log(arr);
+            // Join the array with a pipe
+            let combinddata = arr.join('|');
+            // Set the value of Text_area field
+            data.record.Text_area.value = combinddata;
+            // Set data to the record
+            kintone.app.record.set(data);
+        });
+        // Append the button to the header space
+        $('.gaia-argoui-app-edit-buttons').append(btn)
+        // Return the event
+        return event;
+    });
+
+    kintone.events.on("app.record.index.edit.submit", async (event) => {
+        // Get the record data
+        let data = event.record;
+        // get the value of favourite_sports
+        let favourite_sports = data.favourite_sports.value;
+        // Create an array to store the combination of favourite_sports
+        const arr = [];
+        // Loop through the favourite_sports array
+        for (let i = 0; i <= favourite_sports.length; i++) {
+            for (let j = i + 1; j <= favourite_sports.length; j++) {
+                // Push the combination to the array
+                arr.push(favourite_sports.slice(i, j));
+            }
+        }
+        // Join the array with a pipe
+        let combinddata = arr.join('|');
+        // Set the value of Text_area field
+        data.Text_area.value = combinddata;
+        // Set data to the record
+        kintone.app.record.set(data);
+        // Return the event
+        return event;
     });
 })();
