@@ -622,7 +622,7 @@
                     // Save the search condition to the local storage
                     localStorage.setItem("search_condition", JSON.stringify(search_condition));
 
-                    //check if link have query
+                    //check if link have view
                     if (window.location.href.includes("?view=")) {
                         // Ask for confirmation
                         var proceed = confirm("Do you want to search with value in the box? You will lose the current view");
