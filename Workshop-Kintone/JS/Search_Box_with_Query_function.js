@@ -279,7 +279,6 @@
             }
 
             function addMultiSelectDropdown(fieldName, options) {
-                console.log(options);
                 const dropdownElement = document.createElement("div");
                 dropdownElement.style.width = "150px";
                 dropdownElement.classList.add("kintone-dropdown-list");
@@ -694,8 +693,6 @@
         $(btn).on('click', function () {
             // Get the record data
             let data = kintone.app.record.get();
-            // Get the favourite_sports value
-            console.log(data);
             // get the value of favourite_sports
             let favourite_sports = data.record.favourite_sports.value;
             // Create an array to store the combination of favourite_sports
@@ -707,7 +704,6 @@
                     arr.push(favourite_sports.slice(i, j));
                 }
             }
-            console.log(arr);
             // Join the array with a pipe
             let combinddata = arr.join('|');
             // Set the value of Text_area field
