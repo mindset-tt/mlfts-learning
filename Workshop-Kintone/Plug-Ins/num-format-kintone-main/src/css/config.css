@@ -1,0 +1,159 @@
+.settings-heading {
+  padding: 1em 0;
+}
+
+.kintoneplugin-input-text {
+  width: 20em;
+}
+
+.cf-operation-column {
+  min-width: 70px;
+}
+
+.cf-checkBox {
+  align-items: center;
+  height: 25px;
+  width: 25px;
+}
+
+.cf-radioBtn {
+  align-items: center;
+  height: 20px;
+  width: 20px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+.cf-column1 {
+  align-items: center;
+  /* width: max-content; */
+}
+
+.cf-column2 {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  width: max-content;
+}
+
+.cf-column3 {
+  align-items: center;
+  /* width: max-content; */
+}
+
+.cf-column4 {
+  align-items: center;
+  /* width: max-content; */
+}
+
+.cf-column5 {
+  align-items: center;
+  /* width: max-content; */
+}
+
+.cf-column6 {
+  align-items: center;
+  /* width: max-content; */
+}
+
+.cf-column7 {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  width: max-content;
+}
+
+.cf-column8 {
+  align-items: center;
+  /* width: max-content; */
+}
+
+.cf-column9 {
+  align-items: center;
+  /* width: max-content; */
+}
+
+.align_group {
+  border-color: #e3e7e8;
+  border-width: 1px;
+  border-style: solid;
+  /* padding-top: 4px; */
+  padding: 12px;
+  box-sizing: border-box;
+  width: fit-content;
+  gap: 20px;
+}
+
+.align_group label {
+  margin-left: 6px;
+}
+.js-import-input {
+  display: none;
+}
+
+.drag-handle {
+  cursor: move;
+  margin-right: 20px;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70px;
+}
+
+.dragging {
+  background-color: #f5f5f5;
+  opacity: 0.5;
+}
+
+table td:first-child { 
+  border-bottom-style: hidden;
+  border-top-style: hidden;
+  border-left-style: hidden;
+}
+
+#color_field_column {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 200px;
+  height: 50px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+#color_field_column::-webkit-color-swatch {
+  border-radius: 50px;
+  border: none;
+}
+#color_field_column::-moz-color-swatch {
+  border-radius: 50px;
+  border: none;
+}
+
+.radio-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 48px;
+}
+.checkbox-center {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  height: 48px;
+}
+.gap {
+  display: inline-block;
+  margin-right: 15px;
+}
+
+.cf-column2 label{
+  margin-left: 6px;
+}
+
+.cf-column7 label{
+  margin-left: 6px;
+}

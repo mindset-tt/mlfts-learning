@@ -1,0 +1,123 @@
+<section class="settings">
+  <h2 class="settings-heading">Settings</h2>
+  <form class="js-submit-settings">
+    <div class="kintoneplugin-input-outer">
+      <table class="kintoneplugin-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th class="kintoneplugin-table-th"><span class="title">Title name <span class="kintoneplugin-require">*</span></span></th>
+            <th class="kintoneplugin-table-th"><span class="title">Multiple fields</span></th>
+            <th class="kintoneplugin-table-th"><span class="title">Fields <span class="kintoneplugin-require">*</span></span></th>
+            <th class="kintoneplugin-table-th"><span class="title">Search conditions</span></th>
+            <th class="kintoneplugin-table-th"><span class="title">New line</span></th>
+            <th class="kintoneplugin-table-th-blankspace"></th>
+          </tr>
+        </thead>
+        <tbody id="kintoneplugin-setting-tbody">
+          <tr>
+            <td><span class="drag-handle">&#9776;</span></td>
+            <td>
+              <div class="kintoneplugin-table-td-control">
+                <div class="kintoneplugin-table-td-control-value">
+                  <div class="kintoneplugin-input-outer">
+                      <span>
+                        <input type="text" class="kintoneplugin-input-text cf-column3" id="prefix_field_column"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="kintoneplugin-table-td-control">
+                <div class="kintoneplugin-table-td-control-value ">
+                  <div class="multiple-check">
+                    <span class="checkbox-center">
+                    <input type="checkbox" class="cf-checkBox check">
+                    <span>&nbsp;Multiple fields</span>
+                  </span>
+                  </div>
+                  
+              
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="kintoneplugin-table-td-control">
+                <div class="kintoneplugin-table-td-control-value">
+                  
+                  <div class="kintoneplugin-select" id="dropdown-select">
+                    <select name="field_dropdown_column" id="select_field_column" class="cf-column1">
+                      <option value="">-----</option>
+                    </select>
+                </div>
+                <div class="multiple-select" style="display: none;" id="multiple-select">
+                  <div class="kintoneplugin-dropdown-list">
+                    <div class="kintoneplugin-dropdown-list-item">
+                      <span class="kintoneplugin-dropdown-list-item-name">オプションA</span>
+                    </div>
+                    <div class="kintoneplugin-dropdown-list-item">
+                      <span class="kintoneplugin-dropdown-list-item-name">オプションB</span>
+                    </div>
+                    <div class="kintoneplugin-dropdown-list-item">
+                      <span class="kintoneplugin-dropdown-list-item-name">オプションC</span>
+                    </div>
+                  </div>
+              </div>
+              </div>
+            </td>
+            <td>
+              <div class="kintoneplugin-table-td-control">
+                <div class="kintoneplugin-table-td-control-value cf-column2">
+                  <span class="radio-center">
+                    <input type="radio" id="Partial" name="choice1" value="partial" class="cf-radioBtn radio">
+                    <label for="" class="gap">Partial</label>
+                  </span>
+                  <span class="radio-center">
+                    <input type="radio" id="exact" name="choice1" value="exact" class="cf-radioBtn radio">
+                    <label for="">Exact</label>
+                  </span>
+                </div>
+              </div>
+              
+            </td>
+            <td>
+              <div class="kintoneplugin-table-td-control">
+                <div class="kintoneplugin-table-td-control-value">
+                  <span class="checkbox-center">
+                    <input type="checkbox" class="cf-checkBox cf-column5" id="seperator_field_column" >
+                    <span>&nbsp;New Line</span>
+                  </span>
+                </div>
+              </div>
+            </td>
+            <td class="kintoneplugin-table-td-operation cf-operation-column">
+              <button type="button" class="kintoneplugin-button-add-row-image addRow" title="Add row"></button>
+              <button type="button" class="kintoneplugin-button-remove-row-image removeRow" title="Delete this row"></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="kintoneplugin-row">
+      <p class="kintoneplugin-desc">Initial display</p>
+      <div class="align_group radio-center">
+        <span class="radio-center">
+          <input type="radio" id="leftAlign" value="left" name="alignment_method" class="cf-radioBtn" checked="checked">
+          <label for="leftAlign">Open</label>
+        </span>
+        <span class="radio-center">
+          <input type="radio" id="rightAlign" value="right" name="alignment_method" class="cf-radioBtn">
+          <label for="rightAlign">Close</label>
+        </span>
+      </div>
+    </p>
+    <p class="kintoneplugin-row">
+      <button type="button" class="js-save-button kintoneplugin-button-dialog-ok">Save</button>
+      <button type="button" class="js-cancel-button kintoneplugin-button-dialog-cancel">Cancel</button>
+      <button type="button" class="js-import-button kintoneplugin-button-dialog-ok">Import settings</button>
+      <input type="file" accept="application/JSON" class="js-import-input"></input>
+      <button type="button" class="js-export-button kintoneplugin-button-dialog-ok">Export settings</button>
+    </p>
+  </form>
+</section>
