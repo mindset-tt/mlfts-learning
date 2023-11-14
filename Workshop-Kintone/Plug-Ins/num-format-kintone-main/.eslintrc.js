@@ -1,5 +1,5 @@
 'use strict';
 
-module.exports = {
+export default {
   extends: ['@cybozu/eslint-config/presets/kintone-customize-es5']
 };

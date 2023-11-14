@@ -91,6 +91,7 @@
 .align_group label {
   margin-left: 6px;
 }
+
 .js-import-input {
   display: none;
 }
@@ -110,7 +111,7 @@
   opacity: 0.5;
 }
 
-table td:first-child { 
+table td:first-child {
   border-bottom-style: hidden;
   border-top-style: hidden;
   border-left-style: hidden;
@@ -126,10 +127,12 @@ table td:first-child {
   border: none;
   cursor: pointer;
 }
+
 #color_field_column::-webkit-color-swatch {
   border-radius: 50px;
   border: none;
 }
+
 #color_field_column::-moz-color-swatch {
   border-radius: 50px;
   border: none;
@@ -141,23 +144,27 @@ table td:first-child {
   align-items: center;
   height: 48px;
 }
+
 .checkbox-center {
   display: flex;
   justify-content: left;
   align-items: center;
   height: 48px;
 }
+
 .gap {
   display: inline-block;
   margin-right: 15px;
 }
 
-#multiple-select{
+#multiple-select {
   display: none;
 }
-.cf-column2 label{
+
+.cf-column2 label {
   margin-left: 6px;
 }
+
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -168,6 +175,7 @@ table td:first-child {
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
-.cf-column7 label{
+
+.cf-column7 label {
   margin-left: 6px;
 }
