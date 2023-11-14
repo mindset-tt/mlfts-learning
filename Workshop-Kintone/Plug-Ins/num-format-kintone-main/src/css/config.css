@@ -82,7 +82,9 @@
   /* padding-top: 4px; */
   padding: 12px;
   box-sizing: border-box;
-  width: fit-content;
+  width: auto;
+  min-width: min-content;
+  max-width: max-content;
   gap: 20px;
 }
 
@@ -150,10 +152,22 @@ table td:first-child {
   margin-right: 15px;
 }
 
+#multiple-select{
+  display: none;
+}
 .cf-column2 label{
   margin-left: 6px;
 }
-
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
 .cf-column7 label{
   margin-left: 6px;
 }

@@ -5,13 +5,13 @@
       <table class="kintoneplugin-table">
         <thead>
           <tr>
-            <th></th>
+            <th class="kintoneplugin-table-th-blankspace"><span class="visually-hidden">slider</span></th>
             <th class="kintoneplugin-table-th"><span class="title">Title name <span class="kintoneplugin-require">*</span></span></th>
             <th class="kintoneplugin-table-th"><span class="title">Multiple fields</span></th>
             <th class="kintoneplugin-table-th"><span class="title">Fields <span class="kintoneplugin-require">*</span></span></th>
             <th class="kintoneplugin-table-th"><span class="title">Search conditions</span></th>
             <th class="kintoneplugin-table-th"><span class="title">New line</span></th>
-            <th class="kintoneplugin-table-th-blankspace"></th>
+            <th class="kintoneplugin-table-th-blankspace"><span class="visually-hidden">add new field</span></th>
           </tr>
         </thead>
         <tbody id="kintoneplugin-setting-tbody">
@@ -22,7 +22,7 @@
                 <div class="kintoneplugin-table-td-control-value">
                   <div class="kintoneplugin-input-outer">
                       <span>
-                        <input type="text" class="kintoneplugin-input-text cf-column3" id="prefix_field_column"/>
+                        <input title="title-field" type="text" class="kintoneplugin-input-text cf-column3" id="prefix_field_column"/>
                     </div>
                   </div>
                 </div>
@@ -33,7 +33,7 @@
                 <div class="kintoneplugin-table-td-control-value ">
                   <div class="multiple-check">
                     <span class="checkbox-center">
-                    <input type="checkbox" class="cf-checkBox check">
+                    <input title="multiple-field" type="checkbox" class="cf-checkBox check">
                     <span>&nbsp;Multiple fields</span>
                   </span>
                   </div>
@@ -47,11 +47,11 @@
                 <div class="kintoneplugin-table-td-control-value">
                   
                   <div class="kintoneplugin-select" id="dropdown-select">
-                    <select name="field_dropdown_column" id="select_field_column" class="cf-column1">
+                    <select title="select-field" name="field_dropdown_column" id="select_field_column" class="cf-column1">
                       <option value="">-----</option>
                     </select>
                 </div>
-                <div class="multiple-select" style="display: none;" id="multiple-select">
+                <div class="multiple-select" id="multiple-select">
                   <div class="kintoneplugin-dropdown-list">
                     <div class="kintoneplugin-dropdown-list-item">
                       <span class="kintoneplugin-dropdown-list-item-name">オプションA</span>
@@ -70,11 +70,11 @@
               <div class="kintoneplugin-table-td-control">
                 <div class="kintoneplugin-table-td-control-value cf-column2">
                   <span class="radio-center">
-                    <input type="radio" id="Partial" name="choice1" value="partial" class="cf-radioBtn radio">
+                    <input title="partial-match-selected" type="radio" id="Partial" name="choice1" value="partial" class="cf-radioBtn radio">
                     <label for="" class="gap">Partial</label>
                   </span>
                   <span class="radio-center">
-                    <input type="radio" id="exact" name="choice1" value="exact" class="cf-radioBtn radio">
+                    <input title="exact-match-selected" type="radio" id="exact" name="choice1" value="exact" class="cf-radioBtn radio">
                     <label for="">Exact</label>
                   </span>
                 </div>
@@ -85,7 +85,7 @@
               <div class="kintoneplugin-table-td-control">
                 <div class="kintoneplugin-table-td-control-value">
                   <span class="checkbox-center">
-                    <input type="checkbox" class="cf-checkBox cf-column5" id="seperator_field_column" >
+                    <input title="new-line" type="checkbox" class="cf-checkBox cf-column5" id="seperator_field_column" >
                     <span>&nbsp;New Line</span>
                   </span>
                 </div>
@@ -116,7 +116,7 @@
       <button type="button" class="js-save-button kintoneplugin-button-dialog-ok">Save</button>
       <button type="button" class="js-cancel-button kintoneplugin-button-dialog-cancel">Cancel</button>
       <button type="button" class="js-import-button kintoneplugin-button-dialog-ok">Import settings</button>
-      <input type="file" accept="application/JSON" class="js-import-input"></input>
+      <input title="config-import" type="file" accept="application/JSON" class="js-import-input"></input>
       <button type="button" class="js-export-button kintoneplugin-button-dialog-ok">Export settings</button>
     </p>
   </form>
