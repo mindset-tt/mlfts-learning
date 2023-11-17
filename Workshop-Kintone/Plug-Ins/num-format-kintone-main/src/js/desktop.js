@@ -14,7 +14,8 @@ jQuery.noConflict();
     "field": {
       "sample_multifield": {
         "type": "MultiFieldText",
-        "code": ["name", "surname", "middlename"],
+        "code": "sample_multifield",
+        "field": ["name", "surname", "middlename"],
         "label": "Sample multifield",
         "patial": "true",
         "exact": "false",
@@ -333,7 +334,7 @@ jQuery.noConflict();
     let fieldCodes = [];
     let fieldLabels = [];
     let fieldCalcformat = [];
-    // let fielMultiplefield = [];
+    let fielMultiplefield = [];
     let fieldPatail = [];
     let fieldExact = [];
     // let fieldLines = [];
@@ -341,7 +342,7 @@ jQuery.noConflict();
       fieldCodes.push(json.field[key].type);
       fieldLabels.push(json.field[key].code);
       fieldCalcformat.push(json.field[key].format);
-      // fielMultiplefield.push(json.field[key].multiplefield);
+      fielMultiplefield.push(json.field[key].field);
       fieldPatail.push(json.field[key].patial);
       fieldExact.push(json.field[key].exact);
 
@@ -351,7 +352,7 @@ jQuery.noConflict();
     for (let i = 0; i < fieldCodes.length; i++) {
 
       if (fieldCodes[i] === "MultiFieldText") {
-        addSingleLineText("name", fieldLabels[i].join('-')); // Joins labels with a comma and space
+        addSingleLineText(fieldLabels[i], fielMultiplefield[i].join('-')); // Joins labels with a comma and space
       }
       if (fieldCodes[i] === "SINGLE_LINE_TEXT") {
         addSingleLineText(fieldLabels[i], fieldLabels[i]);
@@ -670,22 +671,24 @@ jQuery.noConflict();
 
     SearchButton.addEventListener("click", function (e) {
       try {
+        hideForm();
+        showSpinner();
         let queryStrings = [];
         let singleLineMulti;
         const search_condition = {};
         for (let i = 0; i < fieldCodes.length; i++) {
           if (fieldCodes[i] === "MultiFieldText") {
-            singleLineMulti = document.getElementById("singleLineText-" + fieldLabels[i].join('-'));
+            singleLineMulti = document.getElementById("singleLineText-" + fielMultiplefield[i].join('-'));
             if (singleLineMulti.value) {
-              search_condition[fieldLabels[i].join('-')] = singleLineMulti.value;
+              search_condition[fielMultiplefield[i].join('-')] = singleLineMulti.value;
               // remove join('-') to search with each field with or on the same value
               let searchString = '';
-              if (Array.isArray(fieldLabels[i]) && fieldLabels[i].length > 0) {
+              if (Array.isArray(fielMultiplefield[i]) && fielMultiplefield[i].length > 0) {
                 if (fieldPatail[i] === "true" && fieldExact[i] === "false") {
-                  searchString = '(' + fieldLabels[i].map(code => `${code} like "${search_condition[fieldLabels[i].join('-')]}%"`).join(' or ') + ')';
+                  searchString = '(' + fielMultiplefield[i].map(code => `${code} like "${search_condition[fielMultiplefield[i].join('-')]}"`).join(' or ') + ')';
                 }
                 else if (fieldPatail[i] === "false" && fieldExact[i] === "true") {
-                  searchString = '(' + fieldLabels[i].map(code => `${code} in "as"`).join(' or ') + ')';
+                  searchString = '(' + fieldLabels[i].map(code => `${code} in "${search_condition[fielMultiplefield[i].join('-')]}"`).join(' and ') + ')';
                 }
               }
               queryStrings.push(searchString);
@@ -697,14 +700,14 @@ jQuery.noConflict();
               search_condition[fieldLabels[i]] = singleLineMulti.value;
               // remove join('-') to search with each field with or on the same value
               let searchString = '';
-              if (Array.isArray(fieldLabels[i]) && fieldLabels[i].length > 0) {
-                if (fieldPatail[i] === "true" && fieldExact[i] === "false") {
-                  searchString = '(' + fieldLabels[i].map(code => `${code} like "${search_condition[fieldLabels[i].join('-')]}%"`).join(' or ') + ')';
-                }
-                else if (fieldPatail[i] === "false" && fieldExact[i] === "true") {
-                  searchString = '(' + fieldLabels[i].map(code => `${code} in "as"`).join(' or ') + ')';
-                }
+              // if (Array.isArray(fieldLabels[i]) && fieldLabels[i].length > 0) {
+              if (fieldPatail[i] === "true" && fieldExact[i] === "false") {
+                searchString = `(${fieldLabels[i]} like "${search_condition[fieldLabels[i]]}%")`
               }
+              else if (fieldPatail[i] === "false" && fieldExact[i] === "true") {
+                searchString = `(${fieldLabels[i]} in "${search_condition[fieldLabels[i]]}")`
+              }
+
               queryStrings.push(searchString);
             }
           }
@@ -741,14 +744,14 @@ jQuery.noConflict();
                 let options = status.states;
                 let optionArray = Object.values(options);
                 let optionArrayValue = optionArray.map((item) => item.name);
-                
+
                 let selectedValues = multiSelectDropdownArrayValue.filter((value) =>
                   optionArrayValue.some((optionValue) => {
                     const comparison = optionValue.toLowerCase() === value.trim().replace(/\s+/g, ' ').toLowerCase();
                     return comparison;
                   })
                 );
-                
+
                 let cleanedArray = selectedValues.map(str => str.trim().replace(/\s+/g, ' '));
                 search_condition[fieldLabels[i]] = selectedValues;
                 queryStrings.push(`(${fieldLabels[i]} in ("${cleanedArray.join('","')}"))`);
@@ -756,7 +759,7 @@ jQuery.noConflict();
                 let options = fields.properties[fieldLabels[i]].options;
                 let optionArray = Object.values(options);
                 let optionArrayValue = optionArray.map((item) => item.label);
-                
+
                 let selectedValues = multiSelectDropdownArrayValue.filter((value) =>
                   optionArrayValue.some((optionValue) => {
                     const comparison = optionValue.toLowerCase() === value.trim().replace(/\s+/g, ' ').toLowerCase();
@@ -785,10 +788,11 @@ jQuery.noConflict();
           And.checked = false;
           searchChoice = "or";
         }
-        const combinedQueryString = queryStrings.join(` ${searchChoice} `);
+        const combinedQueryString = queryStrings.filter(Boolean).join(` ${searchChoice} `);
         // Save the search condition to the local storage
         sessionStorage.setItem("search_condition", JSON.stringify(search_condition));
-        // //check if link have view
+        console.log(combinedQueryString);
+        //check if link have view
         if (window.location.href.includes("?view=")) {
           // Ask for confirmation
           var proceed = confirm("Do you want to search with value in the box? You will lose the current view");

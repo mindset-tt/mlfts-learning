@@ -10,8 +10,17 @@ jQuery.noConflict();
   "use strict";
   // -------------------------------------------------------------------Create Element-----------------------------------------------------------------------------------------
   let json = {
-    "initial_display": true,
+    "initial_display": "true",
     "field": {
+      "sample_multifield": {
+        "type": "MultiFieldText",
+        "code": "sample_multifield",
+        "fields": ["name", "surname", "middlename"],
+        "label": "Sample multifield",
+        "patial": "true",
+        "exact": "false",
+        "newline": "false",
+      },
       "Created_datetime": {
         "type": "CREATED_TIME",
         "code": "Created_datetime",
@@ -19,7 +28,7 @@ jQuery.noConflict();
         "patial": "false",
         "exact": "false",
         "newline": "false",
-        "multiplefield": "false",
+
       },
       "Record_number": {
         "type": "RECORD_NUMBER",
@@ -28,7 +37,7 @@ jQuery.noConflict();
         "patial": "false",
         "exact": "false",
         "newline": "false",
-        "multiplefield": "false",
+
       },
       "diet": {
         "type": "CHECK_BOX",
@@ -37,7 +46,7 @@ jQuery.noConflict();
         "patial": "false",
         "exact": "false",
         "newline": "false",
-        "multiplefield": "false",
+
       },
       "start_date": {
         "type": "DATE",
@@ -46,7 +55,6 @@ jQuery.noConflict();
         "patial": "false",
         "exact": "false",
         "newline": "false",
-        "multiplefield": "false",
       },
       "Status": {
         "type": "STATUS",
@@ -55,7 +63,7 @@ jQuery.noConflict();
         "patial": "false",
         "exact": "false",
         "newline": "false",
-        "multiplefield": "false",
+
       },
       "final_day": {
         "type": "DATETIME",
@@ -64,7 +72,7 @@ jQuery.noConflict();
         "patial": "false",
         "exact": "false",
         "newline": "false",
-        "multiplefield": "false",
+
       },
       "sex": {
         "type": "RADIO_BUTTON",
@@ -73,7 +81,7 @@ jQuery.noConflict();
         "patial": "false",
         "exact": "false",
         "newline": "false",
-        "multiplefield": "false",
+
       },
       "weight": {
         "type": "NUMBER",
@@ -83,7 +91,7 @@ jQuery.noConflict();
         "patial": "false",
         "exact": "false",
         "newline": "false",
-        "multiplefield": "false",
+
       },
       "target": {
         "type": "MULTI_SELECT",
@@ -92,7 +100,7 @@ jQuery.noConflict();
         "patial": "false",
         "exact": "false",
         "newline": "false",
-        "multiplefield": "false",
+
       },
       "start_time": {
         "type": "TIME",
@@ -101,7 +109,7 @@ jQuery.noConflict();
         "patial": "false",
         "exact": "false",
         "newline": "false",
-        "multiplefield": "false",
+
       },
       "Updated_datetime": {
         "type": "UPDATED_TIME",
@@ -110,16 +118,43 @@ jQuery.noConflict();
         "patial": "false",
         "exact": "false",
         "newline": "false",
-        "multiplefield": "false",
+
+      },
+      "middlename": {
+        "type": "SINGLE_LINE_TEXT",
+        "code": "middlename",
+        "label": "Middlename",
+        "patial": "false",
+        "exact": "false",
+        "newline": "false",
+
       },
       "name": {
         "type": "SINGLE_LINE_TEXT",
         "code": "name",
         "label": "Name",
-        "patial": "true",
+        "patial": "false",
         "exact": "false",
         "newline": "false",
-        "multiplefield": "false",
+
+      },
+      "surname": {
+        "type": "SINGLE_LINE_TEXT",
+        "code": "surname",
+        "label": "Surname",
+        "patial": "false",
+        "exact": "false",
+        "newline": "false",
+
+      },
+      "address": {
+        "type": "SINGLE_LINE_TEXT",
+        "code": "address",
+        "label": "Address",
+        "patial": "false",
+        "exact": "false",
+        "newline": "false",
+
       },
       "bedtime": {
         "type": "DROP_DOWN",
@@ -137,7 +172,7 @@ jQuery.noConflict();
         "exact": "false",
         "newline": "false",
         "format": "NUMBER_DIGIT",
-        "multiplefield": "false",
+
       }
     }
   };
@@ -166,63 +201,15 @@ jQuery.noConflict();
   const radioItem1 = document.createElement("span");
   const containerRadio = document.createElement("div");
 
-  const divName = document.createElement("div");
-  divName.classList.add('divName')
-
-  const divDate = document.createElement("div");
-  divDate.classList.add('divDate')
-
-  const divMultiSelect = document.createElement("div");
-  divMultiSelect.classList.add('divMultiSelect')
-
-  const divMultiSelectDropdown = document.createElement("div");
-  divMultiSelectDropdown.classList.add('divMultiSelectDropdown')
-
-  const divMultiSelectStatusDropdown = document.createElement("div");
-  divMultiSelectStatusDropdown.classList.add('divMultiSelectStatusDropdown')
-
-  const divNumber = document.createElement("div");
-  divNumber.classList.add('divNumber');
-
-  const divInBody = document.createElement("div");
-  divInBody.classList.add('divInBody')
-
-  const divDateTime = document.createElement("div");
-  divDateTime.classList.add('divDateTime')
-
-  const divTime = document.createElement("div");
-  divTime.classList.add('divTime')
-
-  const divCheckbox = document.createElement("div");
-  divCheckbox.classList.add('divCheckbox')
-
-  const divRadio = document.createElement("div");
-  divRadio.classList.add('divRadio')
-
   const radioSearchReset = document.createElement("div");
   radioSearchReset.classList.add('radioSearchReset');
-
-  // const showText = document.createElement("div");
-  // showText.classList.add('shoeText');
 
   const label1 = document.createElement("label");
   const label2 = document.createElement("label");
 
   buttonHead.appendChild(buttonToggle);
   formElement.appendChild(buttonHead);
-  bodyContent.appendChild(divName);
-  bodyContent.appendChild(divMultiSelect);
-  bodyContent.appendChild(divMultiSelectDropdown);
-  bodyContent.appendChild(divMultiSelectStatusDropdown);
-  bodyContent.appendChild(divDate);
-  bodyContent.appendChild(divNumber);
   formElement.appendChild(bodyContent);
-  // formElement.appendChild(showText);
-  bodyContent.appendChild(divRadio);
-  // bodyContent.appendChild(divInBody);
-  bodyContent.appendChild(divDateTime);
-  bodyContent.appendChild(divTime);
-  bodyContent.appendChild(divCheckbox);
   footerContent.appendChild(radioSearchReset);
   formElement.appendChild(footerContent);
 
@@ -347,89 +334,105 @@ jQuery.noConflict();
     let fieldCodes = [];
     let fieldLabels = [];
     let fieldCalcformat = [];
+    let fielMultiplefield = [];
+    let fieldPatail = [];
+    let fieldExact = [];
+    let fieldTitle = [];
+    // let fieldLines = [];
     Object.keys(json.field).forEach(key => {
       fieldCodes.push(json.field[key].type);
       fieldLabels.push(json.field[key].code);
       fieldCalcformat.push(json.field[key].format);
-    });
+      fielMultiplefield.push(json.field[key].fields);
+      fieldTitle.push(json.field[key].label);
+      fieldPatail.push(json.field[key].patial);
+      fieldExact.push(json.field[key].exact);
 
+      // fieldLines.push(json.field[key].newline);
+    });
+    // console.log(fieldLabels[i].join('-'));
     for (let i = 0; i < fieldCodes.length; i++) {
+
+      if (fieldCodes[i] === "MultiFieldText") {
+        addSingleLineText(fieldTitle[i], fielMultiplefield[i].join('-')); // Joins labels with a comma and space
+      }
       if (fieldCodes[i] === "SINGLE_LINE_TEXT") {
-        addSingleLineText(fieldLabels[i]);
+        addSingleLineText(fieldTitle[i], fieldLabels[i]);
       }
       if (fieldCodes[i] === "NUMBER") {
-        addRangeInputField(fieldLabels[i], "number");
+        addRangeInputField(fieldTitle[i], "number");
       }
       if (fieldCodes[i] === "DATE") {
-        addRangeInputField(fieldLabels[i], "date");
+        addRangeInputField(fieldTitle[i], "date");
       }
       if (fieldCodes[i] === "DATETIME") {
-        addRangeInputField(fieldLabels[i], "datetime-local");
+        addRangeInputField(fieldTitle[i], "datetime-local");
       }
       if (fieldCodes[i] === "TIME") {
-        addRangeInputField(fieldLabels[i], "time");
+        addRangeInputField(fieldTitle[i], "time");
       }
       if (fieldCodes[i] === "MULTI_SELECT") {
         let options = fields.properties[fieldLabels[i]].options;
-        addMultiSelectDropdown(fieldLabels[i], options);
+        addMultiSelectDropdown(fieldTitle[i], options);
       }
       if (fieldCodes[i] === "CALC") {
-        // if (fieldCalcformat[i] === "NUMBER_DIGIT" || fieldCalcformat[i] === "NUMBER" ) {
-        addRangeInputField(fieldLabels[i], "number");
-        // }
-        // if (fieldCalcformat[i] === "DATE") {
-        //   addRangeInputField(fieldLabels[i], "date");
-        // }
-        // if (fieldCalcformat[i] === "DATETIME") {
-        //   addRangeInputField(fieldLabels[i], "datetime-local");
-        // }
-        // if (fieldCalcformat[i] === "TIME") {
-        //   addRangeInputField(fieldLabels[i], "time");
-        // }
+        addRangeInputField(fieldTitle[i], "number", fieldCalcformat[i]);
       }
       if (fieldCodes[i] === "DROP_DOWN") {
         let options = fields.properties[fieldLabels[i]].options;
-        addSelectDropdown(fieldLabels[i], options);
+        addMultiSelectDropdown(fieldTitle[i], options);
       }
       if (fieldCodes[i] === "CHECK_BOX") {
         let options = fields.properties[fieldLabels[i]].options;
-        addCheckboxSearch(fieldLabels[i], options);
-        // addMultiSelectDropdown(fieldLabels[i], options);
+        addMultiSelectDropdown(fieldTitle[i], options);
       }
       if (fieldCodes[i] === "RADIO_BUTTON") {
         let options = fields.properties[fieldLabels[i]].options;
-        addRadioSearch(fieldLabels[i], options);
-        // addMultiSelectDropdown(fieldLabels[i], options);
+        addMultiSelectDropdown(fieldTitle[i], options);
       }
       if (fieldCodes[i] === "CREATED_TIME") {
-        addRangeInputField(fieldLabels[i], "datetime-local");
+        addRangeInputField(fieldTitle[i], "datetime-local");
       }
       if (fieldCodes[i] === "RECORD_NUMBER") {
-        addRangeInputField(fieldLabels[i], "number");
+        addRangeInputField(fieldTitle[i], "number");
       }
       if (fieldCodes[i] === "UPDATED_TIME") {
-        addRangeInputField(fieldLabels[i], "datetime-local");
+        addRangeInputField(fieldTitle[i], "datetime-local");
       }
       if (fieldCodes[i] === "STATUS") {
         let options = status.states;
-        console.log(options);
-        addSelectStatusDropdown(fieldLabels[i], options);
+        addMultiSelectDropdown(fieldTitle[i], options, fieldCodes[i]);
       }
     }
     // Append the "Search" and "Reset" and containerRadio to containerbutton
     radioSearchReset.style.display = "flex";
 
-    function addSingleLineText(fieldName) {
+    function addSingleLineText(fieldlabel, fieldName) {
+      const divName = document.createElement("div");
+      divName.classList.add('divName')
       const inputElement = document.createElement("div");
       inputElement.classList.add("kintoneplugin-input-outer");
       inputElement.innerHTML = `
-                    <b>${fieldName}</b><br>
-                    <input class="kintoneplugin-input-text" type="text" id="singlelineText">
+                    <b>${fieldlabel}</b><br>
+                    <input class="kintoneplugin-input-text" type="text" id="singleLineText-${fieldName}">
                 `;
       divName.appendChild(inputElement);
+      bodyContent.appendChild(divName)
     }
 
     function addRangeInputField(fieldName, fieldType, format) {
+      const divDate = document.createElement("div");
+      divDate.classList.add('divDate')
+
+      const divDateTime = document.createElement("div");
+      divDateTime.classList.add('divDateTime')
+
+      const divTime = document.createElement("div");
+      divTime.classList.add('divTime')
+
+      const divNumber = document.createElement("div");
+      divNumber.classList.add('divNumber');
+
       const formatType = format;
       const inputFieldElement = document.createElement("div");
       inputFieldElement.classList.add("kintoneplugin-input-outer");
@@ -439,8 +442,8 @@ jQuery.noConflict();
                     <b>${fieldName} (End)</b>
                     </div>
                     </div>
-                    <input class="kintoneplugin-input-text" type="${fieldType}" id="${fieldType}Start"> ~
-                    <input class="kintoneplugin-input-text" type="${fieldType}" id="${fieldType}End">
+                    <input class="kintoneplugin-input-text" type="${fieldType}" id="${fieldName}Start"> ~
+                    <input class="kintoneplugin-input-text" type="${fieldType}" id="${fieldName}End">
                 `;
       // Adjust the container based on the fieldType
       const container = fieldType === "number" ? divNumber :
@@ -451,29 +454,48 @@ jQuery.noConflict();
 
       if (container) {
         container.appendChild(inputFieldElement);
+        bodyContent.appendChild(container)
       }
     }
 
-    function addMultiSelectDropdown(fieldName, options) {
+    function addMultiSelectDropdown(fieldName, options, fieldtype) {
+      const divMultiSelect = document.createElement("div");
+      divMultiSelect.classList.add('divMultiSelect')
       const dropdownElement = document.createElement("div");
       dropdownElement.style.width = "150px";
       const dropdownName = document.createElement("div");
       dropdownElement.classList.add("kintoneplugin-dropdown-list");
+      if (fieldtype === "STATUS") {
+        Object.values(options).forEach((value) => {
+          const dropdownItem = document.createElement("div");
+          dropdownItem.classList.add(`kintoneplugin-dropdown-list-item`);
+          dropdownItem.innerHTML = `
+                      <span class="kintoneplugin-dropdown-list-item-name" id="${value.name}">${value.name}</span>
+                  `;
+          dropdownElement.appendChild(dropdownItem);
+        });
+      }
+      else {
+        Object.values(options).forEach((value) => {
+          const dropdownItem = document.createElement("div");
+          dropdownItem.classList.add("kintoneplugin-dropdown-list-item");
+          dropdownItem.innerHTML = `
+                      <span class="kintoneplugin-dropdown-list-item-name" id="${value.label}">${value.label}</span>
+                  `;
+          dropdownElement.appendChild(dropdownItem);
+        });
+      }
 
-      Object.values(options).forEach((value) => {
-        const dropdownItem = document.createElement("div");
-        dropdownItem.classList.add("kintoneplugin-dropdown-list-item");
-        dropdownItem.innerHTML = `
-                    <span class="kintoneplugin-dropdown-list-item-name" id="item">${value.label}</span>
-                `;
-        dropdownElement.appendChild(dropdownItem);
-      });
       dropdownName.innerHTML = `<b>${fieldName}</b><br>`;
       divMultiSelect.appendChild(dropdownName);
       divMultiSelect.appendChild(dropdownElement);
+      bodyContent.appendChild(divMultiSelect)
     }
 
     function addSelectDropdown(fieldName, options) {
+
+      const divMultiSelectDropdown = document.createElement("div");
+      divMultiSelectDropdown.classList.add('divMultiSelectDropdown')
       const dropdownElement = document.createElement("div");
       dropdownElement.style.width = "150px";
       dropdownElement.innerHTML = `<b>${fieldName}</b><br>`;
@@ -494,15 +516,18 @@ jQuery.noConflict();
       `;
       dropdownElement.appendChild(dropdownItem);
       divMultiSelectDropdown.appendChild(dropdownElement);
+      bodyContent.appendChild(divMultiSelectDropdown)
+
     }
 
     function addSelectStatusDropdown(fieldName, options) {
+      const divMultiSelectStatusDropdown = document.createElement("div");
+      divMultiSelectStatusDropdown.classList.add('divMultiSelectStatusDropdown')
       const dropdownElement = document.createElement("div");
       dropdownElement.style.width = "150px";
       dropdownElement.innerHTML = `<b>${fieldName}</b><br>`;
       let optionsHTML = '';
       Object.values(options).forEach((value) => {
-        console.log(value);
         optionsHTML += `<option value="${value.name}">${value.name}</option>`;
       });
       const dropdownItem = document.createElement("div");
@@ -518,9 +543,14 @@ jQuery.noConflict();
       `;
       dropdownElement.appendChild(dropdownItem);
       divMultiSelectStatusDropdown.appendChild(dropdownElement);
+
+      bodyContent.appendChild(divMultiSelectStatusDropdown)
+
     }
 
     function addCheckboxSearch(fieldName, options) {
+      const divCheckbox = document.createElement("div");
+      divCheckbox.classList.add('divCheckbox')
       const checkboxElement = document.createElement("div");
       checkboxElement.style.width = "150px";
       checkboxElement.innerHTML = `<b>${fieldName}</b><br>`;
@@ -533,9 +563,12 @@ jQuery.noConflict();
         checkboxElement.appendChild(checkboxItem);
       });
       divCheckbox.appendChild(checkboxElement);
+      bodyContent.appendChild(divCheckbox);
     }
 
     function addRadioSearch(fieldName, options) {
+      const divRadio = document.createElement("div");
+      divRadio.classList.add('divRadio')
       const radioElement = document.createElement("div");
       radioElement.style.width = "150px";
       radioElement.innerHTML = `<b>${fieldName}</b><br>`;
@@ -548,6 +581,9 @@ jQuery.noConflict();
         radioElement.appendChild(radioItem);
       });
       divRadio.appendChild(radioElement);
+
+      bodyContent.appendChild(divRadio)
+
     }
 
     // Append the "Search" and "Reset" and containerRadio to containerbutton
@@ -582,7 +618,7 @@ jQuery.noConflict();
 
     buttonToggle.addEventListener("click", function () {
       if (
-        formElement.style.height === "auto" ||
+        formElement.style.height === "80px" ||
         formElement.style.height === ""
       ) {
         showForm();
@@ -605,30 +641,13 @@ jQuery.noConflict();
       radioInput1.checked = false;
     });
 
-    const name = document.getElementById("singlelineText");
-    const favourite_foods = allValues.multiSelect;
-    const getCalcformat = document.getElementById("number");
-    // const favourite_sports = document.getElementById("multilineText");
-    const date_of_birthStart = document.getElementById("dateStart");
-    const date_of_birthEnd = document.getElementById("dateEnd");
-    const date_and_timeStart = document.getElementById("datetime-localStart");
-    const date_and_timeEnd = document.getElementById("datetime-localEnd");
-    const age_Start = document.getElementById("numberStart");
-    const age_End = document.getElementById("numberEnd");
-
-    // const partial_Match = document.getElementById("partialMatch");
+    const SearchButton = document.getElementById("searchButton");
     const And = document.getElementById("radio-0");
     const Or = document.getElementById("radio-1");
-
-    const SearchButton = document.getElementById("searchButton");
-    // Get the saved search condition from the local storage
-    const savedSearchCondition = localStorage.getItem("search_condition");
-
     const multiSelectDropdownItems = document.querySelectorAll(".kintoneplugin-dropdown-list-item span");
 
     multiSelectDropdownItems.forEach((dropdownItem) => {
       dropdownItem.addEventListener("click", function () {
-
         const selectedItem = this.textContent;
         const itemIndex = allValues.multiSelect.indexOf(selectedItem);
 
@@ -648,331 +667,151 @@ jQuery.noConflict();
       });
     });
 
-    if (savedSearchCondition) {
-      // Parse the saved search condition
-      const searchCondition = JSON.parse(savedSearchCondition);
-      // Check if the search condition has the name field
-      if (searchCondition.name) {
-        name.value = searchCondition.name;
-      }
+    SearchButton.addEventListener("click", function (e) {
+      try {
+        let queryStrings = [];
+        let singleLineMulti;
+        const search_condition = {};
+        for (let i = 0; i < fieldCodes.length; i++) {
+          if (fieldCodes[i] === "MultiFieldText") {
+            debugger;
+            singleLineMulti = document.getElementById("singleLineText-" + fielMultiplefield[i].join('-'));
+            if (singleLineMulti.value) {
+              search_condition[fielMultiplefield[i].join('-')] = singleLineMulti.value;
+              // remove join('-') to search with each field with or on the same value
+              let searchString = '';
+              if (Array.isArray(fieldLabels[i]) && fieldLabels[i].length > 0) {
+                if (fieldPatail[i] === "true" && fieldExact[i] === "false") {
+                  searchString = '(' + fieldLabels[i].map(code => `${code} like "${search_condition[fielMultiplefield[i].join('-')]}%"`).join(' or ') + ')';
+                }
+                else if (fieldPatail[i] === "false" && fieldExact[i] === "true") {
+                  searchString = '(' + fieldLabels[i].map(code => `${code} in "as"`).join(' or ') + ')';
+                }
+              }
+              queryStrings.push(searchString);
+            }
+          }
+          else if (fieldCodes[i] === "SINGLE_LINE_TEXT") {
+            singleLineMulti = document.getElementById("singleLineText-" + fieldTitle[i]);
+            if (singleLineMulti.value) {
+              search_condition[fieldLabels[i]] = singleLineMulti.value;
+              // remove join('-') to search with each field with or on the same value
+              let searchString = '';
 
-      // Check if the search condition has the favourite_foods field
-      if (searchCondition.favourite_foods) {
-        // Loop through the multiSelectDropdownItems
-        multiSelectDropdownItems.forEach((dropdownItem) => {
-          const selectedItem = dropdownItem.textContent;
+              if (fieldPatail[i] === "true" && fieldExact[i] === "false") {
+              searchString = `(${fieldLabels[i]} like "${search_condition[fieldLabels[i]]}%")`
+              }
+              else if (fieldPatail[i] === "false" && fieldExact[i] === "true") {
+                searchString = `(${fieldLabels[i]} in "${search_condition[fieldLabels[i]]}")`
+              }
 
-          // Check if the item is in the saved search condition
-          if (searchCondition.favourite_foods.includes(selectedItem)) {
-            // Item is in the saved condition, select it
-            const parentDiv = dropdownItem.closest(
-              ".kintoneplugin-dropdown-list-item"
-            );
-            if (parentDiv) {
-              parentDiv.classList.add(
-                "kintoneplugin-dropdown-list-item-selected"
-              );
+              queryStrings.push(searchString);
+            }
+          }
+          else if (fieldCodes[i] === "NUMBER" || fieldCodes[i] === "DATE" || fieldCodes[i] === "DATETIME" || fieldCodes[i] === "TIME" || fieldCodes[i] === "CREATED_TIME" || fieldCodes[i] === "RECORD_NUMBER" || fieldCodes[i] === "UPDATED_TIME" || fieldCodes[i] === "CALC") {
+            let numberfieldStart = document.getElementById(`${fieldTitle[i]}Start`);
+            let numberfieldEnd = document.getElementById(`${fieldTitle[i]}End`);
+            if (numberfieldStart.value !== "" && numberfieldEnd.value !== "") {
+              if (numberfieldStart.value > numberfieldEnd.value) {
+                throw (`Start value of ${fieldTitle[i]} must be less than End value`);
+              }
+              else {
+                search_condition[fieldLabels[i] + "Start"] = numberfieldStart.value;
+                search_condition[fieldLabels[i] + "End"] = numberfieldEnd.value;
+                queryStrings.push(`(${fieldLabels[i]} >= "${search_condition[fieldLabels[i] + "Start"]}" and ${fieldLabels[i]} <= "${search_condition[fieldLabels[i] + "End"]}")`);
+              }
+            }
+            else if (numberfieldStart.value !== "" && numberfieldEnd.value === "") {
+              search_condition[fieldLabels[i] + "Start"] = numberfieldStart.value;
+              queryStrings.push(`(${fieldLabels[i]} >= "${search_condition[fieldLabels[i] + "Start"]}")`);
+            }
+            else if (numberfieldStart.value === "" && numberfieldEnd.value !== "") {
+              search_condition[fieldLabels[i] + "End"] = numberfieldEnd.value;
+              queryStrings.push(`(${fieldLabels[i]} <= "${search_condition[fieldLabels[i] + "End"]}")`);
             }
 
-            // Add it to the allValues.multiSelect array
-            allValues.multiSelect.push(selectedItem);
           }
-        });
-      }
+          else if (fieldCodes[i] === "MULTI_SELECT" || fieldCodes[i] === "DROP_DOWN" || fieldCodes[i] === "CHECK_BOX" || fieldCodes[i] === "RADIO_BUTTON" || fieldCodes[i] === "STATUS") {
+            let multiSelectDropdown = document.querySelectorAll(".kintoneplugin-dropdown-list-item-selected");
+            let multiSelectDropdownArray = Array.from(multiSelectDropdown);
+            let multiSelectDropdownArrayValue = multiSelectDropdownArray.map((item) => item.textContent);
 
-      // Check if the search condition has the favourite_sports field
-      // if (searchCondition.favourite_sports) {
-      //   favourite_sports.value = searchCondition.favourite_sports;
-      // }
+            if (multiSelectDropdownArrayValue.length > 0) {
+              if (fieldCodes[i] === "STATUS") {
+                let options = status.states;
+                let optionArray = Object.values(options);
+                let optionArrayValue = optionArray.map((item) => item.name);
 
-      // Check if the search condition has the partial_Match field
-      // if (searchCondition.partial_Match) {
-      //   partial_Match.checked = true;
-      // } else if (!searchCondition.partial_Match) {
-      //   partial_Match.checked = false;
-      // } else {
-      //   partial_Match.checked = true;
-      // }
+                let selectedValues = multiSelectDropdownArrayValue.filter((value) =>
+                  optionArrayValue.some((optionValue) => {
+                    const comparison = optionValue.toLowerCase() === value.trim().replace(/\s+/g, ' ').toLowerCase();
+                    return comparison;
+                  })
+                );
 
-      // Check if the search condition has the search_choice field
-      if (searchCondition.search_choice === "And") {
-        And.checked = true;
-        Or.checked = false;
-      } else if (searchCondition.search_choice === "Or") {
-        Or.checked = true;
-        And.checked = false;
-      }
+                let cleanedArray = selectedValues.map(str => str.trim().replace(/\s+/g, ' '));
+                search_condition[fieldLabels[i]] = selectedValues;
+                queryStrings.push(`(${fieldLabels[i]} in ("${cleanedArray.join('","')}"))`);
+              } else {
+                let options = fields.properties[fieldLabels[i]].options;
+                let optionArray = Object.values(options);
+                let optionArrayValue = optionArray.map((item) => item.label);
 
-      // Check if the search condition has the date_of_birthStart and date_of_birthEnd field
-      if (searchCondition.date_of_birthStart) {
-        date_of_birthStart.value = searchCondition.date_of_birthStart;
-      }
-      if (searchCondition.date_of_birthEnd) {
-        date_of_birthEnd.value = searchCondition.date_of_birthEnd;
-      }
+                let selectedValues = multiSelectDropdownArrayValue.filter((value) =>
+                  optionArrayValue.some((optionValue) => {
+                    const comparison = optionValue.toLowerCase() === value.trim().replace(/\s+/g, ' ').toLowerCase();
+                    return comparison;
+                  })
+                );
 
-      // Check if the search condition has the date_and_timeStart and date_and_timeEnd field
-      if (searchCondition.date_and_timeStart) {
-        date_and_timeStart.value = searchCondition.date_and_timeStart;
-      }
-      if (searchCondition.date_and_timeEnd) {
-        date_and_timeEnd.value = searchCondition.date_and_timeEnd;
-      }
+                let cleanedArray = selectedValues.map(str => str.trim().replace(/\s+/g, ' '));
 
-      // Check if the search condition has the age_Start and age_End field
-      if (searchCondition.age_Start) {
-        age_Start.value = searchCondition.age_Start;
-      }
-      if (searchCondition.age_End) {
-        age_End.value = searchCondition.age_End;
-      }
-    }
-
-
-    SearchButton.addEventListener("click", function (e) {
-      // define queryStrings array
-      let queryStrings = [];
-
-      e.preventDefault();
-
-      // Hide the form and show the spinner
-      hideForm();
-      showSpinner();
-
-      // Validate the input values
-      const search_condition = {};
-      // Validate and assign input values to search_condition object and queryStrings array
-      // Start check name
-      if (name.value !== "") {
-        search_condition.name = name.value;
-        queryStrings.push(`(name in ("${search_condition.name}"))`);
-      }
-      // End check name
-
-      // Check favourite_foods
-      if (Array.isArray(favourite_foods) && favourite_foods.length > 0) {
-        search_condition.favourite_foods = favourite_foods;
-        // Convert the array to a string
-        const jsonString = JSON.stringify(search_condition.favourite_foods);
-        // Add the query string with favourite_foods field
-        queryStrings.push(`(favourite_foods in (${jsonString.slice(1, -1)}))`);
-      }
-      // End Check favourite_foods
-
-      //Start check favourite_sports
-      if (favourite_sports.value !== "") {
-        search_condition.favourite_sports = favourite_sports.value;
-        // Check if the partial_Match is true or false
-        if (partial_Match.checked) {
-          search_condition.partial_Match = true;
-          // Add the query string with partial match (like)
-          queryStrings.push(`(Text_area like "${search_condition.favourite_sports}")`);
-        } else {
-          search_condition.partial_Match = false;
-          // Add the query string without partial match (not like)
-          queryStrings.push(`(Text_area not like "${search_condition.favourite_sports}")`);
+                search_condition[fieldLabels[i]] = selectedValues;
+                queryStrings.push(`(${fieldLabels[i]} in ("${cleanedArray.join('","')}"))`);
+              }
+            }
+          }
         }
-      }
-      // End check favourite_sports
 
-      // Start check "And" or "Or"
-      let searchChoice = "and"; // Default to "AND"
-      if (And.checked == true) {
-        search_condition.search_choice = And.value;
-        Or.checked = false;
-        searchChoice = "and";
-      }
-      if (Or.checked == true) {
-        search_condition.search_choice = Or.value;
-        And.checked = false;
-        searchChoice = "or";
-      }
-      // End check "And" or "Or"
 
-      // Start check date_of_birth
-      if (date_of_birthStart.value !== "" && date_of_birthEnd.value !== "") {
-        // Check if the date_of_birthStart is greater than date_of_birthEnd
-        if (date_of_birthStart.value > date_of_birthEnd.value) {
-          throw ("Date of Birth (Start) should be less than Date of Birth (End)");
-        } else {
-          // Assign the value to the search_condition
-          search_condition.date_of_birthStart = date_of_birthStart.value;
-          search_condition.date_of_birthEnd = date_of_birthEnd.value;
-          // Add the query string with date_of_birthStart and date_of_birthEnd
-          queryStrings.push(`(date_of_birth >= "${search_condition.date_of_birthStart}" and date_of_birth <= "${search_condition.date_of_birthEnd}")`);
+        let searchChoice = "and"; // Default to "AND"
+        if (And.checked == true) {
+          search_condition.search_choice = And.value;
+          Or.checked = false;
+          searchChoice = "and";
         }
-      } else if (date_of_birthStart.value !== "" && date_of_birthEnd.value === "") {
-        search_condition.date_of_birthStart = date_of_birthStart.value;
-        // Add the query string with date_of_birthStart
-        queryStrings.push(`(date_of_birth >= "${search_condition.date_of_birthStart}")`);
-      } else if (date_of_birthStart.value === "" && date_of_birthEnd.value !== "") {
-        search_condition.date_of_birthEnd = date_of_birthEnd.value;
-        // Add the query string with date_of_birthEnd
-        queryStrings.push(`(date_of_birth <= "${search_condition.date_of_birthEnd}")`);
-      }
-      else {
-
-      }
-      // End check date_of_birthStart
-
-      // Start check date_and_time
-      if (date_and_timeStart.value !== "" && date_and_timeEnd.value !== "") {
-        // Check if the date_and_timeStart is greater than date_and_timeEnd
-        if (date_and_timeStart.value > date_and_timeEnd.value) {
-          throw ("Date and Time (Start) should be less than Date and Time (End)");
-        } else {
-          search_condition.date_and_timeStart = date_and_timeStart.value;
-          search_condition.date_and_timeEnd = date_and_timeEnd.value;
-          // Add the query string with date_and_timeStart and date_and_timeEnd
-          queryStrings.push(`(date_and_time >= "${search_condition.date_and_timeStart}" and date_and_time <= "${search_condition.date_and_timeEnd}")`);
+        if (Or.checked == true) {
+          search_condition.search_choice = Or.value;
+          And.checked = false;
+          searchChoice = "or";
         }
-      } else if (date_and_timeStart.value !== "" && date_and_timeEnd.value === "") {
-        search_condition.date_and_timeStart = date_and_timeStart.value;
-        // Add the query string with date_and_timeStart
-        queryStrings.push(`(date_and_time >= "${search_condition.date_and_timeStart}")`);
-      } else if (date_and_timeStart.value === "" && date_and_timeEnd.value !== "") {
-        search_condition.date_and_timeEnd = date_and_timeEnd.value;
-        // Add the query string with date_and_timeEnd
-        queryStrings.push(`(date_and_time <= "${search_condition.date_and_timeEnd}")`);
-      }
-      else {
-
-      }
-      // End check date_and_time
-
-      // Start check Age
-      if (age_Start.value !== "" && age_End.value !== "") {
-        // Check if the age_Start is greater than age_End
-        if (age_Start.value > age_End.value) {
-          throw ("Age (Start) should be less than Age (End)");
-        } else {
-          search_condition.age_Start = age_Start.value;
-          search_condition.age_End = age_End.value;
-          // Add the query string with age_Start and age_End
-          queryStrings.push(`(age >= "${search_condition.age_Start}" and age <= "${search_condition.age_End}")`);
+        const combinedQueryString = queryStrings.join(` ${searchChoice} `);
+        // Save the search condition to the local storage
+        sessionStorage.setItem("search_condition", JSON.stringify(search_condition));
+        // //check if link have view
+        if (window.location.href.includes("?view=")) {
+          // Ask for confirmation
+          var proceed = confirm("Do you want to search with value in the box? You will lose the current view");
+          // Check if the user wants to proceed
+          if (proceed) {
+            // Redirect to the URL
+            window.location.href = '../../' + "k" + "/" + kintone.app.getId() + "/" + "?query=" + combinedQueryString;
+          }
+          else {
+            // alert("You have canceled the search");
+            throw ("You have canceled the search");
+          }
         }
-      } else if (age_Start.value !== "" && age_End.value === "") {
-        search_condition.age_Start = age_Start.value;
-        // Add the query string with age_Start
-        queryStrings.push(`(age >= "${search_condition.age_Start}")`);
-      } else if (age_Start.value === "" && age_End.value !== "") {
-        search_condition.age_End = age_End.value;
-        // Add the query string with age_End
-        queryStrings.push(`(age <= "${search_condition.age_End}")`);
-      }
-      else {
-
-      }
-      // End check Age
-      // Combine the unique query strings
-      const combinedQueryString = queryStrings.join(` ${searchChoice} `);
-      // Save the search condition to the local storage
-      localStorage.setItem("search_condition", JSON.stringify(search_condition));
-
-      //check if link have view
-      if (window.location.href.includes("?view=")) {
-        // Ask for confirmation
-        var proceed = confirm("Do you want to search with value in the box? You will lose the current view");
-        // Check if the user wants to proceed
-        if (proceed) {
+        else {
           // Redirect to the URL
           window.location.href = '../../' + "k" + "/" + kintone.app.getId() + "/" + "?query=" + combinedQueryString;
         }
-        else {
-          // alert("You have canceled the search");
-          throw ("You have canceled the search");
-        }
+
+      } catch (error) {
+        alert(error);
+        hideSpinner();
+        return;
       }
-      else {
-        // Redirect to the URL
-        window.location.href = '../../' + "k" + "/" + kintone.app.getId() + "/" + "?query=" + combinedQueryString;
-      }
-
-    });
-
-    resetButton.addEventListener("click", function (e) {
-
-      // clear all value in the box and local storage
-      localStorage.removeItem("search_condition");
-      const divElements = document.querySelectorAll(".kintone-dropdown-list-item-selected");
-      divElements.forEach((divElement) => {
-        divElement.classList.remove("kintone-dropdown-list-item-selected");
-      });
-      name.value = "";
-      date_of_birthStart.value = "";
-      date_of_birthEnd.value = "";
-      date_and_timeStart.value = "";
-      date_and_timeEnd.value = "";
-      age_Start.value = "";
-      age_End.value = "";
-      // redirect to the app without query
-      const url = new URL(
-        kintone.api.url("/k").split(".json")[0] + "/" + kintone.app.getId() + "/");
-      window.location.href = url.toString();
     });
   })
-
-
-  kintone.events.on("app.record.detail.show", function (event) {
-    // Hide the Text_area field
-    kintone.app.record.setFieldShown('Text_area', false)
-    return event;
-  });
-
-  kintone.events.on("app.record.edit.show", function (event) {
-    // Hide the Text_area field
-    kintone.app.record.setFieldShown('Text_area', false)
-    // Add a button to save with partial match search
-    let btn = $('<button style="margin-left: 30px; height:48px; background-color:lightgreen; border:none; color:white">Save with patial match search</button>');
-    // Add a click event to the button
-    $(btn).on('click', function () {
-      // Get the record data
-      let data = kintone.app.record.get();
-      // get the value of favourite_sports
-      let favourite_sports = data.record.favourite_sports.value;
-      // Create an array to store the combination of favourite_sports
-      const arr = [];
-      // Loop through the favourite_sports array
-      for (let i = 0; i <= favourite_sports.length; i++) {
-        for (let j = i + 1; j <= favourite_sports.length; j++) {
-          // Push the combination to the array
-          arr.push(favourite_sports.slice(i, j));
-        }
-      }
-      // Join the array with a pipe
-      let combinddata = arr.join('|');
-      // Set the value of Text_area field
-      data.record.Text_area.value = combinddata;
-      // Set data to the record
-      kintone.app.record.set(data);
-    });
-    // Append the button to the header space
-    $('.gaia-argoui-app-edit-buttons').append(btn)
-    // Return the event
-    return event;
-  });
-
-  kintone.events.on("app.record.index.edit.submit", function (event) {
-    // Get the record data
-    let data = event.record;
-    // get the value of favourite_sports
-    let favourite_sports = data.favourite_sports.value;
-    // Create an array to store the combination of favourite_sports
-    const arr = [];
-    // Loop through the favourite_sports array
-    for (let i = 0; i <= favourite_sports.length; i++) {
-      for (let j = i + 1; j <= favourite_sports.length; j++) {
-        // Push the combination to the array
-        arr.push(favourite_sports.slice(i, j));
-      }
-    }
-    // Join the array with a pipe
-    let combinddata = arr.join('|');
-    // Set the value of Text_area field
-    data.Text_area.value = combinddata;
-    // Set data to the record
-    kintone.app.record.set(data);
-    // Return the event
-    return event;
-  });
 })(jQuery, kintone.$PLUGIN_ID);
