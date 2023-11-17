@@ -13,8 +13,6 @@
 /* kintone.css */
 .form-container {
   position: relative;
-  display: block;
-  flex-direction: column;
   overflow: hidden;
   height: auto;
   border: 2px solid #ffd700;
@@ -36,7 +34,6 @@
 }
 
 .bodyContent {
-  margin-top: auto;
   display: flex;
   border: none;
   height: auto;
@@ -54,10 +51,10 @@
 }
 
 /* .divInBody {
-  display: flex;
-  border: none;
-  height: 100px;
-} */
+    display: flex;
+    border: none;
+    height: 100px;
+  } */
 
 .footerContent {
   display: flex;

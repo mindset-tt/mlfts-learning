@@ -6,162 +6,871 @@
 jQuery.noConflict();
 
 (function ($, PLUGIN_ID) {
+
   "use strict";
+  // -------------------------------------------------------------------Create Element-----------------------------------------------------------------------------------------
+  let json = {
+    "initial_display": "true",
+    "field": {
+      "sample_multifield": {
+        "type": "MultiFieldText",
+        "code": ["name", "surname", "middlename"],
+        "label": "Sample multifield",
+        "patial": "true",
+        "exact": "false",
+        "newline": "false",
+      },
+      "Created_datetime": {
+        "type": "CREATED_TIME",
+        "code": "Created_datetime",
+        "label": "Created datetime",
+        "patial": "false",
+        "exact": "false",
+        "newline": "false",
 
-  //get setting config
-  var config = kintone.plugin.app.getConfig(PLUGIN_ID);
+      },
+      "Record_number": {
+        "type": "RECORD_NUMBER",
+        "code": "Record_number",
+        "label": "Record number",
+        "patial": "false",
+        "exact": "false",
+        "newline": "false",
 
-  //event index.show
-  kintone.events.on("app.record.index.show", function (event) {
-    if (kintone.app.getHeaderSpaceElement().childElementCount != 0) {
+      },
+      "diet": {
+        "type": "CHECK_BOX",
+        "code": "diet",
+        "label": "diet",
+        "patial": "false",
+        "exact": "false",
+        "newline": "false",
+
+      },
+      "start_date": {
+        "type": "DATE",
+        "code": "start_date",
+        "label": "start date",
+        "patial": "false",
+        "exact": "false",
+        "newline": "false",
+
+      },
+      "Status": {
+        "type": "STATUS",
+        "code": "Status",
+        "label": "Status",
+        "patial": "false",
+        "exact": "false",
+        "newline": "false",
+
+      },
+      "final_day": {
+        "type": "DATETIME",
+        "code": "final_day",
+        "label": "final date",
+        "patial": "false",
+        "exact": "false",
+        "newline": "false",
+
+      },
+      "sex": {
+        "type": "RADIO_BUTTON",
+        "code": "sex",
+        "label": "Sex",
+        "patial": "false",
+        "exact": "false",
+        "newline": "false",
+
+      },
+      "weight": {
+        "type": "NUMBER",
+        "code": "weight",
+        "label": "weight(kg)",
+        "noLabel": "false",
+        "patial": "false",
+        "exact": "false",
+        "newline": "false",
+
+      },
+      "target": {
+        "type": "MULTI_SELECT",
+        "code": "target",
+        "label": "target",
+        "patial": "false",
+        "exact": "false",
+        "newline": "false",
+
+      },
+      "start_time": {
+        "type": "TIME",
+        "code": "start_time",
+        "label": "start time",
+        "patial": "false",
+        "exact": "false",
+        "newline": "false",
+
+      },
+      "Updated_datetime": {
+        "type": "UPDATED_TIME",
+        "code": "Updated_datetime",
+        "label": "Updated datetime",
+        "patial": "false",
+        "exact": "false",
+        "newline": "false",
+
+      },
+      "middlename": {
+        "type": "SINGLE_LINE_TEXT",
+        "code": "middlename",
+        "label": "Middlename",
+        "patial": "false",
+        "exact": "false",
+        "newline": "false",
+
+      },
+      "name": {
+        "type": "SINGLE_LINE_TEXT",
+        "code": "name",
+        "label": "Name",
+        "patial": "false",
+        "exact": "false",
+        "newline": "false",
+
+      },
+      "surname": {
+        "type": "SINGLE_LINE_TEXT",
+        "code": "surname",
+        "label": "Surname",
+        "patial": "false",
+        "exact": "false",
+        "newline": "false",
+
+      },
+      "address": {
+        "type": "SINGLE_LINE_TEXT",
+        "code": "address",
+        "label": "Address",
+        "patial": "false",
+        "exact": "false",
+        "newline": "false",
+
+      },
+      "bedtime": {
+        "type": "DROP_DOWN",
+        "code": "bedtime",
+        "label": "Bedtime",
+        "patial": "false",
+        "exact": "false",
+        "newline": "false",
+      },
+      "bmi": {
+        "type": "CALC",
+        "code": "bmi",
+        "label": "BMI",
+        "patial": "false",
+        "exact": "false",
+        "newline": "false",
+        "format": "NUMBER_DIGIT",
+
+      }
+    }
+  };
+  const space = kintone.app.getHeaderSpaceElement();
+  const buttonToggle = document.createElement("button");
+  buttonToggle.classList.add('buttonToggle')
+
+  const formElement = document.createElement("div");
+  formElement.classList.add('form-container');
+
+  const buttonHead = document.createElement("div");
+  buttonHead.classList.add('buttonHead');
+
+  const bodyContent = document.createElement("div");
+  bodyContent.classList.add('bodyContent');
+
+  const footerContent = document.createElement("div");
+  footerContent.classList.add('footerContent');
+
+  const searchButton = document.createElement("button");
+
+  const resetButton = document.createElement("button");
+  const radioInput2 = document.createElement("input");
+  const radioItem2 = document.createElement("span");
+  const radioInput1 = document.createElement("input");
+  const radioItem1 = document.createElement("span");
+  const containerRadio = document.createElement("div");
+
+  const radioSearchReset = document.createElement("div");
+  radioSearchReset.classList.add('radioSearchReset');
+
+  const label1 = document.createElement("label");
+  const label2 = document.createElement("label");
+
+  buttonHead.appendChild(buttonToggle);
+  formElement.appendChild(buttonHead);
+  formElement.appendChild(bodyContent);
+  footerContent.appendChild(radioSearchReset);
+  formElement.appendChild(footerContent);
+
+  // Set the properties for the button element
+  buttonToggle.className = "kintoneplugin-button-normal";
+  buttonToggle.id = "buttonToggle"
+  buttonToggle.innerText = "Show";
+  // Set the properties for the "Search" button
+  searchButton.className = "kintoneplugin-button-normal";
+  searchButton.id = "searchButton";
+  searchButton.innerText = "Search";
+  // Set the properties for the "Reset" button
+  resetButton.className = "kintoneplugin-button-dialog-cancel";
+  resetButton.innerText = "Reset";
+  //div of radio
+  containerRadio.className = "kintoneplugin-input-radio";
+  containerRadio.id = "containerRadio";
+  // Create the first radio button item
+  radioItem1.className = "kintoneplugin-input-radio-item";
+  radioItem1.style.marginLeft = "12px";
+  radioItem2.className = "kintoneplugin-input-radio-item";
+  // Create the first radio button
+  radioInput1.type = "radio";
+  radioInput1.name = "logicalOperatorRadio";
+  radioInput1.value = "And";
+  radioInput1.id = "radio-0";
+  radioInput1.checked = "true";
+
+  // Create the second radio button
+  radioInput2.type = "radio";
+  radioInput2.name = "logicalOperatorRadioF";
+  radioInput2.value = "Or";
+  radioInput2.id = "radio-1";
+
+  // Create the label for the first radio button
+  label1.setAttribute("for", "radio-0");
+  label1.textContent = "And";
+
+  // Create the label for the second radio button
+  label2.setAttribute("for", "radio-1");
+  label2.textContent = "Or";
+
+  // Append radio input and label to the radio item
+  radioItem1.appendChild(radioInput1);
+  radioItem1.appendChild(label1);
+  radioItem2.appendChild(radioInput2);
+  radioItem2.appendChild(label2);
+
+  // Append the radio items to the container div
+  containerRadio.appendChild(radioItem1);
+  containerRadio.appendChild(radioItem2);
+
+  // Function to show the spinner
+  function showSpinner() {
+    try {
+      // Initialize
+      if ($('.kintone-spinner').length === 0) {
+        // Create elements for the spinner and the background of the spinner
+        const spin_div = $('<div id ="kintone-spin" class="kintone-spinner"></div>');
+        const spin_bg_div = $('<div id ="kintone-spin-bg" class="kintone-spinner"></div>');
+
+        // Append spinner to the body
+        $(document.body).append(spin_div, spin_bg_div);
+
+        // Set a style for the spinner
+        $(spin_div).css({
+          'position': 'fixed',
+          'top': '50%',
+          'left': '50%',
+          'z-index': '510',
+          'background-color': '#fff',
+          'padding': '26px',
+          '-moz-border-radius': '4px',
+          '-webkit-border-radius': '4px',
+          'border-radius': '4px'
+        });
+        $(spin_bg_div).css({
+          'position': 'fixed',
+          'top': '0px',
+          'left': '0px',
+          'z-index': '500',
+          'width': '100%',
+          'height': '200%',
+          'background-color': '#000',
+          'opacity': '0.5',
+          'filter': 'alpha(opacity=50)',
+          '-ms-filter': 'alpha(opacity=50)'
+        });
+
+        // Set options for the spinner
+        const opts = {
+          'color': '#000'
+        };
+
+        // Create the spinner
+        new Spinner(opts).spin(document.getElementById('kintone-spin'));
+      }
+
+      // Display the spinner
+      $('.kintone-spinner').show();
+    } catch (error) {
+      alert(error);
       return;
     }
-
-    // create display element
-    const headerStyle = "width:100%;position:flex;text-align:" + config.displayposition;
-    const divInputData = document.createElement("div");
-    divInputData.style.cssText = headerStyle
-    const table = document.createElement("tb");
-
-    var params = {
-      app: event.appId, // can get from event too
-      filterCond: kintone.app.getQueryCondition(),
-    };
-    //get records from kintone
-    getRecords(params)
-      .then(function (res) {
-        var records = res.records;
-        for (let i = 1; i <= parseInt(config.row_number); i++) {
-          let item = JSON.parse(config["row" + i]);
-          var result = 0;
-          //calculate sum value of the target field
-          for (let k = 0; k < records.length; k++) {
-            result += Number(records[k][item.fieldCode].value);
-          }
-
-          if (item.calMethod === "avg" && records.length > 0) {
-            //adverage
-            result = Number(result / records.length);
-          }
-          //create value display element as table
-          const labelStyle = "margin-left: 15px;font-weight: 900;text-align: right;font-size:" + item.fontSize + "; color:" + item.letterColor;
-          const tr = document.createElement("tr");
-          const tdLabel = document.createElement("td");
-          const tdValue = document.createElement("td");
-          tdLabel.innerText = item.prefix;
-          tdLabel.style.cssText = labelStyle;
-          result = formatNum(
-            result,
-            item.roundMethod,
-            item.decimalDegits,
-            item.thousandsSeperator
-          );
-          tdValue.innerText = result + item.suffix;
-          tdValue.style.cssText = labelStyle;
-
-          // append table into new created div element
-          tr.appendChild(tdLabel);
-          tr.appendChild(tdValue);
-          table.appendChild(tr);
-          divInputData.appendChild(table);
-        }
-
-        //append new created div to kintone header space
-        kintone.app.getHeaderSpaceElement().appendChild(divInputData);
-      })
-      .catch(function (error) {
-        alert(error.message || error);
-      });
-  });
-
-  /**
-   * change number format
-   * @param {*} value number
-   * @param {*} roundMethed 1:round,2:ceil,3:floor
-   * @param {*} digit max 10
-   * @param {*} thousandsSeparator 1:use,0 not use
-   * @returns formated value
-   */
-  function formatNum(value, roundMethed, digit, thousandsSeparator) {
-    var result = 0;
-    var roundFactor = Math.pow(10, digit);
-    if (roundMethed === "1") {
-      //round
-      result = Math.round(value * roundFactor) / roundFactor;
-    } else if (roundMethed === "2") {
-      //round up
-      result = Math.ceil(value * roundFactor) / roundFactor;
-    } else {
-      //round down
-      result = Math.floor(value * roundFactor) / roundFactor;
-    }
-
-    var seperator = true;
-    if (thousandsSeparator === "0") {
-      seperator = false;
-    }
-    var dec_point = ".";
-    var thousands_sep = ",";
-    // var parts = result.toString().split(".");
-    var parts = result.toFixed(digit).split(".");
-    parts[0] = seperator
-      ? parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, thousands_sep)
-      : parts[0];
-    return parts.join(dec_point);
   }
 
-  /**
-   * get bulk kintone records
-   * @param {*} _params request parameters
-   * @returns all matched records existed in the app
-   */
-  function getRecords(_params) {
-    var MAX_READ_LIMIT = 500;
-    var params = _params || {};
-    var app = params.app || kintone.app.getId();
-    var filterCond = params.filterCond;
-    var sortConds = params.sortConds || ['$id asc'];
-    var fields = params.fields;
-    var data = params.data;
-
-    if (!data) {
-      data = {
-        records: [],
-        lastRecordId: 0,
-      };
-    }
-
-    //reset condition
-    var conditions = [];
-    if (filterCond) {
-      conditions.push(filterCond);
-    }
-    conditions.push("$id > " + data.lastRecordId);
-    var sortCondsAndLimit = ' order by ' + sortConds.join(', ') + ' limit ' + MAX_READ_LIMIT;
-    var query = conditions.join(' and ') + sortCondsAndLimit;
-    var body = {
-      app: app,
-      query: query
-    };
-
-    return kintone
-      .api(kintone.api.url("/k/v1/records", true), "GET", body)
-      .then(function (r) {
-        //add new get records to data
-        data.records = data.records.concat(r.records);
-        if (r.records.length >= MAX_READ_LIMIT) {
-          // When the number of retrieved records is the same as the limit,there may be remaining records that have not been retrieved.
-          //In that case, recursively call getRecords to retrieve the remaining records.
-          data.lastRecordId = r.records[r.records.length - 1].$id.value;
-          return getRecords({
-            app: app,
-            filterCond: filterCond,
-            fields: fields,
-            data: data,
-          });
-        }
-        delete data.lastRecordId;
-        return data;
-      });
+  // Function to hide the spinner
+  function hideSpinner() {
+    // Hide the spinner
+    $('.kintone-spinner').hide();
   }
+
+  // -------------------------------------------------------------------event Function-----------------------------------------------------------------------------------------
+  let checkJson = "";
+  kintone.events.on("app.record.index.show", async function (e) {
+    // Check checkJson is empty or not
+    if (checkJson) return;
+    let fields = await kintone.api(kintone.api.url("/k/v1/app/form/fields.json", true), "GET", { app: kintone.app.getId() });
+    let status = await kintone.api(kintone.api.url("/k/v1/app/status.json", true), "GET", { app: kintone.app.getId() });
+
+    checkJson = json.field;
+    let fieldCodes = [];
+    let fieldLabels = [];
+    let fieldCalcformat = [];
+    // let fielMultiplefield = [];
+    let fieldPatail = [];
+    let fieldExact = [];
+    // let fieldLines = [];
+    Object.keys(json.field).forEach(key => {
+      fieldCodes.push(json.field[key].type);
+      fieldLabels.push(json.field[key].code);
+      fieldCalcformat.push(json.field[key].format);
+      // fielMultiplefield.push(json.field[key].multiplefield);
+      fieldPatail.push(json.field[key].patial);
+      fieldExact.push(json.field[key].exact);
+
+      // fieldLines.push(json.field[key].newline);
+    });
+    let labelsToAdd = []; // Collect labels that meet the condition
+    for (let i = 0; i < fieldCodes.length; i++) {
+      if (fieldCodes[i] === "MultiFieldText") {
+        addSingleLineText("name", fieldLabels[i].join('-')); // Joins labels with a comma and space
+      }
+      if (fieldCodes[i] === "SINGLE_LINE_TEXT") {
+        addSingleLineText(fieldLabels[i], fieldLabels[i]);
+      }
+      if (fieldCodes[i] === "NUMBER") {
+        addRangeInputField(fieldLabels[i], "number");
+      }
+      if (fieldCodes[i] === "DATE") {
+        addRangeInputField(fieldLabels[i], "date");
+      }
+      if (fieldCodes[i] === "DATETIME") {
+        addRangeInputField(fieldLabels[i], "datetime-local");
+      }
+      if (fieldCodes[i] === "TIME") {
+        addRangeInputField(fieldLabels[i], "time");
+      }
+      if (fieldCodes[i] === "MULTI_SELECT") {
+        let options = fields.properties[fieldLabels[i]].options;
+        addMultiSelectDropdown(fieldLabels[i], options);
+      }
+      if (fieldCodes[i] === "CALC") {
+        addRangeInputField(fieldLabels[i], "number", fieldCalcformat[i]);
+      }
+      if (fieldCodes[i] === "DROP_DOWN") {
+        let options = fields.properties[fieldLabels[i]].options;
+        addMultiSelectDropdown(fieldLabels[i], options);
+      }
+      if (fieldCodes[i] === "CHECK_BOX") {
+        let options = fields.properties[fieldLabels[i]].options;
+        addMultiSelectDropdown(fieldLabels[i], options);
+      }
+      if (fieldCodes[i] === "RADIO_BUTTON") {
+        let options = fields.properties[fieldLabels[i]].options;
+        addMultiSelectDropdown(fieldLabels[i], options);
+      }
+      if (fieldCodes[i] === "CREATED_TIME") {
+        addRangeInputField(fieldLabels[i], "datetime-local");
+      }
+      if (fieldCodes[i] === "RECORD_NUMBER") {
+        addRangeInputField(fieldLabels[i], "number");
+      }
+      if (fieldCodes[i] === "UPDATED_TIME") {
+        addRangeInputField(fieldLabels[i], "datetime-local");
+      }
+      if (fieldCodes[i] === "STATUS") {
+        let options = status.states;
+        console.log(options);
+        addMultiSelectDropdown(fieldLabels[i], options, fieldCodes[i]);
+      }
+    }
+    // Now, add all collected labels at once
+    if (labelsToAdd.length > 0) {
+      addSingleLineText("name", labelsToAdd.join('-')); // Joins labels with a comma and space
+    }
+    // Append the "Search" and "Reset" and containerRadio to containerbutton
+    radioSearchReset.style.display = "flex";
+
+    function addSingleLineText(fieldlabel, fieldName) {
+      const divName = document.createElement("div");
+      divName.classList.add('divName')
+      const inputElement = document.createElement("div");
+      inputElement.classList.add("kintoneplugin-input-outer");
+      inputElement.innerHTML = `
+                    <b>${fieldlabel}</b><br>
+                    <input class="kintoneplugin-input-text" type="text" id="singleLineText-${fieldName}">
+                `;
+      divName.appendChild(inputElement);
+      bodyContent.appendChild(divName)
+    }
+
+    function addRangeInputField(fieldName, fieldType, format) {
+      const divDate = document.createElement("div");
+      divDate.classList.add('divDate')
+
+      const divDateTime = document.createElement("div");
+      divDateTime.classList.add('divDateTime')
+
+      const divTime = document.createElement("div");
+      divTime.classList.add('divTime')
+
+      const divNumber = document.createElement("div");
+      divNumber.classList.add('divNumber');
+
+      const formatType = format;
+      const inputFieldElement = document.createElement("div");
+      inputFieldElement.classList.add("kintoneplugin-input-outer");
+      inputFieldElement.innerHTML = `
+                    <div style="display: flex; justify-content: space-between;">
+                    <b>${fieldName} (Start)</b>
+                    <b>${fieldName} (End)</b>
+                    </div>
+                    </div>
+                    <input class="kintoneplugin-input-text" type="${fieldType}" id="${fieldName}Start"> ~
+                    <input class="kintoneplugin-input-text" type="${fieldType}" id="${fieldName}End">
+                `;
+      // Adjust the container based on the fieldType
+      const container = fieldType === "number" ? divNumber :
+        fieldType === "date" ? divDate :
+          fieldType === "datetime-local" ? divDateTime :
+            fieldType === "time" ? divTime :
+              null; // Add a null check or specify a default container
+
+      if (container) {
+        container.appendChild(inputFieldElement);
+        bodyContent.appendChild(container)
+      }
+    }
+
+    function addMultiSelectDropdown(fieldName, options, fieldtype) {
+      const divMultiSelect = document.createElement("div");
+      divMultiSelect.classList.add('divMultiSelect')
+      const dropdownElement = document.createElement("div");
+      dropdownElement.style.width = "150px";
+      const dropdownName = document.createElement("div");
+      dropdownElement.classList.add("kintoneplugin-dropdown-list");
+      if (fieldtype === "STATUS") {
+        Object.values(options).forEach((value) => {
+          const dropdownItem = document.createElement("div");
+          dropdownItem.classList.add(`kintoneplugin-dropdown-list-item`);
+          dropdownItem.innerHTML = `
+                      <span class="kintoneplugin-dropdown-list-item-name" id="${value.name}">${value.name}</span>
+                  `;
+          dropdownElement.appendChild(dropdownItem);
+        });
+      }
+      else {
+        Object.values(options).forEach((value) => {
+          const dropdownItem = document.createElement("div");
+          dropdownItem.classList.add("kintoneplugin-dropdown-list-item");
+          dropdownItem.innerHTML = `
+                      <span class="kintoneplugin-dropdown-list-item-name" id="${value.label}">${value.label}</span>
+                  `;
+          dropdownElement.appendChild(dropdownItem);
+        });
+      }
+
+      dropdownName.innerHTML = `<b>${fieldName}</b><br>`;
+      divMultiSelect.appendChild(dropdownName);
+      divMultiSelect.appendChild(dropdownElement);
+      bodyContent.appendChild(divMultiSelect)
+    }
+
+    function addSelectDropdown(fieldName, options) {
+
+      const divMultiSelectDropdown = document.createElement("div");
+      divMultiSelectDropdown.classList.add('divMultiSelectDropdown')
+      const dropdownElement = document.createElement("div");
+      dropdownElement.style.width = "150px";
+      dropdownElement.innerHTML = `<b>${fieldName}</b><br>`;
+      let optionsHTML = '';
+      Object.values(options).forEach((value) => {
+        optionsHTML += `<option value="${value.label}">${value.label}</option>`;
+      });
+      const dropdownItem = document.createElement("div");
+      dropdownItem.innerHTML = `
+        <div class="kintoneplugin-select-outer">
+          <div class="kintoneplugin-select">
+            <select>
+              <option value="-----">-----</option>
+              ${optionsHTML}
+            </select>
+          </div>
+        </div>
+      `;
+      dropdownElement.appendChild(dropdownItem);
+      divMultiSelectDropdown.appendChild(dropdownElement);
+      bodyContent.appendChild(divMultiSelectDropdown)
+
+    }
+
+    function addSelectStatusDropdown(fieldName, options) {
+      const divMultiSelectStatusDropdown = document.createElement("div");
+      divMultiSelectStatusDropdown.classList.add('divMultiSelectStatusDropdown')
+      const dropdownElement = document.createElement("div");
+      dropdownElement.style.width = "150px";
+      dropdownElement.innerHTML = `<b>${fieldName}</b><br>`;
+      let optionsHTML = '';
+      Object.values(options).forEach((value) => {
+        console.log(value);
+        optionsHTML += `<option value="${value.name}">${value.name}</option>`;
+      });
+      const dropdownItem = document.createElement("div");
+      dropdownItem.innerHTML = `
+        <div class="kintoneplugin-select-outer">
+          <div class="kintoneplugin-select">
+            <select>
+              <option value="-----">-----</option>
+              ${optionsHTML}
+            </select>
+          </div>
+        </div>
+      `;
+      dropdownElement.appendChild(dropdownItem);
+      divMultiSelectStatusDropdown.appendChild(dropdownElement);
+
+      bodyContent.appendChild(divMultiSelectStatusDropdown)
+
+    }
+
+    function addCheckboxSearch(fieldName, options) {
+      const divCheckbox = document.createElement("div");
+      divCheckbox.classList.add('divCheckbox')
+      const checkboxElement = document.createElement("div");
+      checkboxElement.style.width = "150px";
+      checkboxElement.innerHTML = `<b>${fieldName}</b><br>`;
+      let optionsHTML = '';
+      Object.values(options).forEach((value) => {
+        const checkboxItem = document.createElement("div");
+        checkboxItem.innerHTML = `
+            <div class="kintoneplugin-input-checkbox"><span class="kintoneplugin-input-checkbox-item"><input type="checkbox" name="checkbox" value="${value.value}" id="checkbox-${value.index}"><label for="checkbox-${value.index}">${value.label}</label></span></div>
+        `;
+        checkboxElement.appendChild(checkboxItem);
+      });
+      divCheckbox.appendChild(checkboxElement);
+      bodyContent.appendChild(divCheckbox);
+    }
+
+    function addRadioSearch(fieldName, options) {
+      const divRadio = document.createElement("div");
+      divRadio.classList.add('divRadio')
+      const radioElement = document.createElement("div");
+      radioElement.style.width = "150px";
+      radioElement.innerHTML = `<b>${fieldName}</b><br>`;
+      let optionsHTML = '';
+      Object.values(options).forEach((value) => {
+        const radioItem = document.createElement("div");
+        radioItem.innerHTML = `
+            <div class="kintoneplugin-input-radio"><span class="kintoneplugin-input-radio-item"><input type="radio" name="radio" value="${value.value}" id="radio-${value.index}"><label for="radio-${value.index}">${value.label}</label></span></div>
+        `;
+        radioElement.appendChild(radioItem);
+      });
+      divRadio.appendChild(radioElement);
+
+      bodyContent.appendChild(divRadio)
+
+    }
+
+    // Append the "Search" and "Reset" and containerRadio to containerbutton
+    radioSearchReset.appendChild(containerRadio);
+    radioSearchReset.appendChild(searchButton);
+    radioSearchReset.appendChild(resetButton);
+
+    // Append the form to the header space
+    space.appendChild(formElement);
+
+    // -----------------------------------------------------------------Function---------------------------------------------------------------------------------
+    let allValues = { multiSelect: [] };
+
+
+    function toggleButton() {
+      if (buttonToggle.innerText === "Show") {
+        buttonToggle.innerText = "Hide";
+      } else {
+        buttonToggle.innerText = "Show";
+      }
+    }
+    function showForm() {
+      const contentHeight = formElement.scrollHeight;
+      formElement.style.height = contentHeight + "px";
+      toggleButton();
+    }
+
+    function hideForm() {
+      formElement.style.height = "auto";
+      toggleButton();
+    }
+
+    buttonToggle.addEventListener("click", function () {
+      if (
+        formElement.style.height === "auto" ||
+        formElement.style.height === ""
+      ) {
+        showForm();
+      } else {
+        hideForm();
+      }
+    });
+
+    radioInput1.addEventListener("click", function () {
+      if (radioInput1.checked) {
+        allValues.logicalOperator = "And";
+      }
+      radioInput2.checked = false;
+    });
+
+    radioInput2.addEventListener("click", function () {
+      if (radioInput2.checked) {
+        allValues.logicalOperator = "Or";
+      }
+      radioInput1.checked = false;
+    });
+
+    const SearchButton = document.getElementById("searchButton");
+    const And = document.getElementById("radio-0");
+    const Or = document.getElementById("radio-1");
+    const multiSelectDropdownItems = document.querySelectorAll(".kintoneplugin-dropdown-list-item span");
+
+    multiSelectDropdownItems.forEach((dropdownItem) => {
+      dropdownItem.addEventListener("click", function () {
+        const selectedItem = this.textContent;
+        const itemIndex = allValues.multiSelect.indexOf(selectedItem);
+
+        // Toggle the selection based on item existence in the array
+        if (itemIndex !== -1) {
+          // Item is already in the array, so remove it
+          allValues.multiSelect.splice(itemIndex, 1);
+        } else {
+          // Item is not in the array, so add it
+          allValues.multiSelect.push(selectedItem);
+        }
+        // Toggle the class on the parentDiv element
+        const parentDiv = this.closest(".kintoneplugin-dropdown-list-item");
+        if (parentDiv) {
+          parentDiv.classList.toggle("kintoneplugin-dropdown-list-item-selected");
+        }
+      });
+    });
+
+    SearchButton.addEventListener("click", function (e) {
+      try {
+        let queryStrings = [];
+        let singleLineMulti;
+        const search_condition = {};
+        for (let i = 0; i < fieldCodes.length; i++) {
+          if (fieldCodes[i] === "MultiFieldText") {
+            singleLineMulti = document.getElementById("singleLineText-" + fieldLabels[i].join('-'));
+            if (singleLineMulti.value) {
+              search_condition[fieldLabels[i].join('-')] = singleLineMulti.value;
+              // remove join('-') to search with each field with or on the same value
+              let searchString = '';
+              if (Array.isArray(codesToAdd) && codesToAdd.length > 0) {
+                if (fieldPatail[i] === "true" && fieldExact[i] === "false") {
+                  searchString = '(' + fieldLabels[i].map(code => `${code} like "${search_condition[fieldLabels[i].join('-')]}%"`).join(' or ') + ')';
+                }
+                else if (fieldPatail[i] === "false" && fieldExact[i] === "true") {
+                  searchString = '(' + fieldLabels[i].map(code => `${code} in "as"`).join(' or ') + ')';
+                }
+              }
+              queryStrings.push(searchString);
+              console.log(queryStrings);
+            }
+          }
+          if (fieldCodes[i] === "SINGLE_LINE_TEXT") {
+            singleLineMulti = document.getElementById("singleLineText-" + fieldLabels[i]);
+            if (singleLineMulti.value) {
+              search_condition[fieldLabels[i]] = singleLineMulti.value;
+              // remove join('-') to search with each field with or on the same value
+              let searchString = '';
+              if (Array.isArray(codesToAdd) && codesToAdd.length > 0) {
+                if (fieldPatail[i] === "true" && fieldExact[i] === "false") {
+                  searchString = '(' + fieldLabels[i].map(code => `${code} like "${search_condition[fieldLabels[i].join('-')]}%"`).join(' or ') + ')';
+                }
+                else if (fieldPatail[i] === "false" && fieldExact[i] === "true") {
+                  searchString = '(' + fieldLabels[i].map(code => `${code} in "as"`).join(' or ') + ')';
+                }
+              }
+              queryStrings.push(searchString);
+            }
+          }
+          if (fieldCodes[i] === "NUMBER" || fieldCodes[i] === "DATE" || fieldCodes[i] === "DATETIME" || fieldCodes[i] === "TIME" || fieldCodes[i] === "CREATED_TIME" || fieldCodes[i] === "RECORD_NUMBER" || fieldCodes[i] === "UPDATED_TIME" || fieldCodes[i] === "CALC") {
+            let numberfieldStart;
+            let numberfieldEnd;
+            numberfieldStart = document.getElementById(fieldLabels[i] + "Start");
+            numberfieldEnd = document.getElementById(fieldLabels[i] + "End");
+            if (numberfieldStart.value !== "" && numberfieldEnd.value !== "") {
+              if (numberfieldStart.value > numberfieldEnd.value) {
+                throw (`Start value of ${fieldLabels[i]} must be less than End value`);
+              }
+              else {
+                search_condition[fieldLabels[i] + "Start"] = numberfieldStart.value;
+                search_condition[fieldLabels[i] + "End"] = numberfieldEnd.value;
+                queryStrings.push(`(${fieldLabels[i]} >= "${search_condition[fieldLabels[i] + "Start"]}" and ${fieldLabels[i]} <= "${search_condition[fieldLabels[i] + "End"]}")`);
+              }
+            }
+            else if (numberfieldStart.value !== "" && numberfieldEnd.value === "") {
+              search_condition[fieldLabels[i] + "Start"] = numberfieldStart.value;
+              queryStrings.push(`(${fieldLabels[i]} >= "${search_condition[fieldLabels[i] + "Start"]}")`);
+            }
+            else if (numberfieldStart.value === "" && numberfieldEnd.value !== "") {
+              search_condition[fieldLabels[i] + "End"] = numberfieldEnd.value;
+              queryStrings.push(`(${fieldLabels[i]} <= "${search_condition[fieldLabels[i] + "End"]}")`);
+            }
+          }
+          if (fieldCodes[i] === "MULTI_SELECT" || fieldCodes[i] === "DROP_DOWN" || fieldCodes[i] === "CHECK_BOX" || fieldCodes[i] === "RADIO_BUTTON" || fieldCodes[i] === "STATUS") {
+            let multiSelectDropdown = document.querySelectorAll(".kintoneplugin-dropdown-list-item-selected");
+            let multiSelectDropdownValue = [];
+            multiSelectDropdown.forEach((dropdownItem) => {
+              const selectedItem = dropdownItem.textContent;
+              multiSelectDropdownValue.push(selectedItem);
+            });
+            if (multiSelectDropdownValue.length !== 0) {
+              let options = fields.properties[fieldLabels[i]].options;
+              let optionsValue = [];
+              Object.values(options).forEach((value) => {
+                console.log(value);
+                // if (multiSelectDropdownValue.includes(value.label)) {
+                //   optionsValue.push(value.value);
+                // }
+              });
+              // search_condition[fieldLabels[i]] = optionsValue;
+              // queryStrings.push(`(${fieldLabels[i]} in ("${search_condition[fieldLabels[i]].join('","')}"))`);
+              // search_condition[fieldLabels[i]] = multiSelectDropdownValue;
+              // queryStrings.push(`(${fieldLabels[i]} in ("${search_condition[fieldLabels[i]].join('","')}"))`);
+            }
+          }
+          // if (fieldCodes[i] === "DROP_DOWN") {
+          //   let multiSelectDropdown = document.querySelectorAll(".kintoneplugin-dropdown-list-item-selected");
+          //   let multiSelectDropdownValue = [];
+          //   multiSelectDropdown.forEach((dropdownItem) => {
+          //     const selectedItem = dropdownItem.textContent;
+          //     multiSelectDropdownValue.push(selectedItem);
+          //   });
+          //   if (multiSelectDropdownValue.length !== 0) {
+
+          //     // search_condition[fieldLabels[i]] = multiSelectDropdownValue;
+          //     // queryStrings.push(`(${fieldLabels[i]} in ("${search_condition[fieldLabels[i]].join('","')}"))`);
+          //   }
+          // }
+          // if (fieldCodes[i] === "CHECK_BOX") {
+          //   let multiSelectDropdown = document.querySelectorAll(".kintoneplugin-dropdown-list-item-selected");
+          //   let multiSelectDropdownValue = [];
+          //   multiSelectDropdown.forEach((dropdownItem) => {
+          //     const selectedItem = dropdownItem.textContent;
+          //     multiSelectDropdownValue.push(selectedItem);
+          //   });
+          //   if (multiSelectDropdownValue.length !== 0) {
+          //     search_condition[fieldLabels[i]] = multiSelectDropdownValue;
+          //     queryStrings.push(`(${fieldLabels[i]} in ("${search_condition[fieldLabels[i]].join('","')}"))`);
+          //   }
+          // }
+          // if (fieldCodes[i] === "RADIO_BUTTON") {
+          //   let multiSelectDropdown = document.querySelectorAll(".kintoneplugin-dropdown-list-item-selected");
+          //   let multiSelectDropdownValue = [];
+          //   multiSelectDropdown.forEach((dropdownItem) => {
+          //     const selectedItem = dropdownItem.textContent;
+          //     multiSelectDropdownValue.push(selectedItem);
+          //   });
+          //   if (multiSelectDropdownValue.length !== 0) {
+          //     search_condition[fieldLabels[i]] = multiSelectDropdownValue;
+          //     queryStrings.push(`(${fieldLabels[i]} in ("${search_condition[fieldLabels[i]].join('","')}"))`);
+          //   }
+          // }
+          // if (fieldCodes[i] === "STATUS") {
+          //   let multiSelectDropdown = document.querySelectorAll(".kintoneplugin-dropdown-list-item-selected");
+          //   let multiSelectDropdownValue = [];
+          //   multiSelectDropdown.forEach((dropdownItem) => {
+          //     const selectedItem = dropdownItem.textContent;
+          //     multiSelectDropdownValue.push(selectedItem);
+          //   });
+          //   if (multiSelectDropdownValue.length !== 0) {
+          //     search_condition[fieldLabels[i]] = multiSelectDropdownValue;
+          //     queryStrings.push(`(${fieldLabels[i]} in ("${search_condition[fieldLabels[i]].join('","')}"))`);
+          //   }
+          // }
+        }
+
+        // // Function to organize data based on field codes
+        // function separateDataByFieldCode(data) {
+        //   const separatedData = {};
+
+        //   // Iterate through each field code and its corresponding values
+        //   for (const fieldCode in data) {
+        //     if (data.hasOwnProperty(fieldCode)) {
+        //       const values = data[fieldCode];
+
+        //       // Store values based on field code
+        //       separatedData[fieldCode] = values;
+        //     }
+        //   }
+
+        //   return separatedData;
+        // }
+
+        // // Separate data based on field codes
+        // const separatedData = separateDataByFieldCode(data);
+
+        // // Access values by field code
+        // console.log(separatedData['diet']); // Access values for the 'diet' field code
+        // console.log(separatedData['Status']); // Access values for the 'Status' field code
+
+        let searchChoice = "and"; // Default to "AND"
+        if (And.checked == true) {
+          search_condition.search_choice = And.value;
+          Or.checked = false;
+          searchChoice = "and";
+        }
+        if (Or.checked == true) {
+          search_condition.search_choice = Or.value;
+          And.checked = false;
+          searchChoice = "or";
+        }
+        const combinedQueryString = queryStrings.join(` ${searchChoice} `);
+        // Save the search condition to the local storage
+        localStorage.setItem("search_condition", JSON.stringify(search_condition));
+
+        // //check if link have view
+        // if (window.location.href.includes("?view=")) {
+        //   // Ask for confirmation
+        //   var proceed = confirm("Do you want to search with value in the box? You will lose the current view");
+        //   // Check if the user wants to proceed
+        //   if (proceed) {
+        //     // Redirect to the URL
+        //     window.location.href = '../../' + "k" + "/" + kintone.app.getId() + "/" + "?query=" + combinedQueryString;
+        //   }
+        //   else {
+        //     // alert("You have canceled the search");
+        //     throw ("You have canceled the search");
+        //   }
+        // }
+        // else {
+        //   // Redirect to the URL
+        //   window.location.href = '../../' + "k" + "/" + kintone.app.getId() + "/" + "?query=" + combinedQueryString;
+        // }
+        console.log(combinedQueryString);
+      } catch (error) {
+        alert(error);
+        hideSpinner();
+        return;
+      }
+    });
+  })
 })(jQuery, kintone.$PLUGIN_ID);
