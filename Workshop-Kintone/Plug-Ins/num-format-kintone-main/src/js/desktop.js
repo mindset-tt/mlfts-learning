@@ -398,7 +398,6 @@ jQuery.noConflict();
       }
       if (fieldCodes[i] === "STATUS") {
         let options = status.states;
-        console.log(options);
         addMultiSelectDropdown(fieldLabels[i], options, fieldCodes[i]);
       }
     }
@@ -530,7 +529,6 @@ jQuery.noConflict();
       dropdownElement.innerHTML = `<b>${fieldName}</b><br>`;
       let optionsHTML = '';
       Object.values(options).forEach((value) => {
-        console.log(value);
         optionsHTML += `<option value="${value.name}">${value.name}</option>`;
       });
       const dropdownItem = document.createElement("div");
@@ -691,7 +689,6 @@ jQuery.noConflict();
                 }
               }
               queryStrings.push(searchString);
-              console.log(queryStrings);
             }
           }
           else if (fieldCodes[i] === "SINGLE_LINE_TEXT") {
@@ -714,8 +711,6 @@ jQuery.noConflict();
           else if (fieldCodes[i] === "NUMBER" || fieldCodes[i] === "DATE" || fieldCodes[i] === "DATETIME" || fieldCodes[i] === "TIME" || fieldCodes[i] === "CREATED_TIME" || fieldCodes[i] === "RECORD_NUMBER" || fieldCodes[i] === "UPDATED_TIME" || fieldCodes[i] === "CALC") {
             let numberfieldStart = document.getElementById(`${fieldLabels[i]}Start`);
             let numberfieldEnd = document.getElementById(`${fieldLabels[i]}End`);
-            console.log(numberfieldStart.value);
-            console.log(numberfieldEnd.value);
             if (numberfieldStart.value !== "" && numberfieldEnd.value !== "") {
               if (numberfieldStart.value > numberfieldEnd.value) {
                 throw (`Start value of ${fieldLabels[i]} must be less than End value`);
@@ -750,16 +745,11 @@ jQuery.noConflict();
                 let selectedValues = multiSelectDropdownArrayValue.filter((value) =>
                   optionArrayValue.some((optionValue) => {
                     const comparison = optionValue.toLowerCase() === value.trim().replace(/\s+/g, ' ').toLowerCase();
-                    console.log(`Comparing "${optionValue.toLowerCase()}" with "${value.toLowerCase()}": ${comparison}`);
                     return comparison;
                   })
                 );
                 
                 let cleanedArray = selectedValues.map(str => str.trim().replace(/\s+/g, ' '));
-
-                console.log("Selected values:", cleanedArray);
-                
-
                 search_condition[fieldLabels[i]] = selectedValues;
                 queryStrings.push(`(${fieldLabels[i]} in ("${cleanedArray.join('","')}"))`);
               } else {
@@ -770,15 +760,11 @@ jQuery.noConflict();
                 let selectedValues = multiSelectDropdownArrayValue.filter((value) =>
                   optionArrayValue.some((optionValue) => {
                     const comparison = optionValue.toLowerCase() === value.trim().replace(/\s+/g, ' ').toLowerCase();
-                    console.log(`Comparing "${optionValue.toLowerCase()}" with "${value.toLowerCase()}": ${comparison}`);
                     return comparison;
                   })
                 );
 
                 let cleanedArray = selectedValues.map(str => str.trim().replace(/\s+/g, ' '));
-
-                console.log("Selected values:", cleanedArray);
-                
 
                 search_condition[fieldLabels[i]] = selectedValues;
                 queryStrings.push(`(${fieldLabels[i]} in ("${cleanedArray.join('","')}"))`);
@@ -802,7 +788,6 @@ jQuery.noConflict();
         const combinedQueryString = queryStrings.join(` ${searchChoice} `);
         // Save the search condition to the local storage
         sessionStorage.setItem("search_condition", JSON.stringify(search_condition));
-
         // //check if link have view
         if (window.location.href.includes("?view=")) {
           // Ask for confirmation
@@ -821,7 +806,7 @@ jQuery.noConflict();
           // Redirect to the URL
           window.location.href = '../../' + "k" + "/" + kintone.app.getId() + "/" + "?query=" + combinedQueryString;
         }
-        console.log(combinedQueryString);
+
       } catch (error) {
         alert(error);
         hideSpinner();
