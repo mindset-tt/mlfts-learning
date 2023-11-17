@@ -54,7 +54,6 @@ jQuery.noConflict();
         "patial": "false",
         "exact": "false",
         "newline": "false",
-
       },
       "Status": {
         "type": "STATUS",
@@ -350,6 +349,7 @@ jQuery.noConflict();
     });
     let labelsToAdd = []; // Collect labels that meet the condition
     for (let i = 0; i < fieldCodes.length; i++) {
+
       if (fieldCodes[i] === "MultiFieldText") {
         addSingleLineText("name", fieldLabels[i].join('-')); // Joins labels with a comma and space
       }
@@ -615,13 +615,13 @@ jQuery.noConflict();
     }
 
     function hideForm() {
-      formElement.style.height = "auto";
+      formElement.style.height = "80px";
       toggleButton();
     }
 
     buttonToggle.addEventListener("click", function () {
       if (
-        formElement.style.height === "auto" ||
+        formElement.style.height === "80px" ||
         formElement.style.height === ""
       ) {
         showForm();
@@ -682,7 +682,7 @@ jQuery.noConflict();
               search_condition[fieldLabels[i].join('-')] = singleLineMulti.value;
               // remove join('-') to search with each field with or on the same value
               let searchString = '';
-              if (Array.isArray(codesToAdd) && codesToAdd.length > 0) {
+              if (Array.isArray(fieldLabels[i]) && fieldLabels[i].length > 0) {
                 if (fieldPatail[i] === "true" && fieldExact[i] === "false") {
                   searchString = '(' + fieldLabels[i].map(code => `${code} like "${search_condition[fieldLabels[i].join('-')]}%"`).join(' or ') + ')';
                 }
@@ -694,13 +694,13 @@ jQuery.noConflict();
               console.log(queryStrings);
             }
           }
-          if (fieldCodes[i] === "SINGLE_LINE_TEXT") {
+          else if (fieldCodes[i] === "SINGLE_LINE_TEXT") {
             singleLineMulti = document.getElementById("singleLineText-" + fieldLabels[i]);
             if (singleLineMulti.value) {
               search_condition[fieldLabels[i]] = singleLineMulti.value;
               // remove join('-') to search with each field with or on the same value
               let searchString = '';
-              if (Array.isArray(codesToAdd) && codesToAdd.length > 0) {
+              if (Array.isArray(fieldLabels[i]) && fieldLabels[i].length > 0) {
                 if (fieldPatail[i] === "true" && fieldExact[i] === "false") {
                   searchString = '(' + fieldLabels[i].map(code => `${code} like "${search_condition[fieldLabels[i].join('-')]}%"`).join(' or ') + ')';
                 }
@@ -711,11 +711,11 @@ jQuery.noConflict();
               queryStrings.push(searchString);
             }
           }
-          if (fieldCodes[i] === "NUMBER" || fieldCodes[i] === "DATE" || fieldCodes[i] === "DATETIME" || fieldCodes[i] === "TIME" || fieldCodes[i] === "CREATED_TIME" || fieldCodes[i] === "RECORD_NUMBER" || fieldCodes[i] === "UPDATED_TIME" || fieldCodes[i] === "CALC") {
-            let numberfieldStart;
-            let numberfieldEnd;
-            numberfieldStart = document.getElementById(fieldLabels[i] + "Start");
-            numberfieldEnd = document.getElementById(fieldLabels[i] + "End");
+          else if (fieldCodes[i] === "NUMBER" || fieldCodes[i] === "DATE" || fieldCodes[i] === "DATETIME" || fieldCodes[i] === "TIME" || fieldCodes[i] === "CREATED_TIME" || fieldCodes[i] === "RECORD_NUMBER" || fieldCodes[i] === "UPDATED_TIME" || fieldCodes[i] === "CALC") {
+            let numberfieldStart = document.getElementById(`${fieldLabels[i]}Start`);
+            let numberfieldEnd = document.getElementById(`${fieldLabels[i]}End`);
+            console.log(numberfieldStart.value);
+            console.log(numberfieldEnd.value);
             if (numberfieldStart.value !== "" && numberfieldEnd.value !== "") {
               if (numberfieldStart.value > numberfieldEnd.value) {
                 throw (`Start value of ${fieldLabels[i]} must be less than End value`);
@@ -734,103 +734,59 @@ jQuery.noConflict();
               search_condition[fieldLabels[i] + "End"] = numberfieldEnd.value;
               queryStrings.push(`(${fieldLabels[i]} <= "${search_condition[fieldLabels[i] + "End"]}")`);
             }
+
           }
-          if (fieldCodes[i] === "MULTI_SELECT" || fieldCodes[i] === "DROP_DOWN" || fieldCodes[i] === "CHECK_BOX" || fieldCodes[i] === "RADIO_BUTTON" || fieldCodes[i] === "STATUS") {
+          else if (fieldCodes[i] === "MULTI_SELECT" || fieldCodes[i] === "DROP_DOWN" || fieldCodes[i] === "CHECK_BOX" || fieldCodes[i] === "RADIO_BUTTON" || fieldCodes[i] === "STATUS") {
             let multiSelectDropdown = document.querySelectorAll(".kintoneplugin-dropdown-list-item-selected");
-            let multiSelectDropdownValue = [];
-            multiSelectDropdown.forEach((dropdownItem) => {
-              const selectedItem = dropdownItem.textContent;
-              multiSelectDropdownValue.push(selectedItem);
-            });
-            if (multiSelectDropdownValue.length !== 0) {
-              let options = fields.properties[fieldLabels[i]].options;
-              let optionsValue = [];
-              Object.values(options).forEach((value) => {
-                console.log(value);
-                // if (multiSelectDropdownValue.includes(value.label)) {
-                //   optionsValue.push(value.value);
-                // }
-              });
-              // search_condition[fieldLabels[i]] = optionsValue;
-              // queryStrings.push(`(${fieldLabels[i]} in ("${search_condition[fieldLabels[i]].join('","')}"))`);
-              // search_condition[fieldLabels[i]] = multiSelectDropdownValue;
-              // queryStrings.push(`(${fieldLabels[i]} in ("${search_condition[fieldLabels[i]].join('","')}"))`);
+            let multiSelectDropdownArray = Array.from(multiSelectDropdown);
+            let multiSelectDropdownArrayValue = multiSelectDropdownArray.map((item) => item.textContent);
+
+            if (multiSelectDropdownArrayValue.length > 0) {
+              if (fieldCodes[i] === "STATUS") {
+                let options = status.states;
+                let optionArray = Object.values(options);
+                let optionArrayValue = optionArray.map((item) => item.name);
+                
+                let selectedValues = multiSelectDropdownArrayValue.filter((value) =>
+                  optionArrayValue.some((optionValue) => {
+                    const comparison = optionValue.toLowerCase() === value.trim().replace(/\s+/g, ' ').toLowerCase();
+                    console.log(`Comparing "${optionValue.toLowerCase()}" with "${value.toLowerCase()}": ${comparison}`);
+                    return comparison;
+                  })
+                );
+                
+                let cleanedArray = selectedValues.map(str => str.trim().replace(/\s+/g, ' '));
+
+                console.log("Selected values:", cleanedArray);
+                
+
+                search_condition[fieldLabels[i]] = selectedValues;
+                queryStrings.push(`(${fieldLabels[i]} in ("${cleanedArray.join('","')}"))`);
+              } else {
+                let options = fields.properties[fieldLabels[i]].options;
+                let optionArray = Object.values(options);
+                let optionArrayValue = optionArray.map((item) => item.label);
+                
+                let selectedValues = multiSelectDropdownArrayValue.filter((value) =>
+                  optionArrayValue.some((optionValue) => {
+                    const comparison = optionValue.toLowerCase() === value.trim().replace(/\s+/g, ' ').toLowerCase();
+                    console.log(`Comparing "${optionValue.toLowerCase()}" with "${value.toLowerCase()}": ${comparison}`);
+                    return comparison;
+                  })
+                );
+
+                let cleanedArray = selectedValues.map(str => str.trim().replace(/\s+/g, ' '));
+
+                console.log("Selected values:", cleanedArray);
+                
+
+                search_condition[fieldLabels[i]] = selectedValues;
+                queryStrings.push(`(${fieldLabels[i]} in ("${cleanedArray.join('","')}"))`);
+              }
             }
           }
-          // if (fieldCodes[i] === "DROP_DOWN") {
-          //   let multiSelectDropdown = document.querySelectorAll(".kintoneplugin-dropdown-list-item-selected");
-          //   let multiSelectDropdownValue = [];
-          //   multiSelectDropdown.forEach((dropdownItem) => {
-          //     const selectedItem = dropdownItem.textContent;
-          //     multiSelectDropdownValue.push(selectedItem);
-          //   });
-          //   if (multiSelectDropdownValue.length !== 0) {
-
-          //     // search_condition[fieldLabels[i]] = multiSelectDropdownValue;
-          //     // queryStrings.push(`(${fieldLabels[i]} in ("${search_condition[fieldLabels[i]].join('","')}"))`);
-          //   }
-          // }
-          // if (fieldCodes[i] === "CHECK_BOX") {
-          //   let multiSelectDropdown = document.querySelectorAll(".kintoneplugin-dropdown-list-item-selected");
-          //   let multiSelectDropdownValue = [];
-          //   multiSelectDropdown.forEach((dropdownItem) => {
-          //     const selectedItem = dropdownItem.textContent;
-          //     multiSelectDropdownValue.push(selectedItem);
-          //   });
-          //   if (multiSelectDropdownValue.length !== 0) {
-          //     search_condition[fieldLabels[i]] = multiSelectDropdownValue;
-          //     queryStrings.push(`(${fieldLabels[i]} in ("${search_condition[fieldLabels[i]].join('","')}"))`);
-          //   }
-          // }
-          // if (fieldCodes[i] === "RADIO_BUTTON") {
-          //   let multiSelectDropdown = document.querySelectorAll(".kintoneplugin-dropdown-list-item-selected");
-          //   let multiSelectDropdownValue = [];
-          //   multiSelectDropdown.forEach((dropdownItem) => {
-          //     const selectedItem = dropdownItem.textContent;
-          //     multiSelectDropdownValue.push(selectedItem);
-          //   });
-          //   if (multiSelectDropdownValue.length !== 0) {
-          //     search_condition[fieldLabels[i]] = multiSelectDropdownValue;
-          //     queryStrings.push(`(${fieldLabels[i]} in ("${search_condition[fieldLabels[i]].join('","')}"))`);
-          //   }
-          // }
-          // if (fieldCodes[i] === "STATUS") {
-          //   let multiSelectDropdown = document.querySelectorAll(".kintoneplugin-dropdown-list-item-selected");
-          //   let multiSelectDropdownValue = [];
-          //   multiSelectDropdown.forEach((dropdownItem) => {
-          //     const selectedItem = dropdownItem.textContent;
-          //     multiSelectDropdownValue.push(selectedItem);
-          //   });
-          //   if (multiSelectDropdownValue.length !== 0) {
-          //     search_condition[fieldLabels[i]] = multiSelectDropdownValue;
-          //     queryStrings.push(`(${fieldLabels[i]} in ("${search_condition[fieldLabels[i]].join('","')}"))`);
-          //   }
-          // }
         }
 
-        // // Function to organize data based on field codes
-        // function separateDataByFieldCode(data) {
-        //   const separatedData = {};
-
-        //   // Iterate through each field code and its corresponding values
-        //   for (const fieldCode in data) {
-        //     if (data.hasOwnProperty(fieldCode)) {
-        //       const values = data[fieldCode];
-
-        //       // Store values based on field code
-        //       separatedData[fieldCode] = values;
-        //     }
-        //   }
-
-        //   return separatedData;
-        // }
-
-        // // Separate data based on field codes
-        // const separatedData = separateDataByFieldCode(data);
-
-        // // Access values by field code
-        // console.log(separatedData['diet']); // Access values for the 'diet' field code
-        // console.log(separatedData['Status']); // Access values for the 'Status' field code
 
         let searchChoice = "and"; // Default to "AND"
         if (And.checked == true) {
@@ -845,26 +801,26 @@ jQuery.noConflict();
         }
         const combinedQueryString = queryStrings.join(` ${searchChoice} `);
         // Save the search condition to the local storage
-        localStorage.setItem("search_condition", JSON.stringify(search_condition));
+        sessionStorage.setItem("search_condition", JSON.stringify(search_condition));
 
         // //check if link have view
-        // if (window.location.href.includes("?view=")) {
-        //   // Ask for confirmation
-        //   var proceed = confirm("Do you want to search with value in the box? You will lose the current view");
-        //   // Check if the user wants to proceed
-        //   if (proceed) {
-        //     // Redirect to the URL
-        //     window.location.href = '../../' + "k" + "/" + kintone.app.getId() + "/" + "?query=" + combinedQueryString;
-        //   }
-        //   else {
-        //     // alert("You have canceled the search");
-        //     throw ("You have canceled the search");
-        //   }
-        // }
-        // else {
-        //   // Redirect to the URL
-        //   window.location.href = '../../' + "k" + "/" + kintone.app.getId() + "/" + "?query=" + combinedQueryString;
-        // }
+        if (window.location.href.includes("?view=")) {
+          // Ask for confirmation
+          var proceed = confirm("Do you want to search with value in the box? You will lose the current view");
+          // Check if the user wants to proceed
+          if (proceed) {
+            // Redirect to the URL
+            window.location.href = '../../' + "k" + "/" + kintone.app.getId() + "/" + "?query=" + combinedQueryString;
+          }
+          else {
+            // alert("You have canceled the search");
+            throw ("You have canceled the search");
+          }
+        }
+        else {
+          // Redirect to the URL
+          window.location.href = '../../' + "k" + "/" + kintone.app.getId() + "/" + "?query=" + combinedQueryString;
+        }
         console.log(combinedQueryString);
       } catch (error) {
         alert(error);
