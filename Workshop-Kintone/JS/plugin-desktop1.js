@@ -10,168 +10,168 @@ jQuery.noConflict();
   "use strict";
   // -------------------------------------------------------------------Create Element-----------------------------------------------------------------------------------------
   let json = {
-    "initial_display": "true",
+    "initial_display": "no",
     "field": {
       "sample_multifield": {
         "type": "MultiFieldText",
         "code": "sample_multifield",
-        "fields": ["name", "surname", "middlename"],
+        "field": ["name", "surname", "middlename"],
         "label": "Sample multifield",
-        "patial": "true",
-        "exact": "false",
-        "newline": "false",
+        "patial": "yes",
+        "exact": "no",
+        "newline": "no",
       },
       "Created_datetime": {
         "type": "CREATED_TIME",
         "code": "Created_datetime",
         "label": "Created datetime",
-        "patial": "false",
-        "exact": "false",
-        "newline": "false",
+        "patial": "no",
+        "exact": "no",
+        "newline": "no",
 
       },
       "Record_number": {
         "type": "RECORD_NUMBER",
         "code": "Record_number",
         "label": "Record number",
-        "patial": "false",
-        "exact": "false",
-        "newline": "false",
+        "patial": "no",
+        "exact": "no",
+        "newline": "no",
 
       },
       "diet": {
         "type": "CHECK_BOX",
         "code": "diet",
         "label": "diet",
-        "patial": "false",
-        "exact": "false",
-        "newline": "false",
+        "patial": "no",
+        "exact": "no",
+        "newline": "no",
 
       },
       "start_date": {
         "type": "DATE",
         "code": "start_date",
         "label": "start date",
-        "patial": "false",
-        "exact": "false",
-        "newline": "false",
+        "patial": "no",
+        "exact": "no",
+        "newline": "no",
       },
       "Status": {
         "type": "STATUS",
         "code": "Status",
         "label": "Status",
-        "patial": "false",
-        "exact": "false",
-        "newline": "false",
+        "patial": "no",
+        "exact": "no",
+        "newline": "no",
 
       },
       "final_day": {
         "type": "DATETIME",
         "code": "final_day",
         "label": "final date",
-        "patial": "false",
-        "exact": "false",
-        "newline": "false",
+        "patial": "no",
+        "exact": "no",
+        "newline": "no",
 
       },
       "sex": {
         "type": "RADIO_BUTTON",
         "code": "sex",
         "label": "Sex",
-        "patial": "false",
-        "exact": "false",
-        "newline": "false",
+        "patial": "no",
+        "exact": "no",
+        "newline": "no",
 
       },
       "weight": {
         "type": "NUMBER",
         "code": "weight",
         "label": "weight(kg)",
-        "noLabel": "false",
-        "patial": "false",
-        "exact": "false",
-        "newline": "false",
+        "noLabel": "no",
+        "patial": "no",
+        "exact": "no",
+        "newline": "no",
 
       },
       "target": {
         "type": "MULTI_SELECT",
         "code": "target",
         "label": "target",
-        "patial": "false",
-        "exact": "false",
-        "newline": "false",
+        "patial": "no",
+        "exact": "no",
+        "newline": "no",
 
       },
       "start_time": {
         "type": "TIME",
         "code": "start_time",
         "label": "start time",
-        "patial": "false",
-        "exact": "false",
-        "newline": "false",
+        "patial": "no",
+        "exact": "no",
+        "newline": "no",
 
       },
       "Updated_datetime": {
         "type": "UPDATED_TIME",
         "code": "Updated_datetime",
         "label": "Updated datetime",
-        "patial": "false",
-        "exact": "false",
-        "newline": "false",
+        "patial": "no",
+        "exact": "no",
+        "newline": "no",
 
       },
       "middlename": {
         "type": "SINGLE_LINE_TEXT",
         "code": "middlename",
         "label": "Middlename",
-        "patial": "false",
-        "exact": "false",
-        "newline": "false",
+        "patial": "no",
+        "exact": "no",
+        "newline": "no",
 
       },
       "name": {
         "type": "SINGLE_LINE_TEXT",
         "code": "name",
         "label": "Name",
-        "patial": "false",
-        "exact": "false",
-        "newline": "false",
+        "patial": "no",
+        "exact": "no",
+        "newline": "no",
 
       },
       "surname": {
         "type": "SINGLE_LINE_TEXT",
         "code": "surname",
         "label": "Surname",
-        "patial": "false",
-        "exact": "false",
-        "newline": "false",
+        "patial": "no",
+        "exact": "no",
+        "newline": "no",
 
       },
       "address": {
         "type": "SINGLE_LINE_TEXT",
         "code": "address",
         "label": "Address",
-        "patial": "false",
-        "exact": "false",
-        "newline": "false",
+        "patial": "no",
+        "exact": "no",
+        "newline": "no",
 
       },
       "bedtime": {
         "type": "DROP_DOWN",
         "code": "bedtime",
         "label": "Bedtime",
-        "patial": "false",
-        "exact": "false",
-        "newline": "false",
+        "patial": "no",
+        "exact": "no",
+        "newline": "no",
       },
       "bmi": {
         "type": "CALC",
         "code": "bmi",
         "label": "BMI",
-        "patial": "false",
-        "exact": "false",
-        "newline": "false",
-        "format": "NUMBER_DIGIT",
+        "patial": "no",
+        "exact": "no",
+        "newline": "no",
+        "format": "DATE",
 
       }
     }
@@ -337,71 +337,56 @@ jQuery.noConflict();
     let fielMultiplefield = [];
     let fieldPatail = [];
     let fieldExact = [];
-    let fieldTitle = [];
-    // let fieldLines = [];
+
     Object.keys(json.field).forEach(key => {
       fieldCodes.push(json.field[key].type);
       fieldLabels.push(json.field[key].code);
       fieldCalcformat.push(json.field[key].format);
-      fielMultiplefield.push(json.field[key].fields);
-      fieldTitle.push(json.field[key].label);
+      fielMultiplefield.push(json.field[key].field);
       fieldPatail.push(json.field[key].patial);
       fieldExact.push(json.field[key].exact);
-
-      // fieldLines.push(json.field[key].newline);
     });
-    // console.log(fieldLabels[i].join('-'));
-    for (let i = 0; i < fieldCodes.length; i++) {
 
-      if (fieldCodes[i] === "MultiFieldText") {
-        addSingleLineText(fieldTitle[i], fielMultiplefield[i].join('-')); // Joins labels with a comma and space
-      }
-      if (fieldCodes[i] === "SINGLE_LINE_TEXT") {
-        addSingleLineText(fieldTitle[i], fieldLabels[i]);
-      }
-      if (fieldCodes[i] === "NUMBER") {
-        addRangeInputField(fieldTitle[i], "number");
-      }
-      if (fieldCodes[i] === "DATE") {
-        addRangeInputField(fieldTitle[i], "date");
-      }
-      if (fieldCodes[i] === "DATETIME") {
-        addRangeInputField(fieldTitle[i], "datetime-local");
-      }
-      if (fieldCodes[i] === "TIME") {
-        addRangeInputField(fieldTitle[i], "time");
-      }
-      if (fieldCodes[i] === "MULTI_SELECT") {
-        let options = fields.properties[fieldLabels[i]].options;
-        addMultiSelectDropdown(fieldTitle[i], options);
-      }
-      if (fieldCodes[i] === "CALC") {
-        addRangeInputField(fieldTitle[i], "number", fieldCalcformat[i]);
-      }
-      if (fieldCodes[i] === "DROP_DOWN") {
-        let options = fields.properties[fieldLabels[i]].options;
-        addMultiSelectDropdown(fieldTitle[i], options);
-      }
-      if (fieldCodes[i] === "CHECK_BOX") {
-        let options = fields.properties[fieldLabels[i]].options;
-        addMultiSelectDropdown(fieldTitle[i], options);
-      }
-      if (fieldCodes[i] === "RADIO_BUTTON") {
-        let options = fields.properties[fieldLabels[i]].options;
-        addMultiSelectDropdown(fieldTitle[i], options);
-      }
-      if (fieldCodes[i] === "CREATED_TIME") {
-        addRangeInputField(fieldTitle[i], "datetime-local");
-      }
-      if (fieldCodes[i] === "RECORD_NUMBER") {
-        addRangeInputField(fieldTitle[i], "number");
-      }
-      if (fieldCodes[i] === "UPDATED_TIME") {
-        addRangeInputField(fieldTitle[i], "datetime-local");
-      }
-      if (fieldCodes[i] === "STATUS") {
-        let options = status.states;
-        addMultiSelectDropdown(fieldTitle[i], options, fieldCodes[i]);
+    for (let i = 0; i < fieldCodes.length; i++) {
+      switch (fieldCodes[i]) {
+        case "MultiFieldText":
+          addSingleLineText(fieldLabels[i], fielMultiplefield[i].join('-'));
+          break;
+        case "SINGLE_LINE_TEXT":
+          addSingleLineText(fieldLabels[i], fieldLabels[i]);
+          break;
+        case "NUMBER":
+          addRangeInputField(fieldLabels[i], "number");
+          break;
+        case "DATE":
+          addRangeInputField(fieldLabels[i], "date");
+          break;
+        case "DATETIME":
+          addRangeInputField(fieldLabels[i], "datetime-local");
+          break;
+        case "TIME":
+          addRangeInputField(fieldLabels[i], "time");
+          break;
+        case "MULTI_SELECT":
+        case "DROP_DOWN":
+        case "CHECK_BOX":
+        case "RADIO_BUTTON":
+          let options = fields.properties[fieldLabels[i]].options;
+          addMultiSelectDropdown(fieldLabels[i], options);
+          break;
+        case "CALC":
+        case "RECORD_NUMBER":
+        case "CREATED_TIME":
+        case "UPDATED_TIME":
+          addRangeInputField(fieldLabels[i], fieldCodes[i] === "CALC" ? "number" : "datetime-local");
+          break;
+        case "STATUS":
+          let statusOptions = status.states;
+          addMultiSelectDropdown(fieldLabels[i], statusOptions, fieldCodes[i]);
+          break;
+        default:
+          // Handle any other cases or leave it empty if not required
+          break;
       }
     }
     // Append the "Search" and "Reset" and containerRadio to containerbutton
@@ -420,7 +405,7 @@ jQuery.noConflict();
       bodyContent.appendChild(divName)
     }
 
-    function addRangeInputField(fieldName, fieldType, format) {
+    function addRangeInputField(fieldName, fieldType) {
       const divDate = document.createElement("div");
       divDate.classList.add('divDate')
 
@@ -433,7 +418,6 @@ jQuery.noConflict();
       const divNumber = document.createElement("div");
       divNumber.classList.add('divNumber');
 
-      const formatType = format;
       const inputFieldElement = document.createElement("div");
       inputFieldElement.classList.add("kintoneplugin-input-outer");
       inputFieldElement.innerHTML = `
@@ -627,6 +611,13 @@ jQuery.noConflict();
       }
     });
 
+    if (json.initial_display === "yes") {
+      showForm();
+    }
+    else {
+      hideForm();
+    }
+
     radioInput1.addEventListener("click", function () {
       if (radioInput1.checked) {
         allValues.logicalOperator = "And";
@@ -669,39 +660,40 @@ jQuery.noConflict();
 
     SearchButton.addEventListener("click", function (e) {
       try {
+        hideForm();
+        showSpinner();
         let queryStrings = [];
         let singleLineMulti;
         const search_condition = {};
         for (let i = 0; i < fieldCodes.length; i++) {
           if (fieldCodes[i] === "MultiFieldText") {
-            debugger;
             singleLineMulti = document.getElementById("singleLineText-" + fielMultiplefield[i].join('-'));
             if (singleLineMulti.value) {
               search_condition[fielMultiplefield[i].join('-')] = singleLineMulti.value;
               // remove join('-') to search with each field with or on the same value
               let searchString = '';
-              if (Array.isArray(fieldLabels[i]) && fieldLabels[i].length > 0) {
-                if (fieldPatail[i] === "true" && fieldExact[i] === "false") {
-                  searchString = '(' + fieldLabels[i].map(code => `${code} like "${search_condition[fielMultiplefield[i].join('-')]}%"`).join(' or ') + ')';
+              if (Array.isArray(fielMultiplefield[i]) && fielMultiplefield[i].length > 0) {
+                if (fieldPatail[i] === "yes" && fieldExact[i] === "no") {
+                  searchString = '(' + fielMultiplefield[i].map(code => `${code} like "${search_condition[fielMultiplefield[i].join('-')]}"`).join(' or ') + ')';
                 }
-                else if (fieldPatail[i] === "false" && fieldExact[i] === "true") {
-                  searchString = '(' + fieldLabels[i].map(code => `${code} in "as"`).join(' or ') + ')';
+                else if (fieldPatail[i] === "no" && fieldExact[i] === "yes") {
+                  searchString = '(' + fieldLabels[i].map(code => `${code} in "${search_condition[fielMultiplefield[i].join('-')]}"`).join(' or ') + ')';
                 }
               }
               queryStrings.push(searchString);
             }
           }
           else if (fieldCodes[i] === "SINGLE_LINE_TEXT") {
-            singleLineMulti = document.getElementById("singleLineText-" + fieldTitle[i]);
+            singleLineMulti = document.getElementById("singleLineText-" + fieldLabels[i]);
             if (singleLineMulti.value) {
               search_condition[fieldLabels[i]] = singleLineMulti.value;
               // remove join('-') to search with each field with or on the same value
               let searchString = '';
-
-              if (fieldPatail[i] === "true" && fieldExact[i] === "false") {
-              searchString = `(${fieldLabels[i]} like "${search_condition[fieldLabels[i]]}%")`
+              // if (Array.isArray(fieldLabels[i]) && fieldLabels[i].length > 0) {
+              if (fieldPatail[i] === "yes" && fieldExact[i] === "no") {
+                searchString = `(${fieldLabels[i]} like "${search_condition[fieldLabels[i]]}")`
               }
-              else if (fieldPatail[i] === "false" && fieldExact[i] === "true") {
+              else if (fieldPatail[i] === "no" && fieldExact[i] === "yes") {
                 searchString = `(${fieldLabels[i]} in "${search_condition[fieldLabels[i]]}")`
               }
 
@@ -709,11 +701,11 @@ jQuery.noConflict();
             }
           }
           else if (fieldCodes[i] === "NUMBER" || fieldCodes[i] === "DATE" || fieldCodes[i] === "DATETIME" || fieldCodes[i] === "TIME" || fieldCodes[i] === "CREATED_TIME" || fieldCodes[i] === "RECORD_NUMBER" || fieldCodes[i] === "UPDATED_TIME" || fieldCodes[i] === "CALC") {
-            let numberfieldStart = document.getElementById(`${fieldTitle[i]}Start`);
-            let numberfieldEnd = document.getElementById(`${fieldTitle[i]}End`);
+            let numberfieldStart = document.getElementById(`${fieldLabels[i]}Start`);
+            let numberfieldEnd = document.getElementById(`${fieldLabels[i]}End`);
             if (numberfieldStart.value !== "" && numberfieldEnd.value !== "") {
               if (numberfieldStart.value > numberfieldEnd.value) {
-                throw (`Start value of ${fieldTitle[i]} must be less than End value`);
+                throw (`Start value of ${fieldLabels[i]} must be less than End value`);
               }
               else {
                 search_condition[fieldLabels[i] + "Start"] = numberfieldStart.value;
@@ -729,8 +721,8 @@ jQuery.noConflict();
               search_condition[fieldLabels[i] + "End"] = numberfieldEnd.value;
               queryStrings.push(`(${fieldLabels[i]} <= "${search_condition[fieldLabels[i] + "End"]}")`);
             }
-
           }
+
           else if (fieldCodes[i] === "MULTI_SELECT" || fieldCodes[i] === "DROP_DOWN" || fieldCodes[i] === "CHECK_BOX" || fieldCodes[i] === "RADIO_BUTTON" || fieldCodes[i] === "STATUS") {
             let multiSelectDropdown = document.querySelectorAll(".kintoneplugin-dropdown-list-item-selected");
             let multiSelectDropdownArray = Array.from(multiSelectDropdown);
@@ -772,8 +764,6 @@ jQuery.noConflict();
             }
           }
         }
-
-
         let searchChoice = "and"; // Default to "AND"
         if (And.checked == true) {
           search_condition.search_choice = And.value;
@@ -785,10 +775,11 @@ jQuery.noConflict();
           And.checked = false;
           searchChoice = "or";
         }
-        const combinedQueryString = queryStrings.join(` ${searchChoice} `);
+        const combinedQueryString = queryStrings.filter(Boolean).join(` ${searchChoice} `);
         // Save the search condition to the local storage
         sessionStorage.setItem("search_condition", JSON.stringify(search_condition));
-        // //check if link have view
+
+        //check if link have view
         if (window.location.href.includes("?view=")) {
           // Ask for confirmation
           var proceed = confirm("Do you want to search with value in the box? You will lose the current view");

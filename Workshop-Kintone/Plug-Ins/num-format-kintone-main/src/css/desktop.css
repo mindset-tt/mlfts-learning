@@ -22,6 +22,7 @@
   margin-top: 60px;
   margin-right: 60px;
   margin-bottom: 60px;
+  width: auto;
   border-radius: 10px;
   transition: height 0.5s;
 }
@@ -37,7 +38,7 @@
 
 .bodyContent {
   margin-top: 50px;
-  display: flex;
+  display: block;
   border: none;
   height: auto;
   flex-direction: row;
@@ -63,14 +64,14 @@
   display: flex;
   height: 100px;
   padding: 20px;
-  margin-top: 50px;
+  margin-top: auto;
   align-items: center;
   justify-content: flex-end;
   border: none;
 }
 
 .divName {
-  display: flex;
+  display: inline-block;
   flex-direction: column;
   margin-left: 40px;
   /* height: 80px; */
@@ -81,7 +82,7 @@
 }
 
 .divMultiSelect {
-  display: flex;
+  display: inline-block;
   height: auto;
   width: auto;
   margin-left: 40px;
@@ -91,7 +92,7 @@
 }
 
 .divMultiSelectDropdown {
-  display: flex;
+  display: inline-block;
   flex-direction: column;
   margin-left: 40px;
   height: auto;
@@ -99,7 +100,7 @@
 }
 
 .divMultiSelectStatusDropdown {
-  display: flex;
+  display: inline-block;
   flex-direction: column;
   margin-left: 40px;
   height: auto;
@@ -107,7 +108,7 @@
 }
 
 .divTime {
-  display: flex;
+  display: inline-block;
   flex-direction: column;
   margin-left: 40px;
   height: auto;
@@ -115,14 +116,14 @@
 }
 
 .divCheckbox {
-  display: flex;
+  display: inline-block;
   flex-direction: column;
   margin-left: 40px;
   height: auto;
   align-items: center;
 }
 .divRadio {
-  display: flex;
+  display: inline-block;
   flex-direction: column;
   margin-left: 40px;
   height: auto;
@@ -130,7 +131,7 @@
 }
 
 .divDate {
-  display: flex;
+  display: inline-block;
   justify-content: center;
   height: auto;
   width: auto;
@@ -138,7 +139,7 @@
 }
 
 .divNumber {
-  display: flex;
+  display: inline-block;
   height: auto;
   width: auto;
   margin-left: 40px;
@@ -149,7 +150,7 @@
 }
 
 .divDateTime {
-  display: flex;
+  display: inline-block;
   justify-content: center;
   height: auto;
   width: auto;
