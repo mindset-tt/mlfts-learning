@@ -10,167 +10,167 @@ jQuery.noConflict();
   "use strict";
   // -------------------------------------------------------------------Create Element-----------------------------------------------------------------------------------------
   let json = {
-    "initial_display": "true",
+    "initial_display": "no",
     "field": {
       "sample_multifield": {
         "type": "MultiFieldText",
         "code": "sample_multifield",
         "field": ["name", "surname", "middlename"],
         "label": "Sample multifield",
-        "patial": "true",
-        "exact": "false",
-        "newline": "false",
+        "patial": "yes",
+        "exact": "no",
+        "newline": "no",
       },
       "Created_datetime": {
         "type": "CREATED_TIME",
         "code": "Created_datetime",
         "label": "Created datetime",
-        "patial": "false",
-        "exact": "false",
-        "newline": "false",
+        "patial": "no",
+        "exact": "no",
+        "newline": "no",
 
       },
       "Record_number": {
         "type": "RECORD_NUMBER",
         "code": "Record_number",
         "label": "Record number",
-        "patial": "false",
-        "exact": "false",
-        "newline": "false",
+        "patial": "no",
+        "exact": "no",
+        "newline": "no",
 
       },
       "diet": {
         "type": "CHECK_BOX",
         "code": "diet",
         "label": "diet",
-        "patial": "false",
-        "exact": "false",
-        "newline": "false",
+        "patial": "no",
+        "exact": "no",
+        "newline": "no",
 
       },
       "start_date": {
         "type": "DATE",
         "code": "start_date",
         "label": "start date",
-        "patial": "false",
-        "exact": "false",
-        "newline": "false",
+        "patial": "no",
+        "exact": "no",
+        "newline": "no",
       },
       "Status": {
         "type": "STATUS",
         "code": "Status",
         "label": "Status",
-        "patial": "false",
-        "exact": "false",
-        "newline": "false",
+        "patial": "no",
+        "exact": "no",
+        "newline": "no",
 
       },
       "final_day": {
         "type": "DATETIME",
         "code": "final_day",
         "label": "final date",
-        "patial": "false",
-        "exact": "false",
-        "newline": "false",
+        "patial": "no",
+        "exact": "no",
+        "newline": "no",
 
       },
       "sex": {
         "type": "RADIO_BUTTON",
         "code": "sex",
         "label": "Sex",
-        "patial": "false",
-        "exact": "false",
-        "newline": "false",
+        "patial": "no",
+        "exact": "no",
+        "newline": "no",
 
       },
       "weight": {
         "type": "NUMBER",
         "code": "weight",
         "label": "weight(kg)",
-        "noLabel": "false",
-        "patial": "false",
-        "exact": "false",
-        "newline": "false",
+        "noLabel": "no",
+        "patial": "no",
+        "exact": "no",
+        "newline": "no",
 
       },
       "target": {
         "type": "MULTI_SELECT",
         "code": "target",
         "label": "target",
-        "patial": "false",
-        "exact": "false",
-        "newline": "false",
+        "patial": "no",
+        "exact": "no",
+        "newline": "no",
 
       },
       "start_time": {
         "type": "TIME",
         "code": "start_time",
         "label": "start time",
-        "patial": "false",
-        "exact": "false",
-        "newline": "false",
+        "patial": "no",
+        "exact": "no",
+        "newline": "no",
 
       },
       "Updated_datetime": {
         "type": "UPDATED_TIME",
         "code": "Updated_datetime",
         "label": "Updated datetime",
-        "patial": "false",
-        "exact": "false",
-        "newline": "false",
+        "patial": "no",
+        "exact": "no",
+        "newline": "no",
 
       },
       "middlename": {
         "type": "SINGLE_LINE_TEXT",
         "code": "middlename",
         "label": "Middlename",
-        "patial": "false",
-        "exact": "false",
-        "newline": "false",
+        "patial": "no",
+        "exact": "no",
+        "newline": "no",
 
       },
       "name": {
         "type": "SINGLE_LINE_TEXT",
         "code": "name",
         "label": "Name",
-        "patial": "false",
-        "exact": "false",
-        "newline": "false",
+        "patial": "no",
+        "exact": "no",
+        "newline": "no",
 
       },
       "surname": {
         "type": "SINGLE_LINE_TEXT",
         "code": "surname",
         "label": "Surname",
-        "patial": "false",
-        "exact": "false",
-        "newline": "false",
+        "patial": "no",
+        "exact": "no",
+        "newline": "no",
 
       },
       "address": {
         "type": "SINGLE_LINE_TEXT",
         "code": "address",
         "label": "Address",
-        "patial": "false",
-        "exact": "false",
-        "newline": "false",
+        "patial": "no",
+        "exact": "no",
+        "newline": "no",
 
       },
       "bedtime": {
         "type": "DROP_DOWN",
         "code": "bedtime",
         "label": "Bedtime",
-        "patial": "false",
-        "exact": "false",
-        "newline": "false",
+        "patial": "no",
+        "exact": "no",
+        "newline": "no",
       },
       "bmi": {
         "type": "CALC",
         "code": "bmi",
         "label": "BMI",
-        "patial": "false",
-        "exact": "false",
-        "newline": "false",
+        "patial": "no",
+        "exact": "no",
+        "newline": "no",
         "format": "NUMBER_DIGIT",
 
       }
@@ -345,10 +345,8 @@ jQuery.noConflict();
       fielMultiplefield.push(json.field[key].field);
       fieldPatail.push(json.field[key].patial);
       fieldExact.push(json.field[key].exact);
-
-      // fieldLines.push(json.field[key].newline);
     });
-    let labelsToAdd = []; // Collect labels that meet the condition
+
     for (let i = 0; i < fieldCodes.length; i++) {
 
       if (fieldCodes[i] === "MultiFieldText") {
@@ -401,10 +399,6 @@ jQuery.noConflict();
         let options = status.states;
         addMultiSelectDropdown(fieldLabels[i], options, fieldCodes[i]);
       }
-    }
-    // Now, add all collected labels at once
-    if (labelsToAdd.length > 0) {
-      addSingleLineText("name", labelsToAdd.join('-')); // Joins labels with a comma and space
     }
     // Append the "Search" and "Reset" and containerRadio to containerbutton
     radioSearchReset.style.display = "flex";
@@ -629,6 +623,13 @@ jQuery.noConflict();
       }
     });
 
+    if (json.initial_display === "yes") {
+      showForm();
+    }
+    else {
+      hideForm();
+    }
+
     radioInput1.addEventListener("click", function () {
       if (radioInput1.checked) {
         allValues.logicalOperator = "And";
@@ -684,10 +685,10 @@ jQuery.noConflict();
               // remove join('-') to search with each field with or on the same value
               let searchString = '';
               if (Array.isArray(fielMultiplefield[i]) && fielMultiplefield[i].length > 0) {
-                if (fieldPatail[i] === "true" && fieldExact[i] === "false") {
+                if (fieldPatail[i] === "yes" && fieldExact[i] === "no") {
                   searchString = '(' + fielMultiplefield[i].map(code => `${code} like "${search_condition[fielMultiplefield[i].join('-')]}"`).join(' or ') + ')';
                 }
-                else if (fieldPatail[i] === "false" && fieldExact[i] === "true") {
+                else if (fieldPatail[i] === "no" && fieldExact[i] === "yes") {
                   searchString = '(' + fieldLabels[i].map(code => `${code} in "${search_condition[fielMultiplefield[i].join('-')]}"`).join(' and ') + ')';
                 }
               }
@@ -701,10 +702,10 @@ jQuery.noConflict();
               // remove join('-') to search with each field with or on the same value
               let searchString = '';
               // if (Array.isArray(fieldLabels[i]) && fieldLabels[i].length > 0) {
-              if (fieldPatail[i] === "true" && fieldExact[i] === "false") {
+              if (fieldPatail[i] === "yes" && fieldExact[i] === "no") {
                 searchString = `(${fieldLabels[i]} like "${search_condition[fieldLabels[i]]}%")`
               }
-              else if (fieldPatail[i] === "false" && fieldExact[i] === "true") {
+              else if (fieldPatail[i] === "no" && fieldExact[i] === "yes") {
                 searchString = `(${fieldLabels[i]} in "${search_condition[fieldLabels[i]]}")`
               }
 
