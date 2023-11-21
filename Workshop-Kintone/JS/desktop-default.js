@@ -1,8 +1,3 @@
-/*
- * Aggregation Plug-in
- *
- * Index show customize
- */
 jQuery.noConflict();
 
 (function ($, PLUGIN_ID) {
