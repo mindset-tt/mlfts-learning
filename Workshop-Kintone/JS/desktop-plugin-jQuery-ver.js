@@ -177,10 +177,10 @@ jQuery.noConflict();
         }
     };
     const createElem = (type, classes = [], props = {}) => {
-        const elem = document.createElement(type);
-        classes.forEach((cls) => elem.classList.add(cls));
+        const elem = $('<' + type + '></' + type + '>');
+        elem.addClass(classes.join(' '));
         Object.entries(props).forEach(([key, value]) => {
-            elem[key] = value;
+            elem.prop(key, value);
         });
         return elem;
     };
@@ -188,9 +188,9 @@ jQuery.noConflict();
     const space = kintone.app.getHeaderSpaceElement();
 
     const buttonToggle = createElem("button", ["buttonToggle"], {
-        className: "kintoneplugin-button-normal",
+        class: "kintoneplugin-button-normal",
         id: "buttonToggle",
-        innerText: "Show",
+        text: "Show",
     });
 
     const formElement = createElem("div", ["form-container"]);
@@ -198,14 +198,14 @@ jQuery.noConflict();
     const bodyContent = createElem("div", ["bodyContent"]);
     const footerContent = createElem("div", ["footerContent"]);
     const searchButton = createElem("button", [], {
-        className: "kintoneplugin-button-normal",
+        class: "kintoneplugin-button-normal",
         id: "searchButton",
-        innerText: "Search",
+        text: "Search",
     });
     const resetButton = createElem("button", [], {
-        className: "kintoneplugin-button-dialog-cancel",
+        class: "kintoneplugin-button-dialog-cancel",
         id: "resetButton",
-        innerText: "Reset",
+        text: "Reset",
     });
     const containerRadio = createElem("div", ["kintoneplugin-input-radio"], {
         id: "containerRadio",
@@ -231,12 +231,12 @@ jQuery.noConflict();
     });
 
     const label1 = createElem("label", [], {
-        htmlFor: "radio-0",
-        textContent: "And",
+        for: "radio-0",
+        text: "And",
     });
     const label2 = createElem("label", [], {
-        htmlFor: "radio-1",
-        textContent: "Or",
+        for: "radio-1",
+        text: "Or",
     });
 
     const radioSearchReset = createElem("div", ["radioSearchReset"]);
@@ -245,16 +245,15 @@ jQuery.noConflict();
     const radioInputs = [radioInput1, radioInput2];
 
     radioElements.forEach((radio, index) => {
-        radio.appendChild(radioInputs[index]);
-        radio.appendChild(labels[index]);
+        radio.append(radioInputs[index], labels[index]);
     });
 
     containerRadio.append(...radioElements);
     radioSearchReset.append(containerRadio, searchButton, resetButton);
     formElement.append(buttonHead, bodyContent, footerContent);
-    buttonHead.appendChild(buttonToggle);
-    footerContent.appendChild(radioSearchReset);
-    space.appendChild(formElement);
+    buttonHead.append(buttonToggle);
+    footerContent.append(radioSearchReset);
+    space.appendChild(formElement[0]);
 
     // Function to show the spinner
     function showSpinner() {
@@ -395,125 +394,79 @@ jQuery.noConflict();
                 bodyContent.appendChild(lineBreak);
             }
         }
+
         // Append the "Search" and "Reset" and containerRadio to containerbutton
-        radioSearchReset.style.display = "flex";
+        radioSearchReset.css('display', 'flex');
         //Single line text field
         function addSingleLineText(fieldlabel, fieldName) {
-            const divName = document.createElement("div");
-            divName.classList.add('divName')
-            const inputElement = document.createElement("div");
-            inputElement.classList.add("kintoneplugin-input-outer");
-            inputElement.innerHTML = `
-                    <b>${fieldlabel}</b><br>
-                    <input class="kintoneplugin-input-text" type="text" id="singleLineText-${fieldName}">
-                `;
-            divName.appendChild(inputElement);
-            bodyContent.appendChild(divName)
+            const divName = $('<div>').addClass('divName');
+            const inputElement = $('<div>').addClass("kintoneplugin-input-outer").html(`
+            <b>${fieldlabel}</b><br>
+            <input class="kintoneplugin-input-text" type="text" id="singleLineText-${fieldName}">
+        `);
+            divName.append(inputElement);
+            bodyContent.append(divName);
         }
-        //Range input field
-        function addRangeInputField(fieldName, fieldType) {
-            const divDate = document.createElement("div");
-            divDate.classList.add('divDate')
-
-            const divDateTime = document.createElement("div");
-            divDateTime.classList.add('divDateTime')
-
-            const divTime = document.createElement("div");
-            divTime.classList.add('divTime')
-
-            const divNumber = document.createElement("div");
-            divNumber.classList.add('divNumber');
-
-            const inputFieldElement = document.createElement("div");
-            inputFieldElement.classList.add("kintoneplugin-input-outer");
-            inputFieldElement.innerHTML = `
-                    <div style="display: flex; justify-content: space-between;">
-                    <b>${fieldName} (Start)</b>
-                    <b>${fieldName} (End)</b>
-                    </div>
-                    </div>
-                    <input class="kintoneplugin-input-text" type="${fieldType}" id="${fieldName}Start"> ~
-                    <input class="kintoneplugin-input-text" type="${fieldType}" id="${fieldName}End">
-                `;
-            // Adjust the container based on the fieldType
-            const container = fieldType === "number" ? divNumber :
-                fieldType === "date" ? divDate :
-                    fieldType === "datetime-local" ? divDateTime :
-                        fieldType === "time" ? divTime :
-                            null; // Add a null check or specify a default container
-
-            // Append the input field element to the container
-            if (container) {
-                container.appendChild(inputFieldElement);
-                bodyContent.appendChild(container)
-            }
+        //Range input field in jquery
+        function addRangeInputField(fieldName, type) {
+            const divName = $('<div>').addClass('divName');
+            const inputElement = $('<div>').addClass("kintoneplugin-input-outer").html(`
+            <b>${fieldName}</b><br>
+            <input class="kintoneplugin-input-text" type="${type}" id="rangeInput-${fieldName}-from">
+            <input class="kintoneplugin-input-text" type="${type}" id="rangeInput-${fieldName}-to">
+        `);
+            divName.append(inputElement);
+            bodyContent.append(divName);
         }
         //Multi select dropdown
         function addMultiSelectDropdown(fieldName, options, fieldtype) {
-            const divMultiSelect = document.createElement("div");
-            divMultiSelect.classList.add('divMultiSelect')
-            const dropdownElement = document.createElement("div");
-            dropdownElement.style.width = "150px";
-            const dropdownName = document.createElement("div");
-            dropdownElement.classList.add("kintoneplugin-dropdown-list");
-            // Check if the field is a status field
+            const divMultiSelect = $('<div>').addClass('divMultiSelect');
+            const dropdownElement = $('<div>').css('width', '150px').addClass("kintoneplugin-dropdown-list");
             if (fieldtype === "STATUS") {
-                // Loop through the options
                 Object.values(options).forEach((value) => {
-                    // Create a dropdown item
-                    const dropdownItem = document.createElement("div");
-                    dropdownItem.classList.add(`kintoneplugin-dropdown-list-item`);
-                    dropdownItem.innerHTML = `
-                      <span class="kintoneplugin-dropdown-list-item-name" id="${value.name}">${value.name}</span>
-                  `;
-                    dropdownElement.appendChild(dropdownItem);
+                    const dropdownItem = $('<div>').addClass(`kintoneplugin-dropdown-list-item`).html(`
+                        <span class="kintoneplugin-dropdown-list-item-name" id="${value.name}">${value.name}</span>
+                    `);
+                    dropdownElement.append(dropdownItem);
                 });
-            }
-            else {
-                // Loop through the options
+            } else {
                 Object.values(options).forEach((value) => {
-                    // Create a dropdown item
-                    const dropdownItem = document.createElement("div");
-                    dropdownItem.classList.add("kintoneplugin-dropdown-list-item");
-                    dropdownItem.innerHTML = `
-                      <span class="kintoneplugin-dropdown-list-item-name" id="${value.label}">${value.label}</span>
-                  `;
-                    dropdownElement.appendChild(dropdownItem);
+                    const dropdownItem = $('<div>').addClass("kintoneplugin-dropdown-list-item").html(`
+                        <span class="kintoneplugin-dropdown-list-item-name" id="${value.label}">${value.label}</span>
+                    `);
+                    dropdownElement.append(dropdownItem);
                 });
             }
 
-            dropdownName.innerHTML = `<b>${fieldName}</b><br>`;
-            divMultiSelect.appendChild(dropdownName);
-            divMultiSelect.appendChild(dropdownElement);
-            bodyContent.appendChild(divMultiSelect)
+            const dropdownName = $('<div>').html(`<b>${fieldName}</b><br>`);
+            divMultiSelect.append(dropdownName, dropdownElement);
+            bodyContent.append(divMultiSelect);
         }
 
         // -----------------------------------------------------------------Function---------------------------------------------------------------------------------
         let allValues = { multiSelect: [] };
 
         function toggleButton() {
-            if (buttonToggle.innerText === "Show") {
-                buttonToggle.innerText = "Hide";
+            if ($('#buttonToggle').text() === "Show") {
+                $('#buttonToggle').text("Hide");
             } else {
-                buttonToggle.innerText = "Show";
+                $('#buttonToggle').text("Show");
             }
         }
+
         function showForm() {
-            const contentHeight = formElement.scrollHeight;
-            formElement.style.height = contentHeight + "px";
+            const contentHeight = $('#formElement').prop('scrollHeight');
+            $('#formElement').css('height', contentHeight + "px");
             toggleButton();
         }
 
         function hideForm() {
-            formElement.style.height = "80px";
+            $('#formElement').css('height', "80px");
             toggleButton();
         }
 
-        buttonToggle.addEventListener("click", function () {
-            if (
-                formElement.style.height === "80px" ||
-                formElement.style.height === ""
-            ) {
+        $('#buttonToggle').on("click", function () {
+            if ($('#formElement').css('height') === "80px" || $('#formElement').css('height') === "") {
                 showForm();
             } else {
                 hideForm();
@@ -522,57 +475,39 @@ jQuery.noConflict();
 
         if (json.initial_display === "yes") {
             showForm();
-        }
-        else {
+        } else {
             hideForm();
         }
 
-        radioInput1.addEventListener("click", function () {
-            if (radioInput1.checked) {
+        $('#radio-0').on("click", function () {
+            if ($('#radio-0').prop('checked')) {
                 allValues.logicalOperator = "And";
             }
-            radioInput2.checked = false;
+            $('#radio-1').prop('checked', false);
         });
 
-        radioInput2.addEventListener("click", function () {
-            if (radioInput2.checked) {
+        $('#radio-1').on("click", function () {
+            if ($('#radio-1').prop('checked')) {
                 allValues.logicalOperator = "Or";
             }
-            radioInput1.checked = false;
+            $('#radio-0').prop('checked', false);
         });
 
-        const SearchButton = document.getElementById("searchButton");
-        const And = document.getElementById("radio-0");
-        const Or = document.getElementById("radio-1");
-        const multiSelectDropdownItems = document.querySelectorAll(".kintoneplugin-dropdown-list-item span");
+        $('.kintoneplugin-dropdown-list-item span').on("click", function () {
+            const selectedItem = $(this).text();
+            const itemIndex = allValues.multiSelect.indexOf(selectedItem);
 
-        // loop through the dropdown items
-        multiSelectDropdownItems.forEach((dropdownItem) => {
-            // Add a click event listener to each dropdown item
-            dropdownItem.addEventListener("click", function () {
-                // Get the selected item
-                const selectedItem = this.textContent;
-                // Get the index of the selected item in the array
-                const itemIndex = allValues.multiSelect.indexOf(selectedItem);
+            if (itemIndex !== -1) {
+                allValues.multiSelect.splice(itemIndex, 1);
+            } else {
+                allValues.multiSelect.push(selectedItem);
+            }
 
-                // Toggle the selection based on item existence in the array
-                if (itemIndex !== -1) {
-                    // Item is already in the array, so remove it
-                    allValues.multiSelect.splice(itemIndex, 1);
-                } else {
-                    // Item is not in the array, so add it
-                    allValues.multiSelect.push(selectedItem);
-                }
-                // Toggle the class on the parentDiv element
-                const parentDiv = this.closest(".kintoneplugin-dropdown-list-item");
-                // Check if the parentDiv exists
-                if (parentDiv) {
-                    // Toggle the class
-                    parentDiv.classList.toggle("kintoneplugin-dropdown-list-item-selected");
-                }
-            });
+            const parentDiv = $(this).closest(".kintoneplugin-dropdown-list-item");
+            if (parentDiv) {
+                parentDiv.toggleClass("kintoneplugin-dropdown-list-item-selected");
+            }
         });
-
         $("#searchButton").on("click", function (e) {
             try {
                 hideForm();

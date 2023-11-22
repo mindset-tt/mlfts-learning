@@ -9,7 +9,7 @@
   "icon": "image/icon.png",
   "config": {
     "html": "html/config.html",
-    "js": ["js/jquery.min.js", "js/jquery-ui.js", "js/spin.min.js", "js/config.js"],
+    "js": ["js/jquery.min.js", "js/jquery-ui.js", "js/spin.min.js", "js/sweetalert2.all.js", "js/config.js"],
     "css": ["css/51-modern-default.css", "css/config.css"],
     "required_params": []
   },
