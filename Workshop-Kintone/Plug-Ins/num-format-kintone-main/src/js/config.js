@@ -2,24 +2,12 @@ jQuery.noConflict();
 
 (async function ($, Swal10, PLUGIN_ID) {
   "use strict";
-
-  var configJSON = {}
-  console.log(configJSON);
-
   const config = kintone.plugin.app.getConfig(PLUGIN_ID);
-  console.log(config);
-  const $cancelButton = document.querySelector(".js-cancel-button");
-  // const $importButton = document.querySelector(".js-import-button");
-  // const $importInput = document.querySelector(".js-import-input");
-
-  // select the table row to clone
   const rowToClone = document.querySelector("#kintoneplugin-setting-tbody tr:last-child");
-  const tBodyContainer = document.getElementById("kintoneplugin-setting-tbody");
-  // Variable to keep track of the row count
+  let configJSON = {}
+  let checkfields = [];
   let rowCount = 1;
-
-
-  // -------------------------Call API-------------------------
+  // -------------------------------Call API-------------------------
   let FIELDS;
   try {
     let param = { app: kintone.app.getId() };
@@ -27,91 +15,193 @@ jQuery.noConflict();
   } catch (error) {
     return Swal10.fire('Error', error.message || error, 'error');
   }
-  // console.log(FIELDS);
-  // -------------------------Call API-------------------------
+  // -------------------------------Call API-------------------------
 
-  // ------------------------set dropdown---------------------
-  const fieldList = [];
-  const singleOptions = [];
-  const $fieldDropDown = $('select[name="field_dropdown_column"]');
+  // -----------------------------set fieldList---------------------
+  const dropdownOptions = [];
+  const fieldDropDown = $('select[name="field_dropdown_column"]');
   const multiple_select = $(".kintoneplugin-dropdown-list");
-  async function set_dropdown() {
+  async function setFieldList() {
     const sortedFields = Object.values(FIELDS.properties).sort((a, b) => {
       return a.code.localeCompare(b.code);
     });
-
-    let optionSingle = "";
+    let optionDropdown = "";
     sortedFields.forEach((item) => {
-      // console.log(item);
-
-      if (item.type !=="STATUS_ASSIGNEE" && item.type !== "MODIFIER" && item.type !== "MULTI_LINE_TEXT" && item.type !== "FILE" && item.type !== "LINK" && item.type !== "USER_SELECT" && item.type !== "ORGANIZATION_SELECT" && item.type !== "GROUP_SELECT" && item.type !== "CREATOR") {
-        // console.log("DFD");
-        var $option = $('<option>');
-        // append value to dropdown
+      // --------Select fields out of 9 fields------------------
+      if (item.type !== "STATUS_ASSIGNEE" && item.type !== "MODIFIER" && item.type !== "MULTI_LINE_TEXT" && item.type !== "FILE" && item.type !== "LINK" && item.type !== "USER_SELECT" && item.type !== "ORGANIZATION_SELECT" && item.type !== "GROUP_SELECT" && item.type !== "CREATOR") {
+        let $option = $('<option>');
         $option.attr("value", item.code);
         $option.attr("type", item.type);
         $option.text(`${item.label} (${item.code})`);
-        fieldList.push(item.code);
-        $fieldDropDown.append($option.clone());
+        fieldDropDown.append($option.clone());
       }
-      if (item.type !== "CALC") {
-        optionSingle = {
+      if (item.type) {
+        optionDropdown = {
           type: item.type,
           code: item.code,
-          format: "",
         };
-        singleOptions.push(optionSingle);
+        dropdownOptions.push(optionDropdown);
       }
-      if (item.type === "CALC") {
-        optionSingle = {
-          type: item.type,
-          code: item.code,
-          format: item.format,
-        };
-        singleOptions.push(optionSingle);
-      }
-
       if (item.type === "SINGLE_LINE_TEXT") {
-        // alert("ddd")
-        let option = `                    
+        let multiplOption = `                    
           <div class="kintoneplugin-dropdown-list-item" id="${item.code}">
             <span class="kintoneplugin-dropdown-list-item-name">${item.label} (${item.code})</span>
           </div>`;
-        multiple_select.append(option);
+        multiple_select.append(multiplOption);
       }
-
-      $(document).on("change", ".select_field_column", function () {
-        const $selectedRow = $(this).closest("tr"); // Find the closest row of the select element
-
-        const selectedType = $(this).find("option:selected").attr("type");
-
-        if (selectedType === "SINGLE_LINE_TEXT") {
-          $selectedRow.find(".search-conditions").css("display", "block");
-          // Show specific elements within the row for SINGLE_LINE_TEXT
-        } else {
-          $selectedRow.find(".search-conditions").css("display", "none");
-          // Hide specific elements within the row for other types
-        }
-      });
     });
+    setDefaultConfig('default');
     return;
   }
-  // ------------------------set dropdown---------------------
+  // -----------------------------set fieldList---------------------
 
+  // --------------------------Set dutault config----------------------
+  const setDefaultConfig = (type) => {
+    try {
+      let configSet = {}
+      let fields = [];
+      let fieldExist = false
+      // --------------------Check type default---------------------------------
+      if (type === 'default') {
+        configSet = config;
+        fields = config.fields ? JSON.parse(config.fields) : [];
+        fieldExist = true;
+      }
+      // --------------------Check type default---------------------------------
 
-  // -----------------------------------------------Set config----------------------------------------------------
+      // ---------------------Check type json-----------------------------------
+      if (type === 'json') {
+        configSet = configJSON;
+        fields = configSet.fields ? JSON.parse(configSet.fields) : [];
+        fieldExist = true;
+        if (fieldExist) {
+          let oldConfigRow = parseInt($('#kintoneplugin-setting-tbody tr').length)
+          for (let i = oldConfigRow; i > 0; i--) {
+            $('#kintoneplugin-setting-tbody > tr:eq(' + i + ')').remove();
+          }
+        }
+      }
+      // ---------------------Check type json-----------------------------------
+
+      //----------------------Set defaule data----------------------------------
+      let rows = fields.length || 0;
+      let hasRow = false;
+      let rowSet = 0;
+      if (fieldExist) {
+        for (let i = 0; i < rows; i++) {
+          const obj = fields[i];
+          if ($('select[id$="select_field_column"] option:contains("' + obj.fieldCode + '")').length >= 0) {
+            createNewRow('config', '');
+            rowSet++
+            $('#kintoneplugin-setting-tbody > tr:eq(' + rowSet + ') .title-field-column').val(obj.titleName);
+            $('#kintoneplugin-setting-tbody > tr:eq(' + rowSet + ') .multipleField').prop('checked', obj.multipleFields === "yes" ? true : false);
+            $('#kintoneplugin-setting-tbody > tr:eq(' + rowSet + ') input[type=radio][value="' + obj.partial + '"].choiceSelected').prop('checked', true);
+            $('#kintoneplugin-setting-tbody > tr:eq(' + rowSet + ') .NewLine-column').prop('checked', obj.newline === "yes" ? true : false);
+            if (obj.multipleFields == "yes") {
+              obj.fieldCode.filter(function (item, index) {
+                const multipleSelected = $('#kintoneplugin-setting-tbody > tr:eq(' + rowSet + ') #' + item);
+                multipleSelected.addClass('kintoneplugin-dropdown-list-item-selected');
+                return false;
+              })[0];
+            $('#kintoneplugin-setting-tbody > tr:eq(' + rowSet + ') .select_field_column').val("-----");
+            }
+            else {
+              $('#kintoneplugin-setting-tbody > tr:eq(' + rowSet + ') .select_field_column').val(obj.fieldCode);
+            }
+
+            hasRow = true;
+          }
+        }
+        $('input[name=Initial_display][value="' + configSet.initial_display + '"]').prop('checked', true);
+        if (hasRow) {
+          $('#kintoneplugin-setting-tbody > tr:eq(0)').remove()
+        }
+
+        $(".select_field_column").each(function () {
+          handleSelectChange.call(this);
+        });
+
+        $(".check").each(function () {
+          checkMultipleField({ target: this });
+        });
+      }
+      //----------------------Set defaule data----------------------------------
+      checkRowNumber();
+      return
+    } catch (error) {
+      Swal10.fire({
+        icon: "error",
+        title: "error",
+        text: "error Setdifault confict",
+      });
+      return
+    }
+  }
+  // -------------------------Set default config-----------------------
+
+  // -----------------set default dropdown and multiselect--------------
+  function handleSelectChange() {
+    const $selectedRow = $(this).closest("tr");
+    const selectedType = $(this).find("option:selected").attr("type");
+    if (selectedType === "SINGLE_LINE_TEXT") {
+      $selectedRow.find(".search-conditions").css("display", "block");
+    } else {
+      $selectedRow.find(".search-conditions").css("display", "none");
+    }
+  }
+  // -----------------set default dropdown and multiselect--------------
+
+  // -----------------set default dropdown and multiselect-------------
+  function checkMultipleField(event) {
+    const target = event.target;
+    if (target.classList.contains("check") || target.parentElement.classList.contains("check")) {
+      const row = target.closest("tr");
+      if (row) {
+        const rowMultipleSelect = row.querySelector(".multiple-select");
+        const rowDropdownSelect = row.querySelector(".kintoneplugin-select");
+        const rowSearchConditions = row.querySelector(".search-conditions");
+        if (target.checked) {
+          rowDropdownSelect.style.display = "none";
+          rowMultipleSelect.style.display = "block";
+          rowSearchConditions.style.display = "block";
+        } else {
+          const $selectedRow = $(this).closest("tr");
+          const selectedType = $(this).find("option:selected").attr("type");
+          if (selectedType === "SINGLE_LINE_TEXT") {
+            $selectedRow.find(".search-conditions").css("display", "block");
+          } else {
+            $selectedRow.find(".kintoneplugin-select").css("display", "block");
+            $selectedRow.find(".multiple-select").css("display", "none");
+            $selectedRow.find(".search-conditions").css("display", "none");
+            return;
+          }
+          rowDropdownSelect.style.display = "block";
+          rowMultipleSelect.style.display = "none";
+          rowSearchConditions.style.display = "none";
+        }
+      }
+    }
+  }
+  // ------------------set default dropdown and multiselect------------
+
+  // ------------------------------Set config-------------------------
   const createConfig = () => {
     let config = {};
-    config.initial_display = $('.Initial_display').prop('checked') ? "open" : "close";
-    let row_num = $('#kintoneplugin-setting-tbody > tr').length;
-    let field = [];
-    for (let ct = 0; ct < row_num; ct++) {
-      // console.log(ct);
+    config.initial_display = $('.Initial_display').prop('checked') ? "yes" : "no";
+    let row_num = $('#kintoneplugin-setting-tbody > tr');
+    let fields = [];
+    for (let ct = 0; ct < row_num.length; ct++) {
+      const dropDownSelected = [];
       const multiselected = [];
-      const selectedSpans = $(`#kintoneplugin-setting-tbody > tr:eq(${ct}) .kintoneplugin-dropdown-list-item-selected`);
+      const selectedSpans = $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .kintoneplugin-dropdown-list-item-selected');
+      const multipleFields = $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .multipleField').prop('checked') ? "yes" : "no";
+      const selectedDropdown = $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .select_field_column').val();
+      if (selectedDropdown !== "-----") {
+        dropDownSelected.push(selectedDropdown);
+      }
+      console.log(selectedDropdown);
       selectedSpans.each((index, span) => {
         const code = span.getAttribute('id');
-        // console.log(code);
         multiselected.push(code);
       });
       let titleName = $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .title-field-column').val();
@@ -119,320 +209,388 @@ jQuery.noConflict();
         Swal10.fire({
           icon: "error",
           title: "error",
-          text: "Line " + [ct] + ": Please enter the following items. title name fieldLine " + [ct],
+          text: "Line: " + [ct + 1] + " Please enter the following items.・Display item Title name.",
         });
         return
       }
-
-      let multipleFields = $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .multipleField').prop('checked') ? "yes" : "no";
-      let singelField = $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') select[name="field_dropdown_column"]').val();
-      // console.log(multipleFields);
       if (multipleFields == "yes") {
         if (!multiselected.length) {
           Swal10.fire({
             icon: "error",
             title: "error",
-            text: "Line " + [ct] + ":  Please select the following items. select fields fieldLine " + [ct],
+            text: "Line: " + [ct + 1] + " Please enter the following items.・Display item Fields (MultipleFields).",
           });
           return
         }
+        const fieldList = {
+          fieldType: "MultiFieldText",
+          fieldCode: multiselected,//join("-"),
+          titleName: $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .title-field-column').val(),
+          multipleFields: $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .multipleField').prop('checked') ? "yes" : "no",
+          partial: $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .choiceSelected').prop('checked') ? "yes" : "no",
+          newline: $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .NewLine-column').prop('checked') ? "yes" : "no",
+        };
+        fields.push(fieldList);
       }
-      else {
-        if (!singelField) {
+      if (multipleFields == "no") {
+        if (selectedDropdown == "-----") {
           Swal10.fire({
             icon: "error",
             title: "error",
-            text: "Line " + [ct] + ":  Please select the following items. select field fieldLine " + [ct],
+            text: "Line: " + [ct + 1] + " Please enter the following items.・Display item Fields (Dropdown).",
           });
           return
         }
-      }
 
-      if (multipleFields == "no") {
-        // filter data from dropdownOptions
-        const fieldData = singleOptions.filter(function (item, index) {
-          return item.code === singelField;
-        })[0];
-        const fieldObject = {};
-        fieldObject[fieldData.code] = {
-          type: fieldData.type,
-          code: fieldData.code,
-          format: fieldData.format,
-          label: $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .title-field-column').val(),
-          multipleFields: $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .multipleField').prop('checked') ? "yes" : "no",
-          partial: $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .partial').prop('checked') ? "yes" : "no",
-          exact: $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .exact').prop('checked') ? "yes" : "no",
-          newline: $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .NewLine-column').prop('checked') ? "yes" : "no"
+        const duplicate = row_num.toArray().some(function(row, innerIndex) {
+          return ct !== innerIndex && selectedDropdown === $(row_num[innerIndex]).find(".select_field_column").val();
+        });
+        if (duplicate) {
+          Swal10.fire({
+            icon: "error",
+            title: "Error",
+            text: "Line: " + (ct + 1) + " Please select fields that do not overlap (Dropdown).",
+          });
+          return;
         }
-        field.push(fieldObject);
-        config.field = JSON.stringify(field);
-      }
-      if (multipleFields === "yes") {
-        const multiple = singleOptions.filter(function (item, index) {
-          return item.code === multiselected[0];
+
+        const fieldData = dropdownOptions.filter(function (item, index) {
+          return item.code === selectedDropdown;
         })[0];
-        const multipleObject = {};
-        multipleObject[multiselected.join("-")] = {
-          type: "MultiFieldText",
-          code: multiselected.join("-"),
-          field: multiselected,
-          label: $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .title-field-column').val(),
-          multipleFields: $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .multipleField').prop('checked') ? "yes" : "no",
-          partial: $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .partial').prop('checked') ? "yes" : "no",
-          exact: $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .exact').prop('checked') ? "yes" : "no",
-          newline: $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .NewLine-column').prop('checked') ? "yes" : "no",
-        };
-        console.log(multipleObject);
-        field.push(multipleObject);
-        config.field = JSON.stringify(field);
+        if (fieldData.type === "SINGLE_LINE_TEXT") {
+          const fieldList = {
+            fieldType: fieldData.type,
+            fieldCode: dropDownSelected,
+            titleName: $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .title-field-column').val(),
+            multipleFields: $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .multipleField').prop('checked') ? "yes" : "no",
+            partial: $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .choiceSelected').prop('checked') ? "yes" : "no",
+            newline: $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .NewLine-column').prop('checked') ? "yes" : "no"
+          }
+          fields.push(fieldList);
+        }
+        else if (fieldData.type !== "SINGLE_LINE_TEXT") {
+          const fieldList = {
+            fieldType: fieldData.type,
+            fieldCode: dropDownSelected,
+            titleName: $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .title-field-column').val(),
+            multipleFields: $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .multipleField').prop('checked') ? "yes" : "no",
+            newline: $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .NewLine-column').prop('checked') ? "yes" : "no"
+          }
+          fields.push(fieldList);
+        }
       }
-    }
-    // console.log(field);
-    console.log(config);
-    console.log(field);
-    return config;
-  }
-  // -----------------------------------------------Set config----------------------------------------------------
+      config.fields = JSON.stringify(fields);
 
-
-
-  $(document).ready(function () {
-    set_dropdown();
-    // check when click on multiple field
-    tBodyContainer.addEventListener("click", checkMultipleField);
-    // Define the checkMultipleField function
-    function checkMultipleField(event) {
-      const target = event.target;
-      // Check if the clicked element or its parent has the class 'check'
-      if (
-        target.classList.contains("check") ||
-        target.parentElement.classList.contains("check")
-      ) {
-        // Find the closest row element to the clicked checkbox
-        const row = target.closest("tr");
-        if (row) {
-          // Find the 'multiple-select' and 'kintoneplugin-select' elements within the row
-          const rowMultipleSelect = row.querySelector(".multiple-select");
-          const rowDropdownSelect = row.querySelector(".kintoneplugin-select");
-          const rowSearchConditions = row.querySelector(".search-conditions");
-          if (target.checked) {
-            // console.log("checked");
-            // Hide the dropdown_select within the clicked row
-            rowDropdownSelect.style.display = "none";
-            // Toggle the 'multiple-select' within the clicked row
-            rowMultipleSelect.style.display = "block";
-            rowSearchConditions.style.display = "block";
-          } else {
-            // Show the dropdown_select within the clicked row
-            rowDropdownSelect.style.display = "block";
-            // Toggle the 'multiple-select' within the clicked row
-            rowMultipleSelect.style.display = "none";
-            rowSearchConditions.style.display = "none";
+      // -------------------Check duplicate Mutifield---------------------------------
+      if (config.fields) {
+        const fields = JSON.parse(config.fields);
+        const checkedFields = {};
+        for (let i = 0; i < fields.length; i++) {
+          const rowObj = fields[i];
+          if (rowObj.multipleFields === "yes") {
+            const fieldKey = rowObj.fieldCode;
+            if (checkedFields[fieldKey]) {
+              Swal10.fire({
+                icon: "error",
+                title: "error",
+                text: "Line: " + [ct + 1] + " Please select fields that do not overlap (Multiselect).",
+              });
+              return
+            }
+            checkedFields[fieldKey] = true;
           }
         }
       }
+      // -------------------Check duplicate Mutifield---------------------------------
     }
+    return config;
+  }
+  // ------------------------------Set config------------------------
 
-    $(document).ready(function () {
-      function handleSelectChange() {
-        const $selectedRow = $(this).closest("tr");
-        const selectedType = $(this).find("option:selected").attr("type");
-      
-        if (selectedType === "SINGLE_LINE_TEXT") {
-          $selectedRow.find(".search-conditions").css("display", "block");
-          // Show specific elements within the row for SINGLE_LINE_TEXT
-        } else {
-          $selectedRow.find(".search-conditions").css("display", "none");
-          // Hide specific elements within the row for other types
+  // ---------------------------Set config Exprot--------------------
+  const createExprot = () => {
+    const configExport = {};
+    configExport.initial_display = $('.Initial_display').prop('checked') ? "yes" : "no";
+    const row_num = $('#kintoneplugin-setting-tbody > tr');
+    const fields = [];
+    for (let ct = 0; ct < row_num.length; ct++) {
+      const dropDownSelected = [];
+      const multiselected = [];
+      const selectedSpans = $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .kintoneplugin-dropdown-list-item-selected');
+      const multipleFields = $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .multipleField').prop('checked') ? "yes" : "no";
+      const selectedDropdown = $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') select[name="field_dropdown_column"]').val();
+      if (selectedDropdown !== "-----") {
+        dropDownSelected.push(selectedDropdown);
+      }
+      selectedSpans.each((index, span) => {
+        const code = span.getAttribute('id');
+        multiselected.push(code);
+      });
+      if (multipleFields == "no") {
+        if (selectedDropdown !== "-----"){
+          const fieldData = dropdownOptions.filter(function (item, index) {
+            return item.code === selectedDropdown;
+          })[0];
+          if (fieldData.type === "SINGLE_LINE_TEXT") {
+            const fieldList = {
+              fieldType: fieldData.type,
+              fieldCode: dropDownSelected,
+              titleName: $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .title-field-column').val(),
+              multipleFields: $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .multipleField').prop('checked') ? "yes" : "no",
+              partial: $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .choiceSelected').prop('checked') ? "yes" : "no",
+              newline: $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .NewLine-column').prop('checked') ? "yes" : "no"
+            }
+            fields.push(fieldList);
+          }
+          else if (fieldData.type !== "SINGLE_LINE_TEXT") {
+            const fieldList = {
+              fieldType: fieldData.type,
+              fieldCode: dropDownSelected,
+              titleName: $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .title-field-column').val(),
+              multipleFields: $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .multipleField').prop('checked') ? "yes" : "no",
+              newline: $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .NewLine-column').prop('checked') ? "yes" : "no"
+            }
+            fields.push(fieldList);
+          }
+        }
+        else {
+          const fieldList = {
+            fieldType: "",
+            fieldCode: dropDownSelected,
+            titleName: $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .title-field-column').val(),
+            multipleFields: $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .multipleField').prop('checked') ? "yes" : "no",
+            partial: $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .choiceSelected').prop('checked') ? "yes" : "no",
+            newline: $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .NewLine-column').prop('checked') ? "yes" : "no"
+          }
+          fields.push(fieldList);
         }
       }
-  
-      
-      // Triggering the function for each .select_field_column on page load
-      $(".select_field_column").each(function() {
-        handleSelectChange.call(this); // Passing the correct context using call
-      });
-        // Event handler calling the function on change
-        $(document).on("change", ".select_field_column", handleSelectChange);
+      if (multipleFields == "yes") {
+        const fieldList = {
+          fieldType: "MultiFieldText",
+          fieldCode: multiselected,//join("-"),
+          titleName: $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .title-field-column').val(),
+          multipleFields: $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .multipleField').prop('checked') ? "yes" : "no",
+          partial: $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .choiceSelected').prop('checked') ? "yes" : "no",
+          newline: $('#kintoneplugin-setting-tbody > tr:eq(' + ct + ') .NewLine-column').prop('checked') ? "yes" : "no",
+        };
+        fields.push(fieldList);
+      }
+      configExport.fields = JSON.stringify(fields);
+    }
+    return configExport;
+  }
+  // ---------------------------Set config Exprot--------------------
 
-
-      // Call the checkMultipleField function on page load for elements with the class 'check'
-      $(".check").each(function () {
-        $(this).on("click", checkMultipleField);
-        // Simulate click event for page load
-        checkMultipleField({ target: this });
-        // console.log({ target: this });
+  //-----------------------------Check row nuber---------------------
+  const checkRowNumber = () => {
+    const removeButtons = document.querySelectorAll("#kintoneplugin-setting-tbody > tr .removeRow");
+    const rows = document.querySelectorAll("#kintoneplugin-setting-tbody > tr");
+    if (rows.length === 1) {
+      removeButtons[0].style.display = "none";
+    } else {
+      removeButtons.forEach((button) => {
+        button.style.display = "inline-block";
       });
+    }
+  }
+  //-----------------------------Check row nuber-----------------------
+
+  // -----------------------------Create new row------------------------
+  const createNewRow = (type, row) => {
+    let $rowToClone = $('#kintoneplugin-setting-tbody tr:last');
+    const newRow = rowToClone.cloneNode(true);
+    rowCount++;
+    const rowSearchConditions = newRow.querySelector(".search-conditions");
+    rowSearchConditions.style.display = "none";
+    const inputs = newRow.querySelectorAll('input[type="text"]');
+    for (const input of inputs) {
+      input.value = "";
+    }
+    const radioInputs = newRow.querySelectorAll('input[type="radio"]');
+    radioInputs.forEach((radio, index) => {
+      radio.setAttribute("name", "choice" + rowCount);
+      radio.checked = index === 0; // Check the first radio button, uncheck others
     });
-
-    // --------------------------------------------------------------------
-
-    // check row to hide remove row button if its has one row
-    function checkRowNumber() {
-      const removeButtons = document.querySelectorAll("#kintoneplugin-setting-tbody > tr .removeRow");
-      const rows = document.querySelectorAll("#kintoneplugin-setting-tbody > tr");
-      if (rows.length === 1) {
-        removeButtons[0].style.display = "none";
-      } else {
-        removeButtons.forEach((button) => {
-          button.style.display = "inline-block";
-        });
-      }
+    const checkboxInputs = newRow.querySelectorAll('input[type="checkbox"]');
+    for (const checkbox of checkboxInputs) {
+      checkbox.checked = false;
+    }
+    newRow.querySelector(".kintoneplugin-select").style.display = "block";
+    newRow.querySelector(".multiple-select").style.display = "none";
+    const selectedItems = newRow.querySelectorAll(
+      ".kintoneplugin-dropdown-list-item-selected"
+    );
+    for (const item of selectedItems) {
+      item.classList.remove("kintoneplugin-dropdown-list-item-selected");
+    }
+    if (type === "new") {
+      row.parent().parent().after(newRow);
     }
 
-    function createNewRow(type, row) {
-      var $rowToClone = $('#kintoneplugin-setting-tbody tr:last');
-      // clone the row without its data
-      // var $newRow = $rowToClone.clone(false).find('input[type!="radio"]').val('').end();
-      // clone the row without its data
-      const newRow = rowToClone.cloneNode(true);
-      // Increment the row count
-      rowCount++;
-      const rowSearchConditions = newRow.querySelector(".search-conditions");
-
-      rowSearchConditions.style.display = "none";
-
-      // reset inputs in the new row
-      const inputs = newRow.querySelectorAll('input[type="text"]');
-      for (const input of inputs) {
-        input.value = "";
-      }
-
-      // reset radio buttons and checkboxes in the new row
-      const radioInputs = newRow.querySelectorAll('input[type="radio"]');
-      radioInputs.forEach((radio, index) => {
-        radio.setAttribute("name", "choice" + rowCount);
-        radio.checked = index === 0; // Check the first radio button, uncheck others
-      });
-      const checkboxInputs = newRow.querySelectorAll('input[type="checkbox"]');
-      for (const checkbox of checkboxInputs) {
-        checkbox.checked = false;
-      }
-
-      // show dropdown and hide multiple-select in the new row
-      newRow.querySelector(".kintoneplugin-select").style.display = "block";
-      newRow.querySelector(".multiple-select").style.display = "none";
-
-      // reset multiple select
-      const selectedItems = newRow.querySelectorAll(
-        ".kintoneplugin-dropdown-list-item-selected"
-      );
-      for (const item of selectedItems) {
-        item.classList.remove("kintoneplugin-dropdown-list-item-selected");
-      }
-
-      // clone row after clicking row if adding a new row
-      if (type === "new") {
-        row.parent().parent().after(newRow);
-      }
-
-      if (type === 'config') {
-        $rowToClone.after(newRow);
-      }
+    if (type === 'config') {
+      $rowToClone.after(newRow);
     }
+  }
+  // -----------------------------Create new row-----------------------
 
+  $(document).ready(function () {
+    setFieldList();
     checkRowNumber();
 
-    // Delegate the click event for dynamically added radio buttons
-    $("#kintoneplugin-setting-tbody").on("click", ".radio", function () {
-      // console.log(
-      //   "Radio button clicked in row " + ($(this).closest("tr").index() + 1)
-      // );
-    });
-    // Delegate the click event for dynamically added rows
-    $("#kintoneplugin-setting-tbody").on(
-      "click",
-      ".kintoneplugin-dropdown-list-item-name",
-      function () {
-        // Toggle the 'kintoneplugin-dropdown-list-item-selected' class for the clicked item's parent
-        // console.log("multiple select");
-        $(this).parent().toggleClass("kintoneplugin-dropdown-list-item-selected");
-      }
-    );
+    // -----------Set dufault dropdown value and mutifield valeu---------
+    function ToggleDefaultField(event) {
+      const target = event.target;
+      if (target.classList.contains("check") || target.parentElement.classList.contains("check")) {
+        const row = target.closest("tr");
+        if (row) {
+          const rowMultipleSelect = row.querySelector(".multiple-select");
+          const rowDropdownSelect = row.querySelector(".kintoneplugin-select");
+          const rowSearchConditions = row.querySelector(".search-conditions");
+          const multiSelected = rowMultipleSelect.querySelectorAll(".kintoneplugin-dropdown-list-item-selected");
+          if (target.checked) {
+            if (multiSelected) {
+              for(let i = 0; i < multiSelected.length; i++){
+                multiSelected[i].classList.remove("kintoneplugin-dropdown-list-item-selected");
+              }
+            }
+            rowDropdownSelect.style.display = "none";
+            rowMultipleSelect.style.display = "block";
+            rowSearchConditions.style.display = "block";
+          } else {
+            const $selectedRow = $(this).closest("tr");
+            const selectedType = $(this).find("option:selected").attr("type");
+            if (selectedType === "SINGLE_LINE_TEXT") {
+              $selectedRow.find(".search-conditions").css("display", "block");
+            } 
+            
+            rowDropdownSelect.style.display = "block";
+            rowMultipleSelect.style.display = "none";
+            rowSearchConditions.style.display = "none";
+            row.querySelector(".select_field_column").value = "-----";
+          }
+        }
+         
+      }
+    }
+    // --------------Set dufault dropdown value and mutifield valeu-------
 
-    // add new row in table setting
+    // -------------------Toggle class mutiselect----------------------
+    $("#kintoneplugin-setting-tbody").on("click", ".kintoneplugin-dropdown-list-item-name", function () {
+      $(this).parent().toggleClass("kintoneplugin-dropdown-list-item-selected");
+    }
+    );
+    $("#kintoneplugin-setting-tbody").on("change", ".select_field_column", function () { 
+      handleSelectChange.call(this);
+    });
+    $("#kintoneplugin-setting-tbody").on("click", ".check", ToggleDefaultField);
+    // -------------------Toggle class mutiselect------------------------
+
+    //-------------------------add new row-------------------------------
     document.addEventListener("click", function (event) {
       const target = event.target;
-
-      // Add new row
       if (target.classList.contains("addRow")) {
         createNewRow("new", $(target));
         checkRowNumber();
       }
-
-      // Remove selected row
       if (target.classList.contains("removeRow")) {
         target.closest("tr").remove();
         checkRowNumber();
       }
     });
+    //-------------------------add new row------------------------------
 
-    //------------------------------------------------save button----------------------------------------------------
+    //-------------------------save button------------------------------
     $(".js-save-button").click(function (e) {
       e.preventDefault();
       createConfig();
       let configSave = createConfig();
-      kintone.plugin.app.setConfig(configSave, function () {
-        Swal10.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'successfully',
-          text: 'The plug-in settings have been saved. Please update the app!,',
-          showConfirmButton: true,
-        }).then(function () {
-          // window.location.href = '../../flow?app=' + kintone.app.getId() + '#section=settings'
-        })
-      });
+      if (configSave) {
+        kintone.plugin.app.setConfig(configSave, function () {
+          Swal10.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'successfully',
+            text: 'The plug-in settings have been saved. Please update the app!,',
+            showConfirmButton: true,
+          }).then(function () {
+            window.location.href = '../../flow?app=' + kintone.app.getId() + '#section=settings'
+          })
+        });
+      }
     });
-    //------------------------------------------------save button----------------------------------------------------
+    //-------------------------save button--------------------------------
 
-
-    // cancel button
-    $cancelButton.addEventListener("click", function () {
+    // ------------------------cancel Button-----------------------------
+    $(".js-cancel-button").click(function () {
       window.location.href = "../../" + kintone.app.getId() + "/plugin/";
     });
+    // ------------------------cancel Button-----------------------------
 
-    // click to call input file to import json file
+    // ------------------------import button----------------------------
     $(".js-import-button").click(function (e) {
       e.preventDefault();
       $(".js-import-input").click();
     })
     $(".js-import-input").change(function () {
-      // alert("ggggggg")
       try {
-        var file = $(this)[0].files[0];
-        var render = new FileReader();
+        let file = $(this)[0].files[0];
+        let render = new FileReader();
         render.onload = function () {
-          var fileContent = render.result;
+          let fileContent = render.result;
           if (!fileContent) {
-            return alert('Emty data');
+            Swal10.fire({
+              icon: "error",
+              title: "error",
+              text: "File is empty!",
+            });
+            return
           }
           configJSON = JSON.parse(fileContent);
-          setDefaultConfig('json')
-          $(".js-import-input").val('');
-          console.log(fileContent);
-          console.log(configJSON);
+          checkfields = configJSON.fields ? JSON.parse(configJSON.fields) : [];
+          if (!configJSON.initial_display) {
+            Swal10.fire({
+              icon: "error",
+              title: "error",
+              text: "Not have initial_display",
+            });
+            return
+          }
+          else if (checkfields.length <= 0) {
+            Swal10.fire({
+              icon: "error",
+              title: "error",
+              text: "Not have fields",
+            });
+            return
+          }
+          else {
+            setDefaultConfig('json');
+          }
         }
         render.readAsText(file);
       } catch (error) {
         return alert('error')
       }
     })
+    // ------------------------import button----------------------------
 
+    // ------------------------export button----------------------------
     $(".js-export-button").click(function (e) {
       e.preventDefault();
-      configJSON = createConfig();
-      var blob = new Blob([JSON.stringify(configJSON)], {
+      configJSON = createExprot();
+      let blob = new Blob([JSON.stringify(configJSON)], {
         type: 'application/json'
       });
-      var link = document.createElement('a');
+      let date = new Date().toJSON().slice(0, 10)
+      let link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
-      link.download = `${kintone.app.getId()}_setconfig_search_plug-in.json`;
+      link.download = `${kintone.app.getId()}_setconfig_search_plug-in_${date}.json`;
       link.click();
     });
+    // ------------------------export button----------------------------
 
-
-    // drag and drop table row
+    // -------------------drag and drop table row-----------------------
     $("#kintoneplugin-setting-tbody").sortable({
       axis: "y",
       handle: ".drag-handle",
@@ -443,79 +601,7 @@ jQuery.noConflict();
         ui.item.removeClass("dragging");
       },
     });
-
-    // ----------------------------------------------Set dutault config--------------------------
-    const setDefaultConfig = (type) => {
-      try {
-        let configSet = {}
-        let field = [];
-        var fieldExist = false
-        if (type === 'default') {
-          configSet = config;
-          field = config.field ? JSON.parse(config.field) : [];
-          fieldExist = true
-        }
-        // if it's import from json file
-        if (type === 'json') {
-          configSet = configJSON;
-          field = config.field ? JSON.parse(config.field) : [];
-          fieldExist = true
-          if (fieldExist){
-            let oldConfigRow = parseInt($('#kintoneplugin-setting-tbody tr').length)
-            for (let i = oldConfigRow; i > 0; i--) {
-              $('#kintoneplugin-setting-tbody > tr:eq(' + i + ')').remove();
-            }
-          }
-          // console.log(configSet);
-          // console.log(configSet.displayposition);
-        }
-        const rows = field.length || 0;
-        var hasRow = false;
-        var rowSet = 0;
-        if (fieldExist) {
-          let ObjectName;
-          for (let i = 0; i < rows; i++) {
-            const obj = field[i];
-            const jQueryObject = obj;
-            const objectNames = Object.keys(jQueryObject);
-            ObjectName = objectNames[0];
-            if ($('select[id$="select_field_column"] option:contains("' + obj.code + '")').length >= 0) {
-              createNewRow('config', '');
-              rowSet++
-              $('#kintoneplugin-setting-tbody > tr:eq(' + rowSet + ') .title-field-column').val(obj[ObjectName].label);
-              $('#kintoneplugin-setting-tbody > tr:eq(' + rowSet + ') .multipleField').prop('checked', obj[ObjectName].multipleFields === "yes" ? true : false);
-              $('#kintoneplugin-setting-tbody > tr:eq(' + rowSet + ') .select_field_column').val(obj[ObjectName].code);
-              $('#kintoneplugin-setting-tbody > tr:eq(' + rowSet + ') .partial').prop('checked', obj[ObjectName].partial === "yes" ? true : false);
-              $('#kintoneplugin-setting-tbody > tr:eq(' + rowSet + ') .exact').prop('checked', obj[ObjectName].exact === "yes" ? true : false);
-              $('#kintoneplugin-setting-tbody > tr:eq(' + rowSet + ') .NewLine-column').prop('checked', obj[ObjectName].newline === "yes" ? true : false);
-              if (obj[ObjectName].multipleFields == "yes") {
-                obj[ObjectName].field.filter(function (item, index) {
-                  const multipleSelected = $('#kintoneplugin-setting-tbody > tr:eq(' + rowSet + ') #' + item);
-                  // console.log(multipleSelected);
-                  multipleSelected.addClass('kintoneplugin-dropdown-list-item-selected'); multipleSelected
-                  return false;
-                })[0];
-              }
-              hasRow = true;
-            }
-          }
-          // console.log(configSet.initial_display);
-          $('input[name=Initial_display][value="' + configSet.initial_display + '"]').prop('checked', true);
-          if (hasRow) {
-            $('#kintoneplugin-setting-tbody > tr:eq(0)').remove()
-          }
-        } else {
-          alert('fieldExist')
-        }
-        console.log(configSet);
-        checkRowNumber();
-        return
-      } catch (error) {
-        return alert('error')
-      }
-    }
-    setDefaultConfig('default');
-    // ----------------------------------------------Set dutault config--------------------------
+    // -------------------drag and drop table row-----------------------
   });
 
 })(jQuery, Sweetalert2_10.noConflict(true), kintone.$PLUGIN_ID);

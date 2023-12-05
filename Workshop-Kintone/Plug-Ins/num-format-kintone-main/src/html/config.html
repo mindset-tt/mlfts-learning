@@ -32,12 +32,10 @@
                 <div class="kintoneplugin-table-td-control-value">
                   <div class="multiple-check">
                     <!-- <span class="checkbox-center"> -->
-                    <input title="checkBox" type="checkbox" class="checkBox check multipleField" id="Multiple-fields">
+                    <input title="multipleField" type="checkbox" class="checkBox check multipleField" id="Multiple-fields">
                     <span>&nbsp;Multiple fields</span>
                   <!-- </span> -->
-                  </div>
-                  
-              
+                  </div>       
                 </div>
               </div>
             </td>
@@ -47,7 +45,7 @@
                 <div class="kintoneplugin-table-td-control-value">
                   <div class="kintoneplugin-select" id="dropdown-select">
                     <select name="field_dropdown_column" id="select_field_column" class="select_field_column">
-                      <option value="">-----</option>
+                      <option value="-----">-----</option>
                     </select>
                 </div>
                 <div class="multiple-select" id="multiple-select" style="display: none;">
@@ -64,11 +62,11 @@
                 <div class="kintoneplugin-table-td-control-value search-conditions-column">
                   <div style="border: 1px solid #3333; display: flex; padding: 0px 5px 0px 5px;">
                     <span class="radio-center">
-                      <input type="radio" id="Partial" name="choice1" value="partial" class="radioBtn radio partial" checked >
+                      <input type="radio" id="Partial" name="choice1" value="yes" class="radioBtn radio choiceSelected" checked >
                       <label for="" class="gap">Partial</label>
                     </span>
                     <span class="radio-center">
-                      <input type="radio" id="exact" name="choice1" value="exact" class="radioBtn radio exact" >
+                      <input type="radio" id="exact" name="choice1" value="no" class="radioBtn radio choiceSelected" >
                       <label for="">Exact</label>
                     </span>
                   </div>
@@ -81,7 +79,7 @@
               <div class="kintoneplugin-table-td-control">
                 <div class="kintoneplugin-table-td-control-value">
                   <span class="multiple-check">
-                    <input title="checkBox" type="checkbox" class="checkBox NewLine-column" id="NewLine_field" >
+                    <input title="newline" type="checkbox" class="checkBox NewLine-column" id="NewLine_field" >
                     <span>&nbsp;New Line</span>
                   </span>
                 </div>
@@ -99,11 +97,11 @@
       <p class="kintoneplugin-desc">Initial display</p>
       <div class="radio_group radio-center">
         <span class="radio-center">
-          <input type="radio" id="open" name="Initial_display" value="open"  class="radioBtn Initial_display" checked="checked">
+          <input type="radio" id="open" name="Initial_display" value="yes"  class="radioBtn Initial_display" checked="checked">
           <label for="open">Open</label>
         </span>
         <span class="radio-center">
-          <input type="radio" id="close" name="Initial_display" value="close"  class="radioBtn Initial_display">
+          <input type="radio" id="close" name="Initial_display" value="no"  class="radioBtn Initial_display">
           <label for="close">Close</label>
         </span>
       </div>
@@ -112,7 +110,7 @@
       <button type="button" class="js-save-button kintoneplugin-button-dialog-ok">Save</button>
       <button type="button" class="js-cancel-button kintoneplugin-button-dialog-cancel">Cancel</button>
       <button type="button" class="js-import-button kintoneplugin-button-dialog-ok">Import settings</button>
-      <input title="checkBox" type="file" accept="application/JSON" class="js-import-input"></input>
+      <input title="import" type="file" accept="application/JSON" class="js-import-input"></input>
       <button type="button" class="js-export-button kintoneplugin-button-dialog-ok">Export settings</button>
     </p>
   </form>

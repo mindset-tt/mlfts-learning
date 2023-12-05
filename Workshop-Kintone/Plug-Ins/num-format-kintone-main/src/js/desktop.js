@@ -4,18 +4,11 @@ jQuery.noConflict();
     "use strict";
     let checkJson = "";
     kintone.events.on("app.record.index.show", async function (e) {
-        // -------------------------------------------------------------------Create Element----------------------------------------------------------------------------------------
+        if (checkJson) return;
         let json = kintone.plugin.app.getConfig(PLUGIN_ID);
+        const obj = JSON.parse(json.fields);
+        checkJson = json.fields;
 
-        const obj = JSON.parse(json.field)
-        const field = Object.values(obj)
-        const fields = {};
-
-        for (let i = 0; i < field.length; i++) {
-            let key = Object.keys(field[i])[0];
-            fields[key] = field[i][key];
-        }
-        console.log(fields);
         const createElem = (type, classes = [], props = {}) => {
             const elem = document.createElement(type);
             classes.forEach((cls) => elem.classList.add(cls));
@@ -24,7 +17,6 @@ jQuery.noConflict();
             });
             return elem;
         };
-
         const space = kintone.app.getHeaderSpaceElement();
 
         const buttonToggle = createElem("button", ["buttonToggle"], {
@@ -96,19 +88,12 @@ jQuery.noConflict();
         footerContent.appendChild(radioSearchReset);
         space.appendChild(formElement);
 
-        // Function to show the spinner
         function showSpinner() {
             try {
-                // Initialize
                 if ($('.kintone-spinner').length === 0) {
-                    // Create elements for the spinner and the background of the spinner
                     const spin_div = $('<div id ="kintone-spin" class="kintone-spinner"></div>');
                     const spin_bg_div = $('<div id ="kintone-spin-bg" class="kintone-spinner"></div>');
-
-                    // Append spinner to the body
                     $(document.body).append(spin_div, spin_bg_div);
-
-                    // Set a style for the spinner
                     $(spin_div).css({
                         'position': 'fixed',
                         'top': '50%',
@@ -133,16 +118,14 @@ jQuery.noConflict();
                         '-ms-filter': 'alpha(opacity=50)'
                     });
 
-                    // Set options for the spinner
+
                     const opts = {
                         'color': '#000'
                     };
 
-                    // Create the spinner
+
                     new Spinner(opts).spin(document.getElementById('kintone-spin'));
                 }
-
-                // Display the spinner
                 $('.kintone-spinner').show();
             } catch (error) {
                 alert(error);
@@ -150,92 +133,62 @@ jQuery.noConflict();
             }
         }
 
-        // Function to hide the spinner
+
         function hideSpinner() {
-            // Hide the spinner
             $('.kintone-spinner').hide();
         }
 
-        // -------------------------------------------------------------------event Function-----------------------------------------------------------------------------------------
-        // Check checkJson is empty or not
-        if (checkJson) return;
-        // Get the field information
         let fieldss = await kintone.api(kintone.api.url("/k/v1/app/form/fields.json", true), "GET", { app: kintone.app.getId() });
-        // Get the status information
         let status = await kintone.api(kintone.api.url("/k/v1/app/status.json", true), "GET", { app: kintone.app.getId() });
-        // Get the json from the config
-        checkJson = fields;
-        // Get the json from the config
-        let fieldCodes = [];
-        let fieldLabels = [];
-        let fielMultiplefield = [];
-        let fieldPatail = [];
-        let fieldExact = [];
-        let fieldNewline = [];
-        // Loop through the fields
-        Object.keys(fields).forEach(key => {
-            fieldCodes.push(fields[key].type);
-            fieldLabels.push(fields[key].code);
-            fielMultiplefield.push(fields[key].field);
-            fieldPatail.push(fields[key].patial);
-            fieldExact.push(fields[key].exact);
-            fieldNewline.push(fields[key].newline);
-        });
-        // Loop through the fieldCodes
-        for (let i = 0; i < fieldCodes.length; i++) {
-            // Check the field type and create the corresponding input field
-            switch (fieldCodes[i]) {
-                // Add a case for each field type
+
+        for (let i = 0; i < obj.length; i++) {
+            switch (obj[i].fieldType) {
+
                 case "MultiFieldText":
-                    addSingleLineText(fieldLabels[i], fielMultiplefield[i].join('-'));
+                    addSingleLineText(obj[i].titleName, obj[i].fieldCode.join('-'));
                     break;
                 case "SINGLE_LINE_TEXT":
-                    addSingleLineText(fieldLabels[i], fieldLabels[i]);
+                    addSingleLineText(obj[i].titleName, obj[i].fieldCode[0]);
                     break;
+                case "CALC":
                 case "NUMBER":
-                    addRangeInputField(fieldLabels[i], "number");
+                case "RECORD_NUMBER":
+                    addRangeInputField(obj[i].titleName, obj[i].fieldCode[0], "number");
                     break;
                 case "DATE":
-                    addRangeInputField(fieldLabels[i], "date");
+                    addRangeInputField(obj[i].titleName, obj[i].fieldCode[0], "date");
                     break;
+                case "CREATED_TIME":
+                case "UPDATED_TIME":
                 case "DATETIME":
-                    addRangeInputField(fieldLabels[i], "datetime-local");
+                    addRangeInputField(obj[i].titleName, obj[i].fieldCode[0], "datetime-local");
                     break;
                 case "TIME":
-                    addRangeInputField(fieldLabels[i], "time");
+                    addRangeInputField(obj[i].titleName, obj[i].fieldCode[0], "time");
                     break;
                 case "MULTI_SELECT":
                 case "DROP_DOWN":
                 case "CHECK_BOX":
                 case "RADIO_BUTTON":
-                    let options = fieldss.properties[fieldLabels[i]].options;
-                    addMultiSelectDropdown(fieldLabels[i], options);
-                    break;
-                case "CALC":
-                case "RECORD_NUMBER":
-                case "CREATED_TIME":
-                case "UPDATED_TIME":
-                    addRangeInputField(fieldLabels[i], fieldCodes[i] === "CALC" ? "number" : "datetime-local");
+                    let options = fieldss.properties[obj[i].fieldCode[0]].options;
+                    addMultiSelectDropdown(obj[i].titleName, options, obj[i].fieldType);
                     break;
                 case "STATUS":
                     let statusOptions = status.states;
-                    addMultiSelectDropdown(fieldLabels[i], statusOptions, fieldCodes[i]);
+                    addMultiSelectDropdown(obj[i].titleName, statusOptions, obj[i].fieldType);
                     break;
                 default:
-                    // Handle any other cases or leave it empty if not required
+
                     break;
             }
-            // Add a line break if fieldNewline is "yes"
-            if (fieldNewline[i] === "yes") {
-                // Create a line break element
+            if (obj[i].newline === "yes") {
                 const lineBreak = document.createElement("br");
-                // Append the line break element to the bodyContent
                 bodyContent.appendChild(lineBreak);
             }
         }
-        // Append the "Search" and "Reset" and containerRadio to containerbutton
+
         radioSearchReset.style.display = "flex";
-        //Single line text field
+
         function addSingleLineText(fieldlabel, fieldName) {
             const divName = document.createElement("div");
             divName.classList.add('divName')
@@ -248,8 +201,8 @@ jQuery.noConflict();
             divName.appendChild(inputElement);
             bodyContent.appendChild(divName)
         }
-        //Range input field
-        function addRangeInputField(fieldName, fieldType) {
+
+        function addRangeInputField(fieldName, fieldId, fieldType) {
             const divDate = document.createElement("div");
             divDate.classList.add('divDate')
 
@@ -270,23 +223,21 @@ jQuery.noConflict();
                     <b>${fieldName} (End)</b>
                     </div>
                     </div>
-                    <input class="kintoneplugin-input-text" type="${fieldType}" id="${fieldName}Start"> ~
-                    <input class="kintoneplugin-input-text" type="${fieldType}" id="${fieldName}End">
+                    <input class="kintoneplugin-input-text" type="${fieldType}" id="${fieldId}Start"> ~
+                    <input class="kintoneplugin-input-text" type="${fieldType}" id="${fieldId}End">
                 `;
-            // Adjust the container based on the fieldType
+
             const container = fieldType === "number" ? divNumber :
                 fieldType === "date" ? divDate :
                     fieldType === "datetime-local" ? divDateTime :
                         fieldType === "time" ? divTime :
-                            null; // Add a null check or specify a default container
-
-            // Append the input field element to the container
+                            null;
             if (container) {
                 container.appendChild(inputFieldElement);
                 bodyContent.appendChild(container)
             }
         }
-        //Multi select dropdown
+
         function addMultiSelectDropdown(fieldName, options, fieldtype) {
             const divMultiSelect = document.createElement("div");
             divMultiSelect.classList.add('divMultiSelect')
@@ -294,11 +245,9 @@ jQuery.noConflict();
             dropdownElement.style.width = "150px";
             const dropdownName = document.createElement("div");
             dropdownElement.classList.add("kintoneplugin-dropdown-list");
-            // Check if the field is a status field
+
             if (fieldtype === "STATUS") {
-                // Loop through the options
                 Object.values(options).forEach((value) => {
-                    // Create a dropdown item
                     const dropdownItem = document.createElement("div");
                     dropdownItem.classList.add(`kintoneplugin-dropdown-list-item`);
                     dropdownItem.innerHTML = `
@@ -308,9 +257,8 @@ jQuery.noConflict();
                 });
             }
             else {
-                // Loop through the options
                 Object.values(options).forEach((value) => {
-                    // Create a dropdown item
+
                     const dropdownItem = document.createElement("div");
                     dropdownItem.classList.add("kintoneplugin-dropdown-list-item");
                     dropdownItem.innerHTML = `
@@ -326,7 +274,6 @@ jQuery.noConflict();
             bodyContent.appendChild(divMultiSelect)
         }
 
-        // -----------------------------------------------------------------Function---------------------------------------------------------------------------------
         let allValues = { multiSelect: [] };
 
         function toggleButton() {
@@ -358,7 +305,7 @@ jQuery.noConflict();
             }
         });
         console.log(json.initial_display);
-        if (json.initial_display === "open") {
+        if (json.initial_display === "yes") {
             showForm();
         }
         else {
@@ -379,108 +326,117 @@ jQuery.noConflict();
             radioInput1.checked = false;
         });
 
-        const SearchButton = document.getElementById("searchButton");
         const And = document.getElementById("radio-0");
         const Or = document.getElementById("radio-1");
         const multiSelectDropdownItems = document.querySelectorAll(".kintoneplugin-dropdown-list-item span");
-        // Get the saved search condition from the session storage
+
+
         const savedSearchCondition = sessionStorage.getItem('search_condition');
         if (savedSearchCondition) {
             const searchCondition = JSON.parse(savedSearchCondition);
             let singleLineMulti;
-            for (let i = 0; i < fieldLabels.length; i++) {
-                if (fieldCodes[i] === "MultiFieldText") {
-                    singleLineMulti = $("#singleLineText-" + fielMultiplefield[i].join('-'));
-                    if (searchCondition[fielMultiplefield[i].join('-')]) {
-                        singleLineMulti.val(searchCondition[fielMultiplefield[i].join('-')]);
-                    }
-                } else if (fieldCodes[i] === "SINGLE_LINE_TEXT") {
-                    singleLineMulti = $("#singleLineText-" + fieldLabels[i]);
-                    if (searchCondition[fieldLabels[i]]) {
-                        singleLineMulti.val(searchCondition[fieldLabels[i]]);
-                    }
-                } else if (fieldCodes[i] === "NUMBER" || fieldCodes[i] === "DATE" || fieldCodes[i] === "DATETIME" || fieldCodes[i] === "TIME" || fieldCodes[i] === "CREATED_TIME" || fieldCodes[i] === "RECORD_NUMBER" || fieldCodes[i] === "UPDATED_TIME" || fieldCodes[i] === "CALC") {
-                    if (searchCondition[fieldLabels[i] + "Start"]) {
-                        $(`#${fieldLabels[i]}Start`).val(searchCondition[fieldLabels[i] + "Start"]);
-                    }
-                    if (searchCondition[fieldLabels[i] + "End"]) {
-                        $(`#${fieldLabels[i]}End`).val(searchCondition[fieldLabels[i] + "End"]);
-                    }
-                } else if (fieldCodes[i] === "MULTI_SELECT" || fieldCodes[i] === "DROP_DOWN" || fieldCodes[i] === "CHECK_BOX" || fieldCodes[i] === "RADIO_BUTTON" || fieldCodes[i] === "STATUS") {
-                    console.log(searchCondition[fieldLabels[i]]);
-                    if (searchCondition[fieldLabels[i]]) {
-                        if (fieldLabels[i] === "Status") {
-                            const options = status.states;
-                            const optionArray = Object.values(options);
-                            const optionArrayValue = optionArray.map((item) => item.name);
-                            const selectedValues = searchCondition[fieldLabels[i]].filter((value) =>
-                                optionArrayValue.some((optionValue) =>
-                                    optionValue.toLowerCase() === value.trim().replace(/\s+/g, ' ').toLowerCase()
-                                )
-                            );
-                            const cleanedArray = selectedValues.map(str => str.trim().replace(/\s+/g, ' '));
-                            $(`#${fieldLabels[i]}`).val(cleanedArray);
-                            if (selectedValues.length > 0) {
-                                // Toggle the class on the parentDiv element for each selected value with jQuery
-                                selectedValues.forEach((value) => {
-                                    const parentDiv = $(`.kintoneplugin-dropdown-list-item:contains(${value})`);
-                                    parentDiv.addClass("kintoneplugin-dropdown-list-item-selected");
-                                });
+            for (let i = 0; i < obj.length; i++) {
+                switch (obj[i].fieldType) {
+                    case "MultiFieldText":
+                        singleLineMulti = $("#singleLineText-" + obj[i].fieldCode.join('-'));
+                        if (searchCondition[obj[i].fieldCode.join('-')]) {
+                            singleLineMulti.val(searchCondition[obj[i].fieldCode.join('-')]);
+                        }
+                        break;
+                    case "SINGLE_LINE_TEXT":
+                        singleLineMulti = $("#singleLineText-" + obj[i].fieldCode[0]);
+                        if (searchCondition[obj[i].fieldCode[0]]) {
+                            singleLineMulti.val(searchCondition[obj[i].fieldCode[0]]);
+                        }
+                        break;
+                    case "NUMBER":
+                    case "DATE":
+                    case "DATETIME":
+                    case "TIME":
+                    case "CREATED_TIME":
+                    case "RECORD_NUMBER":
+                    case "UPDATED_TIME":
+                    case "CALC":
+                        if (searchCondition[obj[i].fieldCode[0] + "Start"]) {
+                            $(`#${obj[i].fieldCode[0]}Start`).val(searchCondition[obj[i].fieldCode[0] + "Start"]);
+                        }
+                        if (searchCondition[obj[i].fieldCode[0] + "End"]) {
+                            $(`#${obj[i].fieldCode[0]}End`).val(searchCondition[obj[i].fieldCode[0] + "End"]);
+                        }
+                        break;
+                    case "MULTI_SELECT":
+                    case "DROP_DOWN":
+                    case "CHECK_BOX":
+                    case "RADIO_BUTTON":
+                    case "STATUS":
+                        if (searchCondition[obj[i].fieldCode[0]]) {
+                            if (obj[i].fieldType === "STATUS") {
+                                const options = status.states;
+                                const optionArray = Object.values(options);
+                                const optionArrayValue = optionArray.map((item) => item.name);
+                                const selectedValues = searchCondition[obj[i].fieldCode[0]].filter((value) =>
+                                    optionArrayValue.some((optionValue) =>
+                                        optionValue.toLowerCase() === value.trim().replace(/\s+/g, ' ').toLowerCase()
+                                    )
+                                );
+                                const cleanedArray = selectedValues.map(str => str.trim().replace(/\s+/g, ' '));
+                                $(`#${obj[i].fieldCode[0]}`).val(cleanedArray);
+                                if (selectedValues.length > 0) {
+
+                                    selectedValues.forEach((value) => {
+                                        const parentDiv = $(`.kintoneplugin-dropdown-list-item:contains(${value})`);
+                                        parentDiv.addClass("kintoneplugin-dropdown-list-item-selected");
+                                    });
+                                }
+                            }
+                            else {
+                                const options = fieldss.properties[obj[i].fieldCode[0]].options;
+                                const optionArray = Object.values(options);
+                                const optionArrayValue = optionArray.map((item) => item.label);
+                                const selectedValues = searchCondition[obj[i].fieldCode[0]].filter((value) =>
+                                    optionArrayValue.some((optionValue) =>
+                                        optionValue.toLowerCase() === value.trim().replace(/\s+/g, ' ').toLowerCase()
+                                    )
+                                );
+                                const cleanedArray = selectedValues.map(str => str.trim().replace(/\s+/g, ' '));
+                                $(`#${obj[i].fieldCode[0]}`).val(cleanedArray);
+                                if (selectedValues.length > 0) {
+
+                                    selectedValues.forEach((value) => {
+                                        const parentDiv = $(`.kintoneplugin-dropdown-list-item:contains(${value})`);
+                                        parentDiv.addClass("kintoneplugin-dropdown-list-item-selected");
+                                    });
+                                }
                             }
                         }
-                        else {
-                            const options = fieldss.properties[fieldLabels[i]].options;
-                            const optionArray = Object.values(options);
-                            const optionArrayValue = optionArray.map((item) => item.label);
-                            const selectedValues = searchCondition[fieldLabels[i]].filter((value) =>
-                                optionArrayValue.some((optionValue) =>
-                                    optionValue.toLowerCase() === value.trim().replace(/\s+/g, ' ').toLowerCase()
-                                )
-                            );
-                            const cleanedArray = selectedValues.map(str => str.trim().replace(/\s+/g, ' '));
-                            $(`#${fieldLabels[i]}`).val(cleanedArray);
-                            if (selectedValues.length > 0) {
-                                // Toggle the class on the parentDiv element for each selected value with jQuery
-                                selectedValues.forEach((value) => {
-                                    const parentDiv = $(`.kintoneplugin-dropdown-list-item:contains(${value})`);
-                                    parentDiv.addClass("kintoneplugin-dropdown-list-item-selected");
-                                });
-                            }
-                        }
-                    }
-                }
-                if (searchCondition.search_choice === "And") {
-                    And.checked = true;
-                    Or.checked = false;
-                }
-                if (searchCondition.search_choice === "Or") {
-                    Or.checked = true;
-                    And.checked = false;
+                        break;
+                    default:
+                        break;
                 }
             }
+            if (searchCondition.search_choice === "and") {
+                And.checked = true;
+                Or.checked = false;
+            }
+            if (searchCondition.search_choice === "or") {
+                Or.checked = true;
+                And.checked = false;
+            }
         }
-        // loop through the dropdown items
-        multiSelectDropdownItems.forEach((dropdownItem) => {
-            // Add a click event listener to each dropdown item
-            dropdownItem.addEventListener("click", function () {
-                // Get the selected item
-                const selectedItem = this.textContent;
-                // Get the index of the selected item in the array
-                const itemIndex = allValues.multiSelect.indexOf(selectedItem);
 
-                // Toggle the selection based on item existence in the array
+        multiSelectDropdownItems.forEach((dropdownItem) => {
+            dropdownItem.addEventListener("click", function () {
+                const selectedItem = this.textContent;
+                const itemIndex = allValues.multiSelect.indexOf(selectedItem);
                 if (itemIndex !== -1) {
-                    // Item is already in the array, so remove it
                     allValues.multiSelect.splice(itemIndex, 1);
                 } else {
-                    // Item is not in the array, so add it
                     allValues.multiSelect.push(selectedItem);
                 }
-                // Toggle the class on the parentDiv element
+
                 const parentDiv = this.closest(".kintoneplugin-dropdown-list-item");
-                // Check if the parentDiv exists
+
                 if (parentDiv) {
-                    // Toggle the class
                     parentDiv.classList.toggle("kintoneplugin-dropdown-list-item-selected");
                 }
             });
@@ -494,115 +450,113 @@ jQuery.noConflict();
                 let singleLineMulti;
                 let singleLine;
                 const search_condition = {};
-
-                for (let i = 0; i < fieldCodes.length; i++) {
-                    if (fieldCodes[i] === "MultiFieldText") {
-                        singleLineMulti = $("#singleLineText-" + fielMultiplefield[i].join('-'));
-                        search_condition[fieldLabels[i]] = singleLineMulti.val();
-                        if (singleLineMulti.val()) {
-                            search_condition[fielMultiplefield[i].join('-')] = singleLineMulti.val();
-                            let searchString = '';
-                            if (Array.isArray(fielMultiplefield[i]) && fielMultiplefield[i].length > 0) {
-                                if (fieldPatail[i] === "yes") {
-                                    searchString = '(' + fielMultiplefield[i].map(code => `${code} like "${encodeURIComponent(search_condition[fielMultiplefield[i].join('-')])}"`).join(' or ') + ')';
+                for (let i = 0; i < obj.length; i++) {
+                    switch (obj[i].fieldType) {
+                        case "MultiFieldText":
+                            singleLineMulti = $("#singleLineText-" + obj[i].fieldCode.join('-'));
+                            if (singleLineMulti.val()) {
+                                search_condition[obj[i].fieldCode.join('-')] = singleLineMulti.val();
+                                let searchString = '';
+                                if (obj[i].fieldPatail === "yes") {
+                                    searchString = '(' + obj[i].fieldCode.map(code => `${code} like "${search_condition[obj[i].fieldCode.join('-')]}"`).join(' or ') + ')';
                                 } else {
-                                    searchString = '(' + fielMultiplefield[i].map(code => `${code} = "${encodeURIComponent(search_condition[fielMultiplefield[i].join('-')])}"`).join(' or ') + ')';
+                                    searchString = '(' + obj[i].fieldCode.map(code => `${code} = "${search_condition[obj[i].fieldCode.join('-')]}"`).join(' or ') + ')';
+                                }
+                                queryStrings.push(searchString);
+                            }
+                            break;
+                        case "SINGLE_LINE_TEXT":
+                            singleLine = $("#singleLineText-" + obj[i].fieldCode[0]);
+                            if (singleLine.val()) {
+                                search_condition[obj[i].fieldCode[0]] = singleLine.val();
+                                let searchString = '';
+                                if (obj[i].fieldPatail === "yes") {
+                                    searchString = `(${obj[i].fieldCode[0]} like "${search_condition[obj[i].fieldCode[0]]}")`;
+                                } else {
+                                    searchString = `(${obj[i].fieldCode[0]} = "${search_condition[obj[i].fieldCode[0]]}")`;
+                                }
+                                queryStrings.push(searchString);
+                            }
+                            break;
+                        case "NUMBER":
+                        case "DATE":
+                        case "DATETIME":
+                        case "TIME":
+                        case "CREATED_TIME":
+                        case "RECORD_NUMBER":
+                        case "UPDATED_TIME":
+                        case "CALC":
+                            let numberfieldStart = $(`#${obj[i].fieldCode[0]}Start`);
+                            let numberfieldEnd = $(`#${obj[i].fieldCode[0]}End`);
+                            if (numberfieldStart.val() !== "" && numberfieldEnd.val() !== "") {
+                                if (numberfieldStart.val() > numberfieldEnd.val()) {
+                                    throw (`Start value of ${obj[i].fieldCode[0]} must be less than End value`);
+                                }
+                                else {
+                                    search_condition[obj[i].fieldCode[0] + "Start"] = numberfieldStart.val();
+                                    search_condition[obj[i].fieldCode[0] + "End"] = numberfieldEnd.val();
+
+                                    queryStrings.push(`(${obj[i].fieldCode[0]} >= "${search_condition[obj[i].fieldCode[0] + "Start"]}" and ${obj[i].fieldCode[0]} <= "${search_condition[obj[i].fieldCode[0] + "End"]}")`);
                                 }
                             }
-                            queryStrings.push(searchString);
-                        }
-                    } else if (fieldCodes[i] === "SINGLE_LINE_TEXT") {
-                        singleLine = $("#singleLineText-" + fieldLabels[i]);
-                        if (singleLine.val()) {
-                            search_condition[fieldLabels[i]] = singleLine.val();
-                            let searchString = '';
-                            if (fieldPatail[i] === "yes") {
-                                searchString = `(${fieldLabels[i]} like "${encodeURIComponent(search_condition[fieldLabels[i]])}")`;
-                            } else {
-                                searchString = `(${fieldLabels[i]} = "${encodeURIComponent(search_condition[fieldLabels[i]])}")`;
+                            else if (numberfieldStart.val() !== "" && numberfieldEnd.val() === "") {
+                                search_condition[obj[i].fieldCode[0] + "Start"] = numberfieldStart.val();
+                                queryStrings.push(`(${obj[i].fieldCode[0]} >= "${search_condition[obj[i].fieldCode[0] + "Start"]}")`);
                             }
-                            queryStrings.push(searchString);
-                        }
-                    } else if (fieldCodes[i] === "NUMBER" || fieldCodes[i] === "DATE" || fieldCodes[i] === "DATETIME" || fieldCodes[i] === "TIME" || fieldCodes[i] === "CREATED_TIME" || fieldCodes[i] === "RECORD_NUMBER" || fieldCodes[i] === "UPDATED_TIME" || fieldCodes[i] === "CALC") {
-                        // Get the value of the field
-                        let numberfieldStart = $(`#${fieldLabels[i]}Start`);
-                        let numberfieldEnd = $(`#${fieldLabels[i]}End`);
-                        // Check if the value is not empty
-                        if (numberfieldStart.val() !== "" && numberfieldEnd.val() !== "") {
-                            // Check if the start value is greater than the end value
-                            if (numberfieldStart.val() > numberfieldEnd.val()) {
-                                // alert(`Start value of ${fieldLabels[i]} must be less than End value`);
-                                throw (`Start value of ${fieldLabels[i]} must be less than End value`);
+                            else if (numberfieldStart.val() === "" && numberfieldEnd.val() !== "") {
+                                search_condition[obj[i].fieldCode[0] + "End"] = numberfieldEnd.val();
+                                queryStrings.push(`(${obj[i].fieldCode[0]} <= "${search_condition[obj[i].fieldCode[0] + "End"]}")`);
                             }
-                            else {
-                                // Save the value to the search condition
-                                search_condition[fieldLabels[i] + "Start"] = numberfieldStart.val();
-                                search_condition[fieldLabels[i] + "End"] = numberfieldEnd.val();
-                                // push search string to query string in jQuery
-                                queryStrings.push(`(${fieldLabels[i]} >= "${search_condition[fieldLabels[i] + "Start"]}" and ${fieldLabels[i]} <= "${search_condition[fieldLabels[i] + "End"]}")`);
-                            }
-                        }
+                            break;
+                        case "MULTI_SELECT":
+                        case "DROP_DOWN":
+                        case "CHECK_BOX":
+                        case "RADIO_BUTTON":
+                        case "STATUS":
+                            const multiSelectDropdown = $(".kintoneplugin-dropdown-list-item-selected");
+                            const multiSelectDropdownArrayValue = multiSelectDropdown.map(function () {
+                                return $(this).text().trim();
+                            }).get();
 
-                        // Check if the start value is not empty and the end value is empty
-                        else if (numberfieldStart.val() !== "" && numberfieldEnd.val() === "") {
-                            // Save the value to the search condition
-                            search_condition[fieldLabels[i] + "Start"] = numberfieldStart.val();
-                            // push search string to query string in jQuery
-                            queryStrings.push(`(${fieldLabels[i]} >= "${search_condition[fieldLabels[i] + "Start"]}")`);
-                        }
-                        // Check if the start value is empty and the end value is not empty
-                        else if (numberfieldStart.val() === "" && numberfieldEnd.val() !== "") {
-                            // Save the value to the search condition
-                            search_condition[fieldLabels[i] + "End"] = numberfieldEnd.val();
-                            // push search string to query string in jQuery
-                            queryStrings.push(`(${fieldLabels[i]} <= "${search_condition[fieldLabels[i] + "End"]}")`);
-                        }
+                            if (multiSelectDropdownArrayValue.length > 0) {
+                                if (obj[i].fieldType === "STATUS") {
+                                    const options = status.states;
+                                    const optionArray = Object.values(options);
+                                    const optionArrayValue = optionArray.map((item) => item.name);
 
-                    }
-                    else if (fieldCodes[i] === "MULTI_SELECT" || fieldCodes[i] === "DROP_DOWN" || fieldCodes[i] === "CHECK_BOX" || fieldCodes[i] === "RADIO_BUTTON" || fieldCodes[i] === "STATUS") {
-                        // Get the value of the field
-                        const multiSelectDropdown = $(".kintoneplugin-dropdown-list-item-selected");
-                        const multiSelectDropdownArrayValue = multiSelectDropdown.map(function () {
-                            return $(this).text().trim();
-                        }).get();
+                                    const selectedValues = multiSelectDropdownArrayValue.filter((value) =>
+                                        optionArrayValue.some((optionValue) =>
+                                            optionValue.toLowerCase() === value.trim().replace(/\s+/g, ' ').toLowerCase()
+                                        )
+                                    );
+                                    const cleanedArray = selectedValues.map(str => encodeURIComponent(str.trim().replace(/\s+/g, ' ')));
+                                    search_condition[obj[i].fieldCode[0]] = selectedValues;
+                                    if (selectedValues.length > 0) {
+                                        queryStrings.push(`(${obj[i].fieldCode[0]} in ("${cleanedArray.join('","')}"))`);
+                                    }
+                                } else {
+                                    const options = fieldss.properties[obj[i].fieldCode[0]].options;
+                                    const optionArray = Object.values(options);
+                                    const optionArrayValue = optionArray.map((item) => item.label);
 
-                        if (multiSelectDropdownArrayValue.length > 0) {
-                            if (fieldCodes[i] === "STATUS") {
-                                const options = status.states;
-                                const optionArray = Object.values(options);
-                                const optionArrayValue = optionArray.map((item) => item.name);
-
-                                const selectedValues = multiSelectDropdownArrayValue.filter((value) =>
-                                    optionArrayValue.some((optionValue) =>
-                                        optionValue.toLowerCase() === value.trim().replace(/\s+/g, ' ').toLowerCase()
-                                    )
-                                );
-                                const cleanedArray = selectedValues.map(str => encodeURIComponent(str.trim().replace(/\s+/g, ' ')));
-                                search_condition[fieldLabels[i]] = selectedValues;
-                                if (selectedValues.length > 0) {
-                                    queryStrings.push(`(${fieldLabels[i]} in ("${cleanedArray.join('","')}"))`);
-                                }
-                            } else {
-                                const options = fieldss.properties[fieldLabels[i]].options;
-                                const optionArray = Object.values(options);
-                                const optionArrayValue = optionArray.map((item) => item.label);
-
-                                const selectedValues = multiSelectDropdownArrayValue.filter((value) =>
-                                    optionArrayValue.some((optionValue) =>
-                                        optionValue.toLowerCase() === value.trim().replace(/\s+/g, ' ').toLowerCase()
-                                    )
-                                );
-                                const cleanedArray = selectedValues.map(str => encodeURIComponent(str.trim().replace(/\s+/g, ' ')));
-                                search_condition[fieldLabels[i]] = selectedValues;
-                                if (selectedValues.length > 0) {
-                                    queryStrings.push(`(${fieldLabels[i]} in ("${cleanedArray.join('","')}"))`);
+                                    const selectedValues = multiSelectDropdownArrayValue.filter((value) =>
+                                        optionArrayValue.some((optionValue) =>
+                                            optionValue.toLowerCase() === value.trim().replace(/\s+/g, ' ').toLowerCase()
+                                        )
+                                    );
+                                    const cleanedArray = selectedValues.map(str => encodeURIComponent(str.trim().replace(/\s+/g, ' ')));
+                                    search_condition[obj[i].fieldCode[0]] = selectedValues;
+                                    if (selectedValues.length > 0) {
+                                        queryStrings.push(`(${obj[i].fieldCode[0]} in ("${cleanedArray.join('","')}"))`);
+                                    }
                                 }
                             }
-                        }
+                            break;
+                        default:
+                            break;
                     }
                 }
-
-                let searchChoice = "and"; // Default to "AND"
+                let searchChoice = "and";
                 if ($("#radio-0").is(":checked")) {
                     search_condition.search_choice = $("#radio-0").val();
                     $("#radio-1").prop("checked", false);
