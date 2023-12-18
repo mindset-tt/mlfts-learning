@@ -79,6 +79,7 @@
   align-content: stretch;
   align-items: flex-start;
   justify-content: center;
+  margin-top: 20px;
 }
 
 .divMultiSelect {
@@ -111,6 +112,7 @@
   display: inline-block;
   flex-direction: column;
   margin-left: 40px;
+  margin-top: 20px;
   height: auto;
   align-items: center;
 }
@@ -136,6 +138,7 @@
   height: auto;
   width: auto;
   margin-left: 40px;
+  margin-top: 20px;
 }
 
 .divNumber {
@@ -147,6 +150,7 @@
   align-content: space-between;
   align-items: stretch;
   justify-content: space-evenly;
+  margin-top: 20px;
 }
 
 .divDateTime {
@@ -158,6 +162,7 @@
   align-items: center;
   flex-direction: column-reverse;
   align-content: space-around;
+  margin-top: 20px;
 }
 
 .radioSearchReset {
