@@ -13,13 +13,11 @@
       // Fetch configuration from the plugin
       let JSONFROMOBJECT = kintone.plugin.app.getConfig(PLUGIN_ID);
       const OBJECTFIELD = JSON.parse(JSONFROMOBJECT.fields);
-      console.log(OBJECTFIELD);
       // Add a flag to check if the form has been created
       let formCreated = false;
 
       // Show spinner
       function showSpinner() {
-
             try {
                   if ($('.kintone-spinner').length === 0) {
                         const spin_div = $('<div id ="kintone-spin" class="kintone-spinner"></div>');
@@ -472,7 +470,6 @@
 
                   search_condition.search_choice = searchChoice;
                   const combinedQueryString = queryStrings.filter(Boolean).join(` ${searchChoice} `);
-                  console.log(combinedQueryString);
                   sessionStorage.setItem("search_condition", JSON.stringify(search_condition));
                   window.location.href = '../../' + "k" + "/" + kintone.app.getId() + "/" + "?query=" + combinedQueryString;
             } catch (error) {
@@ -528,7 +525,6 @@
             const multiselectDropdownArrayValue = multiselectDropdown.find(".kintoneplugin-dropdown-list-item-selected").map(function () {
                   return $(this).text();
             }).get();
-            console.log(multiselectDropdownArrayValue);
             if (multiselectDropdownArrayValue.length > 0) {
                   search_condition[OBJECTFIELD[i].fieldCode[0]] = multiselectDropdownArrayValue;
                   queryStrings.push(`(${OBJECTFIELD[i].fieldCode[0]} in ("${multiselectDropdownArrayValue.join('","')}"))`);
