@@ -1,105 +1,209 @@
-
-.operation-column {
-  min-width: 70px;
+.plugin-space-heading {
+  font-size: 1.5rem;
+  margin: 0.8rem;
 }
 
-.checkBox {
-  align-items: center;
-  height: 25px;
-  width: 25px;
-}
-
-.radioBtn {
-  align-items: center;
-  height: 20px;
-  width: 20px;
-  background-color: #eee;
-  border-radius: 50%;
-}
-
-.title-field-column {
-  align-items: center;
-  width: 20em;
-
-}
-.search-conditions-column {
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-  width: max-content;
-}
-
-.NewLine-column {
-  align-items: center;
-  /* width: max-content; */
-}
-
-
-
-.radio_group {
-  border-color: #e3e7e8;
-  border-width: 1px;
-  border-style: solid;
-  /* padding-top: 4px; */
-  padding: 12px;
-  box-sizing: border-box;
-  max-width: max-content;
-  min-width: min-content;
-  gap: 20px;
-}
-
-.radio_group label {
-  margin-left: 6px;
-}
-.js-import-input {
-  display: none;
-}
-
-.drag-handle {
-  cursor: move;
-  margin-right: 20px;
-  font-size: 16px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 70px;
-}
-
-.dragging {
-  background-color: #f5f5f5;
-  opacity: 0.5;
-}
-
-table td:first-child { 
-  border-bottom-style: hidden;
-  border-top-style: hidden;
-  border-left-style: hidden;
-}
-
-.radio-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 48px;
-}
-.multiple-check {
-  display: flex;
-  justify-content: left;
-  align-items: center;
-  height: 88px;
-}
-.gap {
+.plugin-space-message {
   display: inline-block;
-  margin-right: 15px;
+  font-size: 1.2em;
+  margin: 0.8rem;
+  margin-top: 0;
 }
 
-.kintoneplugin-table td {
-  border-right: none; /* Hide the right border of td elements */
+/* kintone.css */
+/* kintone.css */
+.form-container {
+  background-color: white;
+  position: relative;
+  width: max-content;
+  min-width: 1400px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 80px;
+  border: 2px solid #ffd700;
+  margin-left: 60px;
+  margin-top: 60px;
+  margin-right: 60px;
+  margin-bottom: 60px;
+  border-radius: 10px;
+  transition: height 0.5s;
 }
-.kintoneplugin-table tr td:nth-last-child(2) {
-  border-right: 1px solid #3333; /* Show right border for second-to-last td in each row */
+
+.bodyContent {
+  display: flex;
+  margin-top: 50px;
+  border: none;
+  height: auto;
+  white-space: nowrap;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 20px;
+  overflow: visible; 
 }
-.kintoneplugin-table tr td:first-child + td {
-  border-left: 1px solid #3333; /* Show left border for the second td in each row */
+.buttonHead {
+  display: flex;
+  height: 60px;
+  margin: 0;
+  border-radius: 10px;
+  padding: 15px;
+  justify-content: right;
+}
+
+
+.showText {
+  display: flex;
+  height: 10px;
+}
+
+/* .divInBody {
+  display: flex;
+  border: none;
+  height: 100px;
+} */
+
+.footerContent {
+  display: flex;
+  height: 100px;
+  padding: 20px;
+  margin-top: auto;
+  align-items: center;
+  justify-content: flex-end;
+  border: none;
+}
+
+.divName {
+  display: inline-block;
+  flex-direction: column;
+  margin-left: 40px;
+  /* height: 80px; */
+  flex-wrap: nowrap;
+  align-content: stretch;
+  align-items: flex-start;
+  justify-content: center;
+}
+.kintoneplugin-dropdown-list{
+  max-height: 100px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.divMultiSelect {
+  display: inline-block;
+  width: auto;
+  margin-left: 40px;
+  flex-direction: column;
+  align-content: center;
+  justify-content: flex-start;
+}
+
+.divMultiSelectDropdown {
+  display: inline-block;
+  flex-direction: column;
+  margin-left: 40px;
+  height: auto;
+  align-items: center;
+}
+
+.divMultiSelectStatusDropdown {
+  display: inline-block;
+  flex-direction: column;
+  margin-left: 40px;
+  height: auto;
+  align-items: center;
+}
+
+.divTime {
+  display: inline-block;
+  flex-direction: column;
+  margin-left: 40px;
+  height: auto;
+  align-items: center;
+}
+
+.divCheckbox {
+  display: inline-block;
+  flex-direction: column;
+  margin-left: 40px;
+  height: auto;
+  align-items: center;
+}
+.divRadio {
+  display: inline-block;
+  flex-direction: column;
+  margin-left: 40px;
+  height: auto;
+  align-items: center;
+}
+
+.divDate {
+  display: inline-block;
+  justify-content: center;
+  height: auto;
+  width: auto;
+  margin-left: 40px;
+}
+
+.divNumber {
+  display: inline-block;
+  height: auto;
+  width: auto;
+  margin-left: 40px;
+  flex-direction: column-reverse;
+  align-content: space-between;
+  align-items: stretch;
+  justify-content: space-evenly;
+}
+
+.divDateTime {
+  display: inline-block;
+  justify-content: center;
+  height: auto;
+  width: auto;
+  margin-left: 40px;
+  align-items: center;
+  flex-direction: column-reverse;
+  align-content: space-around;
+}
+
+.radioSearchReset {
+  display: flex;
+  justify-content: right;
+  height: 50px;
+  width: 600px;
+  margin-left: 100px;
+  margin-top: 20px;
+  align-items: right;
+}
+
+#buttonToggle {
+  position: absolute;
+  background-color: #ffd700;
+  color: black;
+}
+
+#searchButton {
+  color: white;
+  width: 75px;
+  background-color: blue;
+}
+
+.kintone-button-dialog-cancel {
+  color: white;
+  width: 75px;
+  background-color: red;
+}
+
+#containerRadio {
+  position: relative;
+  padding: 10px;
+  width: 200px;
+  height: 26px;
+  border: 1px solid #000;
+  margin-right: 20px;
+}
+
+#partialMatch {
+  margin-left: 10px;
+  width: 25px;
+  height: 25px;
 }

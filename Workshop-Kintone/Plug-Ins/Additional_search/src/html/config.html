@@ -1,117 +1,113 @@
 <section class="settings">
-  <form class="js-submit-settings">
-    <div class="kintoneplugin-input-outer">
-      <table class="kintoneplugin-table">
-        <thead>
-          <tr>
-            <th></th>
-            <th class="kintoneplugin-table-th"><span class="title">Settings</span></th>
-            <th class="kintoneplugin-table-th"></th>
-            <th class="kintoneplugin-table-th"></th>
-            <th class="kintoneplugin-table-th"></th>
-            <th class="kintoneplugin-table-th"></th>
-            <th class="kintoneplugin-table-th-blankspace"></th>
-          </tr>
-        </thead>
-        <tbody id="kintoneplugin-setting-tbody">
-          <tr>
-            <td><span class="drag-handle">&#9776;</span></td>
-            <td>
-              <div class="kintoneplugin-table-td-control">
-                <label for="title-field">Title name <span class="kintoneplugin-require">*</span></label>
-                <div class="kintoneplugin-table-td-control-value">
-                  <div class="kintoneplugin-input-outer">
-                        <input type="text" class="kintoneplugin-input-text title-field-column" id="title-field"/>
-                    </div>
-                  </div>
+  <form>
+    <table class="kintoneplugin-table">
+      <thead>
+        <tr>
+          <th class="kintoneplugin-table-th-blankspace"></th>
+          <th class="kintoneplugin-table-th"><span class="title">Settings</span></th>
+          <th class="kintoneplugin-table-th"></th>
+          <th class="kintoneplugin-table-th"></th>
+          <th class="kintoneplugin-table-th"></th>
+          <th class="kintoneplugin-table-th"></th>
+          <th class="kintoneplugin-table-th-blankspace"></th>
+        </tr>
+      </thead>
+      <tbody id="kintoneplugin-setting-tbody">
+        <tr hidden>
+          <td><span class="drag-handle">&#9776;</span></td>
+          <td>
+            <div class="kintoneplugin-table-td-control">
+              <label for="title-field">Title name <span class="kintoneplugin-require">*</span></label>
+              <div class="kintoneplugin-table-td-control-value">
+                <div class="kintoneplugin-input-outer">
+                  <input type="text" class="kintoneplugin-input-text title-field-column" id="title-field" />
                 </div>
               </div>
-            </td>
-            <td>
-              <div class="kintoneplugin-table-td-control">
-                <div class="kintoneplugin-table-td-control-value">
-                  <div class="multiple-check">
-                    <!-- <span class="checkbox-center"> -->
-                    <input title="multipleField" type="checkbox" class="checkBox check multipleField" id="Multiple-fields">
-                    <span>&nbsp;Multiple fields</span>
-                  <!-- </span> -->
-                  </div>       
+            </div>
+          </td>
+          <td>
+            <div class="kintoneplugin-table-td-control">
+              <div class="kintoneplugin-table-td-control-value">
+                <div class="multiple-check">
+                  <input title="multipleField" type="checkbox" class="checkBox check multipleField" id="Multiple-fields">
+                  <span>&nbsp;Multiple fields</span>
                 </div>
               </div>
-            </td>
-            <td>
-              <div class="kintoneplugin-table-td-control">
-                <label for="select_field_column">Fields <span class="kintoneplugin-require">*</span></label>
-                <div class="kintoneplugin-table-td-control-value">
-                  <div class="kintoneplugin-select" id="dropdown-select">
-                    <select name="field_dropdown_column" id="select_field_column" class="select_field_column">
-                      <option value="-----">-----</option>
-                    </select>
+            </div>
+          </td>
+          <td>
+            <div class="kintoneplugin-table-td-control">
+              <label for="select_field_column">Fields <span class="kintoneplugin-require">*</span></label>
+              <div class="kintoneplugin-table-td-control-value">
+                <div class="kintoneplugin-select" id="dropdown-select">
+                  <select name="field_dropdown_column" id="select_field_column" class="select_field_column">
+                    <option value="-----">-----</option>
+                  </select>
                 </div>
                 <div class="multiple-select" id="multiple-select" style="display: none;">
                   <div class="kintoneplugin-dropdown-list">
                   </div>
+                </div>
               </div>
-              </div>
-            </td>
-            <td>
-              <div class="search-conditions" id="search-conditions" style="display: none;" >
+          </td>
+          <td>
+            <div class="search-conditions" id="search-conditions" style="display: none;">
               <div class="kintoneplugin-table-td-control">
 
                 <label>Search conditions</label>
                 <div class="kintoneplugin-table-td-control-value search-conditions-column">
-                  <div style="border: 1px solid #3333; display: flex; padding: 0px 5px 0px 5px;">
+                  <div class="border-search-condition">
                     <span class="radio-center">
-                      <input type="radio" id="Partial" name="choice1" value="yes" class="radioBtn radio choiceSelected" checked >
-                      <label for="" class="gap">Partial</label>
+                      <input type="radio" id="Partial" name="choice1" value="yes" class="radioBtn radio choiceSelected" checked>
+                      <label for="" class="gap">&nbsp;Partial</label>
                     </span>
                     <span class="radio-center">
-                      <input type="radio" id="exact" name="choice1" value="no" class="radioBtn radio choiceSelected" >
-                      <label for="">Exact</label>
+                      <input type="radio" id="exact" name="choice1" value="no" class="radioBtn radio choiceSelected">
+                      <label for="">&nbsp;Exact</label>
                     </span>
                   </div>
-                  
+
                 </div>
               </div>
             </div>
-            </td>
-            <td>
-              <div class="kintoneplugin-table-td-control">
-                <div class="kintoneplugin-table-td-control-value">
-                  <span class="multiple-check">
-                    <input title="newline" type="checkbox" class="checkBox NewLine-column" id="NewLine_field" >
-                    <span>&nbsp;New Line</span>
-                  </span>
-                </div>
+          </td>
+          <td>
+            <div class="kintoneplugin-table-td-control">
+              <div class="kintoneplugin-table-td-control-value">
+                <span class="multiple-check">
+                  <input title="newline" type="checkbox" class="checkBox NewLine-column" id="NewLine_field"><span>&nbsp;New Line</span>
+                </span>
               </div>
-            </td>
-            <td class="kintoneplugin-table-td-operation operation-column"><br>
-              <button type="button" class="kintoneplugin-button-add-row-image addRow" title="Add row"></button>
-              <button type="button" class="kintoneplugin-button-remove-row-image removeRow" title="Delete this row"></button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+            </div>
+          </td>
+          <td d class="kintoneplugin-table-td-operation operation-column"><br>
+            <button type="button" class="kintoneplugin-button-add-row-image addRow" title="Add row"></button>
+            <button type="button" class="kintoneplugin-button-remove-row-image removeRow" title="Delete this row"></button>
+          </td>
+        </tr>
+       
+      </tbody>
+    </table>
     </div>
-    <p class="kintoneplugin-row">
+    <div class="kintoneplugin-row">
       <p class="kintoneplugin-desc">Initial display</p>
       <div class="radio_group radio-center">
         <span class="radio-center">
-          <input type="radio" id="open" name="Initial_display" value="yes"  class="radioBtn Initial_display" checked="checked">
+          <input type="radio" id="open" name="Initial_display" value="yes" class="radioBtn Initial_display" checked="checked">
           <label for="open">Open</label>
         </span>
         <span class="radio-center">
-          <input type="radio" id="close" name="Initial_display" value="no"  class="radioBtn Initial_display">
+          <input type="radio" id="close" name="Initial_display" value="no" class="radioBtn Initial_display">
           <label for="close">Close</label>
         </span>
       </div>
-    </p>
-    <p class="kintoneplugin-row">
-      <button type="button" class="js-save-button kintoneplugin-button-dialog-ok">Save</button>
-      <button type="button" class="js-cancel-button kintoneplugin-button-dialog-cancel">Cancel</button>
-      <button type="button" class="js-import-button kintoneplugin-button-dialog-ok">Import settings</button>
+    </div>
+    <div class="kintoneplugin-row">
+      <button title="save" type="button" class="js-save-button kintoneplugin-button-dialog-ok">Save</button>
+      <button title="cancel" type="button" class="js-cancel-button kintoneplugin-button-dialog-cancel">Cancel</button>
+      <button title="import" type="button" class="js-import-button kintoneplugin-button-dialog-ok">Import settings</button>
       <input title="import" type="file" accept="application/JSON" class="js-import-input"></input>
-      <button type="button" class="js-export-button kintoneplugin-button-dialog-ok">Export settings</button>
-    </p>
+      <button title="export" type="button" class="js-export-button kintoneplugin-button-dialog-ok">Export settings</button>
+    </div>
   </form>
 </section>
