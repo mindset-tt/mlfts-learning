@@ -1,5 +1,5 @@
-const currency_one=document.getElementById('currency-one');
-const currency_two=document.getElementById('currency-two');
+const currency_one=document.getElementById('currencyone');
+const currency_two=document.getElementById('currencytwo');
 
 const amount_one=document.getElementById('amount-one');
 const amount_two=document.getElementById('amount-two');
@@ -14,11 +14,12 @@ amount_one.addEventListener('input',calculateMoney);
 amount_two.addEventListener('input',calculateMoney);
 
 function calculateMoney(){
-    const one = currency_one.value;
-    const two = currency_two.value;
+    const one = currencyone.value;
+    const two = currencytwo.value;
     fetch(`https://api.exchangerate-api.com/v4/latest/${one}`)
     .then(res=>res.json()).then(data=>{
         const rate=data.rates[two];
+        console.log(data.rates[two]);
         rateText.innerText=`1 ${one} = ${rate} ${two}`;
         amount_two.value=(amount_one.value*rate).toFixed(2);
     })
